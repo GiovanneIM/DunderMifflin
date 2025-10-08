@@ -1,5 +1,5 @@
 # Dunder Mifflin Paper Company, Inc
-Projeto Interdisciplinhar envolvendo as diciplinas de <b>Backend</b> e </b>Frontend</b>
+Projeto Interdisciplinhar envolvendo as diciplinas de <b>Backend</b> e <b>Frontend</b>
 
 
 
