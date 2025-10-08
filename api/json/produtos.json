@@ -1,0 +1,11 @@
+[
+    {
+        "id": 0,
+        "nome": "nome",
+        "descricao": "descricao",
+        "imagem": ["prod1","prod2","prod3"],
+        "preco": 0.00,
+        "quantidade": 0,
+        "categoria": "" 
+    }
+]
