@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/DunderMifflin/dundermifflin/src/app/login/login.css"],"sourcesContent":["header, footer {\n    display: none;\n}\n\n\n.corpo {\n    background-color: #212529;\n    min-height: 100vh;\n}\n\n.div_branca {\n    background-color: white;\n}"],"names":[],"mappings":"AAAA;;;;AAKA;;;;;AAKA","debugId":null}}]
+}

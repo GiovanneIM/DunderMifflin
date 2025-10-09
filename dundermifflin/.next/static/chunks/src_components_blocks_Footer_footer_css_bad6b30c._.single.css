@@ -1,0 +1,20 @@
+/* [project]/src/components/blocks/Footer/footer.css [app-client] (css) */
+footer, a {
+  color: #212529;
+}
+
+a:hover {
+  color: rgba(33, 37, 41, .75);
+}
+
+.div_logo {
+  position: "relative";
+  width: "100%";
+  height: "100%";
+}
+
+li .nav-link:hover {
+  text-decoration: underline !important;
+}
+
+/*# sourceMappingURL=src_components_blocks_Footer_footer_css_bad6b30c._.single.css.map*/
