@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/blocks/Footer/footer.css"],"sourcesContent":["footer {\n    color: #212529;\n}\n\na {\n    color: rgb(33, 37, 41);\n}\n\na:hover {\n    color: rgb(33, 37, 41, 0.75)\n}\n\n\n.div_logo {\n    position: 'relative'; \n    width: '100%';\n    height: '100%';\n}\n\nli .nav-link:hover {\n    text-decoration: underline !important;\n}"],"names":[],"mappings":"AAAA;;;;AAQA;;;;AAKA;;;;;;AAMA"}}]
-}
