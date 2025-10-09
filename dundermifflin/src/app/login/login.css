@@ -1,0 +1,13 @@
+header, footer {
+    display: none;
+}
+
+
+.corpo {
+    background-color: #212529;
+    min-height: 100vh;
+}
+
+.div_branca {
+    background-color: white;
+}
