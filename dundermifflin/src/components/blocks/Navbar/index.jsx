@@ -3,7 +3,7 @@ import './navbar.css'
 
 export default function Navbar() {
     return <>
-        <header>
+        <header id='header'>
 
             <div className="px-3 py-2 text-bg-dark border-bottom">
                 <div className="container">

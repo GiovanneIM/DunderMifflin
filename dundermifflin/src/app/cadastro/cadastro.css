@@ -1,6 +1,6 @@
-/* header, footer {
+header, footer {
     display: none;
-} */
+}
 
 .corpo {
     background-color: #212529;
@@ -30,7 +30,6 @@
     flex-wrap: wrap;
     column-gap: 0.25rem;
 }
-
 
 .form-signin {
     min-width: 300px;

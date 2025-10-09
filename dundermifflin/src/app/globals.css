@@ -22,6 +22,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #F5F5F5 !important;
 }
 
 * {
@@ -39,4 +40,32 @@ a {
     html {
         color-scheme: dark;
     }
+}
+
+header, footer {
+    display: block;
+}
+
+
+.titulo {
+    font-family: impact;
+    text-transform: uppercase;
+}
+
+
+.btn-1 {
+    background-color: rgb(33, 37, 41) !important;
+    color: white !important;
+}
+.btn-1:hover {
+    background-color: rgb(33, 37, 41, 0.7) !important;
+}
+
+.btn-2 {
+    background-color: transparent !important;
+    color: #212529 !important;
+    border: 1px solid #212529 !important;
+}
+.btn-2:hover {
+    background-color: rgb(33, 37, 41, 0.3) !important;
 }

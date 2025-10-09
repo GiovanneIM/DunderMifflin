@@ -8,6 +8,16 @@ a {
 
 a:hover {
     color: rgb(33, 37, 41, 0.75)
+    
+}
+
+
+.bi {
+    transition: transform 0.3s ease;
+}
+
+.bi:hover {
+    transform: scale(1.3);
 }
 
 

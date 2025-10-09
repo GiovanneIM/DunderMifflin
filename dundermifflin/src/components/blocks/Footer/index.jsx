@@ -1,9 +1,10 @@
-import './footer.css'
+import Link from 'next/link';
 import Image from "next/image";
+import './footer.css';
 
 export default function Footer() {
     return <>
-        <footer className="py-5 my-4 border-top">
+        <footer id='footer' className="py-5 my-4 border-top">
             <div className="container">
 
                 <div className="row">
@@ -106,14 +107,16 @@ export default function Footer() {
                     </div>
 
                     <div className="col-md-5 offset-md-1 mb-3">
-                        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                            <Image
-                                src='/img/DUNDERcinza.svg'
-                                alt="Logo Dunder Mifflin"
-                                fill
-                                style={{ objectFit: 'contain' }}
-                            />
-                        </div>
+                        <Link href={'/'}>
+                            <div style={{ position: 'relative', width: '100%', height: '150px' }}>
+                                <Image
+                                    src='/img/DUNDERcinza.svg'
+                                    alt="Logo Dunder Mifflin"
+                                    fill
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </div>
+                        </Link>
                     </div>
                 </div>
 
