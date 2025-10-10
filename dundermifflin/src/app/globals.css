@@ -59,6 +59,7 @@ header, footer {
 }
 .btn-1:hover {
     background-color: rgb(33, 37, 41, 0.7) !important;
+    color: white !important;
 }
 
 .btn-2 {

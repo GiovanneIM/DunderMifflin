@@ -11,7 +11,7 @@ export default async function Home() {
 
 
     return <>
-        <div className="d-flex flex-wrap justify-content-between">
+        <div className="container gap-4 d-flex flex-wrap justify-content-center">
             {
                 produtos && produtos.map((produto) => {
                     return <Card

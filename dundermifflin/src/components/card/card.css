@@ -1,0 +1,64 @@
+.link_card{
+    all: unset;
+}
+
+.card-img {
+    width: 15rem;
+    height: 15rem;
+}
+
+.card-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-corpo {
+    padding: 1rem;
+}
+
+
+.card-nome {
+    /*Div*/
+    width: 100%;
+    display: -webkit-box;            /* cria uma caixa flexível para texto */
+    -webkit-box-orient: vertical;    /* orienta o texto verticalmente */
+    -webkit-line-clamp: 2;           /* permite no máximo 2 linhas */
+    overflow: hidden;                /* corta o que ultrapassar */
+    text-overflow: ellipsis;
+
+    /*Texto*/
+    color: #212529 !important;
+    font-weight: 600; /* negrito médio */
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-preco {
+    /* font-size: large;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem; */
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #008000;
+    margin-bottom: 0.6rem;
+}
+
+.card {
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.botao_carrinho {
+    display: flex;
+    padding: 0 0.5rem;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
