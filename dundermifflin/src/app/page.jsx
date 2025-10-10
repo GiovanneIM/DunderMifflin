@@ -1,32 +1,27 @@
-"use client"
-
-import { useState, useEffect } from "react"
-
-
 import Image from "next/image";
 import styles from "./page.module.css";
 
-
 import Card from "@/components/card";
 
-export default function Home() {
-    // const [produtos, setProdutos] = useState(null);
+export default async function Home() {
 
-    // useEffect(() => {
-    //     fetch("https://refactored-rotary-phone-v4xvrxp6gjwfxgqw-4000.app.github.dev/produtos")
-    //         // .then(response => response.json())
-    //         // .then(data => setProdutos(data))
-    // }, [])
+    const res = await fetch("http://localhost:4000/produtos");
+    const produtos = await res.json();
+    // console.log(produtos);
 
-    // return <>
-    //     {produtos && produtos.map((produto) => {
-    //         return <UserCard
-    //             key={produtos.id}
-    //             nome={produtos.nome}
-    //             imagem={produtos.imagem[0]}
-    //             preco={produtos.preco}
-    //         />
-    //     })
-    //     }
-    // </>
+
+    return <>
+        <div className="d-flex flex-wrap justify-content-between">
+            {
+                produtos && produtos.map((produto) => {
+                    return <Card
+                        key={produto.id}
+                        nome={produto.nome}
+                        imagem={produto.imagem[0]}
+                        preco={produto.preco}
+                    />
+                })
+            }
+        </div>
+    </>
 }
