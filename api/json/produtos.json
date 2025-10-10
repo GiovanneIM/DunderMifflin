@@ -1,16 +1,15 @@
 [
     {
         "id": 0,
-        "nome": "Papel A4 Sulfite 75 g 500 folhas - Go Office",
+        "nome": "Papel A4 Sulfite 75g 500 folhas - Go Office",
         "preco": 30.9,
         "marca": "Go Office",
-        "categoria": ["Papel", "Sulfite"],
+        "categoria": ["Papel", "Papel A4"],
         "imagem": [
             "https://fotos.oceanob2b.com/High/045145.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/045145_5.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/045145_3.jpg?ims=1000x~"
         ],
-        "descricao": "",
         "quantidade": 7
     },
     {
@@ -18,12 +17,11 @@
         "nome": "Papel A4 Sulfite Branco Caixa 5000 Folhas 75g - Go Office",
         "preco": 275.9,
         "marca": "Go Office",
-        "categoria": ["Papel", "Sulfite"],
+        "categoria": ["Papel", "Papel A4"],
         "imagem": [
             "https://fotos.oceanob2b.com/High/045840.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/045840_1.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -37,7 +35,6 @@
             "https://fotos.oceanob2b.com/High/037321_1.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037321_2.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -50,7 +47,6 @@
             "https://fotos.oceanob2b.com/High/050961.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/050961_2.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -65,7 +61,6 @@
             "https://fotos.oceanob2b.com/High/053925_2.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/053925_6.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -77,7 +72,6 @@
         "imagem": [
             "https://fotos.oceanob2b.com/High/040158.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -89,7 +83,6 @@
         "imagem": [
             "https://fotos.oceanob2b.com/High/040156.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -103,7 +96,6 @@
             "https://fotos.oceanob2b.com/High/040159_1.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/040159_2.jpg?ims=1000x"
         ],
-        "descricao": "",
         "quantidade": 0
     },
     {
@@ -117,7 +109,208 @@
             "https://fotos.oceanob2b.com/High/040157_1.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/040157_2.jpg?ims=1000x"
         ],
-        "descricao": "",
+        "quantidade": 0
+    },
+    {
+        "id": 9,
+        "nome": "Caneta Esferográfica Compactor Economic Vermelha Caixa com 50 unidades",
+        "preco": 44.90,
+        "marca": "Compactor",
+        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/052209.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052209_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052209_2.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 10,
+        "nome": "Caneta Esferográfica Compactor Economic Azul Caixa com 50 unidades",
+        "preco": 44.90,
+        "marca": "Compactor",
+        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/052210.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052210_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052210_2.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 11,
+        "nome": "Caneta Esferográfica Compactor Economic Preta Caixa com 50 unidades",
+        "preco": 44.90,
+        "marca": "Compactor",
+        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/052211.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052211_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/052211_2.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 12,
+        "nome": "Caixa de Correspondência Dupla Articulável Cristal | Maxcril",
+        "preco": 41.90,
+        "marca": "Maxcril",
+        "categoria": ["Organização", "Escaninhos e Correspondência"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/018727.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/018727_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/018727_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 13,
+        "nome": "Caixa de Correspondência Dupla Articulável Fumê | Maxcril",
+        "preco": 42.29,
+        "marca": "Maxcril",
+        "categoria": ["Organização", "Escaninhos e Correspondência"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/018728.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/018728_1.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 14,
+        "nome": "Fita Adesiva 24 mm x 50 metros Transparente 4 unidades | Sooper",
+        "preco": 14.49,
+        "marca": "Sooper",
+        "categoria": ["Blocos Adesivo, Colas e Fitas", "Fita Adesiva"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/044601.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/044601_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/044601_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/044601_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 15,
+        "nome": "Fita Adesiva Transparente 45 mm X 100 m | 3M Scotch",
+        "preco": 12.90,
+        "marca": "Scotch",
+        "categoria": ["Blocos Adesivo, Colas e Fitas", "Fita Adesiva"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/043473.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/043473_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/043473_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/043473_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 16,
+        "nome": "Bloco Adesivo Amarelo Neon 76 mm x 76 mm 45 folhas | Post-it 3M",
+        "preco": 7.90,
+        "marca": "3M",
+        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/037014.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037014_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037014_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037014_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 17,
+        "nome": "Bloco Adesivo Azul 76 mm x 76 mm 45 folhas | Post-it 3M",
+        "preco": 7.90,
+        "marca": "3M",
+        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/037016.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037016_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037016_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037016_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 18,
+        "nome": "Bloco Adesivo Laranja 76 mm x 76 mm 45 folhas | Post-it 3M",
+        "preco": 7.90,
+        "marca": "3M",
+        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/037015.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037015_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037015_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037015_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 19,
+        "nome": "Bloco Adesivo Lilás 76 mm x 76 mm 90 folhas | Post-it 3M",
+        "preco": 12.90,
+        "marca": "3M",
+        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/037018.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037018_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037018_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037018_3.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 20,
+        "nome": "Arquivo Morto Kraft Gigante 26x26,5x37 cm 10 unidades | Go Office",
+        "preco": 69.90,
+        "marca": "Go Office",
+        "categoria": ["Caixa e Arquivos", "Arquivo Morto"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/023322.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023322_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023322_3.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023322_6.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 21,
+        "nome": "Arquivo Morto Kraft Pequeno 13x24x34cm 10 unidades | Go Office",
+        "preco": 35.90,
+        "marca": "Go Office",
+        "categoria": ["Caixa e Arquivos", "Arquivo Morto"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/023321.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023321_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023321_3.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/023321_6.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 22,
+        "nome": "Envelope Kraft 200 mm X 280 mm 75g 250 unidades",
+        "preco": 52.90,
+        "marca": "Romitec",
+        "categoria": ["Envelopes", "Kraft"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/036460.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/036460_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/036460_2.jpg?ims=1000x"
+        ],
+        "quantidade": 0
+    },
+    {
+        "id": 23,
+        "nome": "Envelope Saco Kraft 250 mm x 353 mm 250 unidades 75 g",
+        "preco": 91.90,
+        "marca": "Romitec",
+        "categoria": ["Envelopes", "Kraft"],
+        "imagem": [
+            "https://fotos.oceanob2b.com/High/041688.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/041688_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/041688_2.jpg?ims=1000x"
+        ],
         "quantidade": 0
     }
 ]
