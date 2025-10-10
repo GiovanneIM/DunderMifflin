@@ -1,9 +1,10 @@
+import "./footer.css"
 import Link from 'next/link';
 import Image from "next/image";
-import './footer.css';
+
 
 export default function Footer() {
-    return <>
+    return (<>
         <footer id='footer' className="py-5 my-4 border-top">
             <div className="container">
 
@@ -151,5 +152,5 @@ export default function Footer() {
 
             </div>
         </footer>
-    </>
+    </>)
 }

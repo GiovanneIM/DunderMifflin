@@ -6,18 +6,17 @@ export default function Login() {
     return <>
 
         <div className='corpo d-flex flex-wrap'>
-
             <div>
-                <Link
+                <a
                     href={'/'}
                 >
-                <Image
-                    src='/img/DUNDERbranco.svg'
-                    alt='Logo Dunner Mifflin'
-                    width={300}
-                    height={200}
-                />
-                </Link>
+                    <Image
+                        src='/img/DUNDERbranco.svg'
+                        alt='Logo Dunner Mifflin'
+                        width={300}
+                        height={200}
+                    />
+                </a>
             </div>
 
             <div className='div_branca'>
