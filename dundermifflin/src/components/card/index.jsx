@@ -1,17 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
-
-
+import { useState, useEffect } from "react";
 import './card.css'
 
-export default function Card({
-    nome,
-    imagem,
-    preco
-}) {
+export default function Card({ id, nome, imagem, preco }) {
     const [contagem, setContagem] = useState(1);
+    const urlProduto = `/prod?id=${id}`;
 
+    /* Controlando o valor da contagem */
     useEffect(() => {
         console.log(contagem);
 
@@ -20,21 +16,61 @@ export default function Card({
         }
     }, [contagem]);
 
+    /* Função para quando o usuário adiciona ao carrinho */
     function adicionarCarrinho() {
-        const toastEl = document.getElementById("liveToast");
-        const toast = new window.bootstrap.Toast(toastEl);
-        toast.show();
+        const container = document.getElementById("toastContainer");
+
+        if (!container) return;
+
+        // Criando o toat
+        const toast = document.createElement("div");
+        toast.className = "toast align-items-center text-bg-light show mb-2";
+        toast.role = "alert";
+        toast.ariaLive = "assertive";
+        toast.ariaAtomic = "true";
+        toast.style.minWidth = "250px";
+
+        toast.innerHTML = `
+            <div class="toast-header">
+                <strong class="me-auto">Produto adicionado</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body d-flex align-items-center gap-2">
+                <img src="${imagem}" alt="${nome}" class="toast-img" style="width:40px;height:40px;object-fit:cover;border-radius:5px;" />
+                <div>
+                <div>${nome}</div>
+                <div>Quantidade: ${contagem}</div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(toast);
+
+        // Inicializa e exibe o toast
+        const toastInstance = new window.bootstrap.Toast(toast, { delay: 2500 });
+        toastInstance.show();
+
+        // Remove o toast do DOM depois de sumir
+        toast.addEventListener("hidden.bs.toast", () => {
+            toast.remove();
+        });
+
     }
+
 
     return <>
         <div className="card" style={{ width: "15rem" }}>
             <div className="card-img">
-                <img src={imagem} alt={nome} />
+                <a href={urlProduto}>
+                    <img src={imagem} alt={nome} />
+                </a>
             </div>
 
             <div className="card-corpo">
                 <div className="card-nome">
-                    {nome}
+                    <a href={urlProduto}>
+                        {nome}
+                    </a>
                 </div>
 
                 <div className="card-preco">
@@ -42,7 +78,7 @@ export default function Card({
                 </div>
 
                 <div className='card-botoes'>
-                    <a href="/prod?={id}" className="btn btn-1">
+                    <a href={urlProduto} className="btn btn-1">
                         Ver Produto
                     </a>
 
@@ -52,7 +88,7 @@ export default function Card({
                             <div className='contador'>{contagem}</div>
                             <button className='btn-contador' onClick={() => { setContagem(contagem + 1) }}>+</button>
                         </div>
-                        <button className='btn-2 botao_carrinho' onClick={() => { adicionarCarrinho() }} type="button" id="liveToastBtn">
+                        <button className='btn-2 botao_carrinho' onClick={() => { adicionarCarrinho() }} type="button">
                             <svg
                                 className="bi bi-bag d-block mx-auto mb-1"
                                 width={'1.3rem'}
@@ -68,33 +104,5 @@ export default function Card({
                 </div>
             </div>
         </div>
-
-        <div className="toast-container position-fixed bottom-0 end-0 p-3">
-            <div
-                id="liveToast"
-                className="toast"
-                role="alert"
-                aria-live="assertive"
-                aria-atomic="true"
-            >
-                <div className="toast-header">
-                    <strong className="me-auto">Produto adicionado ao carrinho</strong>
-                    <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="toast"
-                        aria-label="Close"
-                    />
-                </div>
-                <div className="toast-body">
-                    <img src={imagem} alt={nome} className="toast-img"/>
-                    <div>
-                        <div>{nome}</div>
-                        <div>Quantidade: {contagem}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </>
 }

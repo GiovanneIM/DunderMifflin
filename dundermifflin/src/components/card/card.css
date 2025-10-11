@@ -1,6 +1,21 @@
+a:hover {
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
 .link_card{
     all: unset;
 }
+
+.card {
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 
 .card-img {
     width: 15rem;
@@ -12,11 +27,13 @@
     height: 100%;
     object-fit: contain;
 }
+.card-img:hover {
+    filter: brightness(75%);
+}
 
 .card-corpo {
     padding: 1rem;
 }
-
 
 .card-nome {
     /*Div*/
@@ -35,24 +52,11 @@
 }
 
 .card-preco {
-    /* font-size: large;
-    margin-bottom: 0.5rem;
-    margin-left: 1rem; */
     font-weight: 700;
     font-size: 1.1rem;
     color: #008000;
     margin-bottom: 0.6rem;
 }
-
-.card {
-  transition: all 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 
 .card-botoes {
     display: flex;
@@ -110,3 +114,10 @@
 .toast-img {
     height: 5rem;
 }
+
+.card .card-nome a {
+    all: unset;
+}
+
+
+
