@@ -50,15 +50,63 @@
 
 .card:hover {
   transform: translateY(-4px);
-  cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.botao_carrinho {
+
+.card-botoes {
     display: flex;
-    padding: 0 0.5rem;
+    justify-content: space-between;
+}
+
+.card-botoes .btn-1{
+    font-size: 0.8rem;
+}
+
+.div_contador {
+    width: 4rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+
+    border: 1px solid #212529 !important;
+    overflow: hidden;
+}
+.btn-contador {
+    all: unset;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-contador:hover {
+    background-color: rgb(173, 171, 171);
+}
+.contador {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.botao_carrinho {
+    width: 2rem;
+    height: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
     border-bottom-right-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
+}
+
+
+/* TOAST */
+.toast-body {
+    display: flex;
+}
+.toast-img {
+    height: 5rem;
 }
