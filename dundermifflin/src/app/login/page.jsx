@@ -32,7 +32,7 @@ export default function Login() {
                                 id="floatingInput"
                                 placeholder="name@example.com"
                             />
-                            <label htmlFor="floatingInput">Email address</label>
+                            <label htmlFor="floatingInput">ID</label>
                         </div>
 
                         <div className="form-floating">
@@ -43,7 +43,19 @@ export default function Login() {
                                 id="floatingPassword"
                                 placeholder="Password"
                             />
-                            <label htmlFor="floatingPassword">Password</label>
+                            <label htmlFor="floatingPassword">Senha</label>
+                        </div>
+
+                        <div className="form-check text-start my-3 seletor col-12">
+                            <div className='col-4'>
+                                <input type="radio" className="btn-check" name="options-base" id="option5" autoComplete="off" defaultChecked="on" />
+                                <label className="btn btn-esq" htmlFor="option5">Gerente</label>
+                            </div>
+
+                            <div className='col-4'>
+                                <input type="radio" className="btn-check" name="options-base" id="option6" autoComplete="off" />
+                                <label className="btn btn-dir" htmlFor="option6">Empresa</label>
+                            </div>
                         </div>
 
                         <div className="form-check text-start my-3">
@@ -54,7 +66,7 @@ export default function Login() {
                                 id="checkDefault"
                             />
                             <label className="form-check-label" htmlFor="checkDefault">
-                                Remember me
+                                Lembre de mim
                             </label>
                         </div>
 
@@ -64,7 +76,7 @@ export default function Login() {
 
                         <div className='legenda'>
                             <p className="text-body-secondary">Ainda não possui uma conta?</p>
-                            <a className="text-body-secondary" href='/cadastro'>Cadastrar-se</a>
+                            <a className="text-body-secondary" href='/cadastro'>Como ter uma conta</a>
                         </div>
                     </form>
                 </div>

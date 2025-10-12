@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Footer() {
     return (<>
-        <footer id='footer' className="py-5 my-4 border-top">
+        <footer id='footer' className="py-5 my-4 border-top bordaCinza">
             <div className="container">
 
                 <div className="row">
@@ -121,7 +121,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top bordaCinza">
                     <p>© 2025 Company, Inc. All rights reserved.</p>
 
                     <ul className="list-unstyled d-flex">

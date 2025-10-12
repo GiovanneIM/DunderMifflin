@@ -75,3 +75,7 @@ header, footer {
 .btn-2:hover {
     background-color: rgb(33, 37, 41, 0.3) !important;
 }
+
+.bordaCinza {
+    border-color: #2125293d !important;
+}

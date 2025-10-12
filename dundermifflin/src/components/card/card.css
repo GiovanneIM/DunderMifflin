@@ -25,10 +25,10 @@ a:hover {
     border-bottom-right-radius: 0;
 }
 
-.card-img img{
-    width: 100%;
-    height: 100%;
+.card-img img{    
     object-fit: contain;
+    width: 238px;
+    height: 238px;
 }
 .card-img:hover {
     filter: brightness(75%);

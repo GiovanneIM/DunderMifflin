@@ -47,88 +47,111 @@ export default function ProdutoDetalhes() {
 
     if (!produto) {
         return <div className="text-center">
-            <div className="spinner-border" role="status" style={{width:'3rem', height:'3rem'}}>
+            <div className="spinner-border" role="status" style={{ width: '3rem', height: '3rem' }}>
                 <span className="visually-hidden">Loading...</span>
             </div>
         </div>
     }
 
     return (
-        <div className="container gap-4 d-flex flex-wrap justify-content-center">
-            <div className="produto-informacoes">
-                <div className="col-12 col-sm-5">
-                    <div className="container galeria">
-                        {/* Imagem Principal */}
-                        <div className='img-galeria'>
-                            <img
-                                src={imagemPrincipal}
-                                className="img-fluid"
-                                alt="Produto"
-                            />
-                        </div>
+        <>
+            <div className="container gap-4 d-flex flex-column ">
+                <div className="produto-informacoes">
+                    <div className="col-12 col-lg-7">
+                        <div className="galeria flex-column flex-md-row">
+                            {/* Imagem Principal */}
+                            <div className='img-galeria col-12 col-md-10'>
+                                <img
+                                    src={imagemPrincipal}
+                                    className="img-fluid"
+                                    alt="Produto"
+                                />
+                            </div>
 
-                        {/* Miniaturas */}
-                        <div className="container-miniaturas">
-                            {
-                                produto.imagem.map((imagem, index) => {
-                                    return <div
-                                        onClick={() => setImagemPrincipal(imagem)}
-                                        key={index}
-                                        className='col-2'
-                                    >
-                                        <img
-                                            src={imagem}
-                                            className="img-thumbnail miniatura"
-                                        />
-                                    </div>
-                                })
-                            }
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-12 col-sm-5">
-                    <div className='div-infos'>
-                        <div className='info-superior'>
-                            <nav style={{ "--bs-breadcrumb-divider": "'/'" }} aria-label="breadcrumb">
-                                <ol className="breadcrumb">
-                                    {produto.categoria.map((cat, index) => {
-                                        return <li key={index} className="breadcrumb-item">
-                                            {cat}
-                                        </li>
-                                    })
+                            {/* Miniaturas  VERTICAL*/}
+                            <div className=" col-2 d-none d-md-flex justify-content-end">
+                                <div className="container-miniaturas cm-vertical col-10">
+                                    {
+                                        produto.imagem.map((imagem, index) => {
+                                            return <div
+                                                onClick={() => setImagemPrincipal(imagem)}
+                                                key={index}
+                                            >
+                                                <img
+                                                    src={imagem}
+                                                    className="img-thumbnail miniatura"
+                                                />
+                                            </div>
+                                        })
                                     }
-                                </ol>
-                            </nav>
-                        </div>
-
-                        <div className='info-principal'>
-                            <div className='produto-nome'>{produto.nome}</div>
-                            <div className='produto-preco'>R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
-                            <div className='d-flex justify-content-end gap-2'>
-                                <div className="prod-contador">
-                                    <button className='prod-btn-contador' onClick={() => { setContagem(contagem - 1) }}>-</button>
-                                    <div className='contador'>{contagem}</div>
-                                    <button className='prod-btn-contador' onClick={() => { setContagem(contagem + 1) }}>+</button>
-                                </div>
-
-                                <div>
-                                    <button className='btn btn-1'>
-                                        Adicionar ao carrinho
-                                    </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className='info-inferior'>
-                            <div>Marca: {produto.marca}</div>
-                            <div>ID Produto: {produto.id}</div>
+                            {/* Miniaturas  HORIZONTAL*/}
+                            <div className="container-miniaturas cm-horizontal d-md-none">
+                                {
+                                    produto.imagem.map((imagem, index) => {
+                                        return <div
+                                            onClick={() => setImagemPrincipal(imagem)}
+                                            key={index}
+                                            className='col-2'
+                                        >
+                                            <img
+                                                src={imagem}
+                                                className="img-thumbnail miniatura"
+                                            />
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-lg-5">
+                        <div className='div-infos'>
+                            <div className='info-superior'>
+                                <nav style={{ "--bs-breadcrumb-divider": "'/'" }} aria-label="breadcrumb">
+                                    <ol className="breadcrumb">
+                                        {produto.categoria.map((cat, index) => {
+                                            return <li key={index} className="breadcrumb-item">
+                                                {cat}
+                                            </li>
+                                        })
+                                        }
+                                    </ol>
+                                </nav>
+                            </div>
+
+                            <div className='info-meio'>
+                                <div className='produto-nome'>{produto.nome}</div>
+                                <div className='produto-preco'>R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+                                <div className='d-flex justify-content-end gap-2'>
+                                    <div className="prod-contador">
+                                        <button className='prod-btn-contador' onClick={() => { setContagem(contagem - 1) }}>-</button>
+                                        <div className='contador'>{contagem}</div>
+                                        <button className='prod-btn-contador' onClick={() => { setContagem(contagem + 1) }}>+</button>
+                                    </div>
+
+                                    <div>
+                                        <button className='btn btn-1'>
+                                            Adicionar ao carrinho
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='info-inferior'>
+                                <div>Marca: {produto.marca}</div>
+                                <div>ID Produto: {produto.id}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div className='descricao'>
+                    {produto.nome}
+                </div>
             </div>
-        </div>
-
-
+        </>
     );
 }
