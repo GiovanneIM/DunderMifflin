@@ -20,6 +20,9 @@ a:hover {
 .card-img {
     width: 15rem;
     height: 15rem;
+    overflow: hidden;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .card-img img{

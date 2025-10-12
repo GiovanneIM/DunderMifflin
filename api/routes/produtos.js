@@ -12,7 +12,7 @@ const v = require('../js/validacoes.js')
 
 
 // ROTAS
-
+// Rota para obter TODOS os produtos
 router.get('/', (req, res) => {
     // Lendo a lista de tarefas
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
@@ -25,18 +25,20 @@ router.get('/', (req, res) => {
     });
 });
 
+// Rota para obter UM PRODUTO ESPECIFICO
 router.get('/:id', (req, res) => {
     const id = v.validarID(req.params.id, res)
-    if(!id) { return }
-
+    if (id === null || id === undefined) {
+        return;
+    }
 
     // Lendo a lista de tarefas
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Lendo e convertendo o conteúdo do JSON com os produtos
         const produtos = v.lerEconveterJSON(err, data, res)
-        
+
         // Verificando se a lista foi lida
-        if(!produtos) {
+        if (!produtos) {
             return
         }
 

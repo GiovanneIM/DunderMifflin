@@ -2,6 +2,15 @@ const express = require('express')
 const app = express()
 const port = 4000
 
+const cors = require("cors");
+
+// Permitir requisições vindas do front-end (Next.js)
+app.use(cors({
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // endereço do seu front-end
+
+    credentials: true                // se precisar enviar cookies/sessões
+}));
+
 
 
 
@@ -22,8 +31,8 @@ app.use('/admin', rotasAdmin)
 
 
 // INICIANDO O SERVIDOR
-app.listen(port, () => { 
-    console.log(`Servidor ativo em: http://localhost:${port}`); 
+app.listen(port, () => {
+    console.log(`Servidor ativo em: http://localhost:${port}`);
 });
 
 // PRODUTOS

@@ -5,7 +5,7 @@ import './card.css'
 
 export default function Card({ id, nome, imagem, preco }) {
     const [contagem, setContagem] = useState(1);
-    const urlProduto = `/prod?id=${id}`;
+    const urlProduto = `/produtos/${id}`;
 
     /* Controlando o valor da contagem */
     useEffect(() => {
