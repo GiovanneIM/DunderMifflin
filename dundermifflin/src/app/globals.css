@@ -80,3 +80,7 @@ header, footer {
 .bordaCinza {
     border-color: #2125293d !important;
 }
+
+.fundoCinza {
+    background-color: rgb(226, 226, 226);
+}

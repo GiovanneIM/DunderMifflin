@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 // Rota para obter UM PRODUTO ESPECIFICO e sua DESCRICAO
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    if (isNaN(id)) {
+    if (isNaN(id) ) {
         return res.status(400).send('Erro: O ID inserido não era um número.');
     }
 
@@ -47,10 +47,6 @@ router.get('/:id', (req, res) => {
         // Verificando se o produto foi encontrado e enviando como resposta
         if (produto) {
             fs.readFile(`./descricoes/${id}.html`, 'utf-8', (errD, descricao) => {
-                // if (errD) {
-                //     res.status(500).send(errD);
-                //     return
-                // }
                 if (!descricao) {
                     descricao=""
                 }

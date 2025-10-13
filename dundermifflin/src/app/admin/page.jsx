@@ -20,7 +20,7 @@ export default function Login() {
                     </a>
                 </div>
 
-                <div>
+                <div className='col-12'>
                     <form className='form-signin'>
                         <h1 className=" titulo h1 mb-3 fw-normal">fazer login</h1>
 

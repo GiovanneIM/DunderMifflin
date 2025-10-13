@@ -1,0 +1,12 @@
+.pc {
+    display: flex;;
+}
+.pc > div { height: 8rem; }
+
+/* IMAGEM */
+.pc-imagem img { height: 100%;}
+
+/* CONTADOR */
+.pc-contador {
+    display: flex;
+}
