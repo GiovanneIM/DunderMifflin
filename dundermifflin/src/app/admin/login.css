@@ -1,0 +1,91 @@
+header, footer {
+    display: none;
+}
+
+.corpo {
+    background-color: #212529;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.corpo * {
+    border-color: #2125293d;
+}
+
+.container_login {
+    background-color: #F5F5F5;
+    /* width: 300px; */
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.375rem;
+}
+
+
+.legenda {
+    margin-top: 0.25rem;
+    font-size: small;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.25rem;
+}
+
+
+.form-signin {
+    margin-top: 1rem;
+    min-width: 300px;
+}
+
+.form-floating>.form-control, .form-floating>.form-control-plaintext {
+    padding: 1rem .75rem;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #212529 !important; /* muda a cor do círculo preenchido */
+}
+
+
+.seletor {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+.seletor .btn{
+    border-radius: 0;
+    width: 100%;
+}
+.seletor .btn:hover{
+    border-color: #2125293d;
+    background-color: #2125293d;
+}
+.seletor .btn-check:checked + .btn{
+    color: white;
+    background-color: #212529;
+    border-color: #212529;
+}
+.seletor .btn-esq {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+.seletor .btn-dir {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}

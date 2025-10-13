@@ -30,14 +30,15 @@
     },
     {
         "id": 2,
-        "nome": "Cartolina Go Office Branca 150g 50x66cm PCT 10fls",
-        "preco": 12.29,
+        "nome": "Saco Plástico Ofício Sem Furos 0.12 Micras Pacote 100 Unidades",
+        "preco": 31.49,
         "marca": "Go Office",
-        "categoria": ["Papel", "Cartolina"],
+        "categoria": ["Organização", "Saco Plástico Ofício"],
         "imagem": [
-            "https://fotos.oceanob2b.com/High/037321.jpg?ims=1000x",
-            "https://fotos.oceanob2b.com/High/037321_1.jpg?ims=1000x",
-            "https://fotos.oceanob2b.com/High/037321_2.jpg?ims=1000x"
+            "https://fotos.oceanob2b.com/High/037555.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037555_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037555_2.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/037555_3.jpg?ims=1000x"
         ],
         "quantidade": 0
     },
@@ -163,6 +164,7 @@
         "imagem": [
             "https://fotos.oceanob2b.com/High/018727.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/018727_1.jpg?ims=1000x",
+            "https://fotos.oceanob2b.com/High/018727_2.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/018727_3.jpg?ims=1000x"
         ],
         "quantidade": 0

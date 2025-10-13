@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 export default function ProdutoDetalhes() {
     const { id } = useParams();   // Obtendo o ID do produto
     const [produto, setProduto] = useState(null);
+    const [descricao, setDescricao] = useState(null);
     const [imagemPrincipal, setImagemPrincipal] = useState(null)
     const [contagem, setContagem] = useState(1);
 
@@ -17,7 +18,8 @@ export default function ProdutoDetalhes() {
             try {
                 const res = await fetch(`http://localhost:4000/produtos/${id}`);
                 const data = await res.json();
-                setProduto(data);
+                setProduto(data.produto);
+                setDescricao(data.descricao);
             } catch (error) {
                 console.error("Erro ao buscar produto:", error);
             }
@@ -36,7 +38,7 @@ export default function ProdutoDetalhes() {
         }
     }, [produto]);
 
-    /* Controlando o valor da contagem */
+    // Controlando o valor da contagem
     useEffect(() => {
         console.log(contagem);
 
@@ -148,9 +150,7 @@ export default function ProdutoDetalhes() {
                     </div>
                 </div>
 
-                <div className='descricao'>
-                    {produto.nome}
-                </div>
+                <div className='descricao' dangerouslySetInnerHTML={{ __html: descricao }}></div>
             </div>
         </>
     );

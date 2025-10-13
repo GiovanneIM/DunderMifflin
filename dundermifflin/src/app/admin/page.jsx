@@ -5,22 +5,22 @@ export default function Login() {
     return <>
 
         <div className='corpo d-flex flex-wrap'>
-            <div>
-                <a
-                    href={'/'}
-                >
-                    <Image
-                        src='/img/DUNDERbranco.svg'
-                        alt='Logo Dunner Mifflin'
-                        width={300}
-                        height={200}
-                    />
-                </a>
-            </div>
 
-            <div className='div_branca'>
+            <div className='container_login'>
                 <div>
+                    <a
+                        href={'/'}
+                    >
+                        <Image
+                            src='/img/DUNDERcinza.svg'
+                            alt='Logo Dunner Mifflin'
+                            width={300}
+                            height={100}
+                        />
+                    </a>
+                </div>
 
+                <div>
                     <form className='form-signin'>
                         <h1 className=" titulo h1 mb-3 fw-normal">fazer login</h1>
 
@@ -31,7 +31,7 @@ export default function Login() {
                                 id="floatingInput"
                                 placeholder="name@example.com"
                             />
-                            <label htmlFor="floatingInput">ID</label>
+                            <label htmlFor="floatingInput">ID de Funcionário</label>
                         </div>
 
                         <div className="form-floating">
@@ -43,18 +43,6 @@ export default function Login() {
                                 placeholder="Password"
                             />
                             <label htmlFor="floatingPassword">Senha</label>
-                        </div>
-
-                        <div className="form-check text-start my-3 seletor col-12">
-                            <div className='col-4'>
-                                <input type="radio" className="btn-check" name="options-base" id="option5" autoComplete="off" defaultChecked="on" />
-                                <label className="btn btn-esq" htmlFor="option5">Gerente</label>
-                            </div>
-
-                            <div className='col-4'>
-                                <input type="radio" className="btn-check" name="options-base" id="option6" autoComplete="off" />
-                                <label className="btn btn-dir" htmlFor="option6">Empresa</label>
-                            </div>
                         </div>
 
                         <div className="form-check text-start my-3">
@@ -74,8 +62,8 @@ export default function Login() {
                         </button>
 
                         <div className='legenda'>
-                            <p className="text-body-secondary">Ainda não possui uma conta?</p>
-                            <a className="text-body-secondary" href='/cadastro'>Como ter uma conta</a>
+                            <div className="text-body-secondary">Não se lembra de sua senha?</div>
+                            <a className="text-body-secondary" href='/cadastro'>Esqueci minha senha</a>
                         </div>
                     </form>
                 </div>

@@ -1,4 +1,4 @@
-import Card from "@/components/card";
+import Card from "@/components/Card";
 
 export default async function Produtos() {
     const res = await fetch("http://localhost:4000/produtos");

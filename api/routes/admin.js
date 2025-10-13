@@ -3,6 +3,7 @@ const router = express.Router();
 
 const fs = require('fs');
 const caminhoProdutos = './json/produtos.json';
+const caminhoDescricao = './json/descricoes.json';
 
 
 // ADICIONAR PRODUTO
@@ -11,8 +12,8 @@ router.post('/adicionar', (req, res) => {
     const { nome, preco, marca } = req.body;
 
     // Validando os dados passados
-    if (!nome || !preco || !marca) {
-        return res.status(400).json({ erro: 'Campos nome e preço são obrigatórios.' });
+    if (!nome || !preco || !marca || isNaN(preco)) {
+        return res.status(400).json({ erro: 'Campos nome e preço (float) são obrigatórios.' });
     }
 
     // Lendo a lista de produtos
@@ -36,22 +37,29 @@ router.post('/adicionar', (req, res) => {
             "marca": marca,
             "categoria": [],
             "imagem": [],
-            "descricao": "",
             "quantidade": 0
         }
 
         // Adicionando produto à lista
         produtos.push(produto);
 
-        // Salvando a lista
-        const conteudo = JSON.stringify(produtos, 0, 4);
-        fs.writeFile(caminhoProdutos, conteudo, (err) => {
+        // Criando o HTML da descrição
+        const descricao = `<div>${nome}</div>`;
+        fs.writeFile(`./descricoes/${idNovoProduto}.html`, descricao, (err) => {
             if (err) {
-                console.error('Erro: ' + err);
-                res.status(500).send('Erro: ' + err)
+                console.error('Erro ao criar o arquivo da descrição:', err);
+                return res.status(500).send('Erro ao criar arquivo da descrição.');
             }
 
-            res.status(201).send('Produto adicionado com o ID: ' + produto.id);
+            // Salvando a lista de produtos
+            fs.writeFile(caminhoProdutos, JSON.stringify(produtos, null, 4), (err) => {
+                if (err) {
+                    console.error('Erro ao salvar produtos:', err);
+                    return res.status(500).send('Erro ao salvar produtos.');
+                }
+
+                res.status(201).send('Produto adicionado com o ID: ' + idNovoProduto);
+            });
         });
     })
 })
@@ -115,7 +123,7 @@ router.patch('/:id/imagem', (req, res) => {
             });
         });
     });
-});
+})
 
 // ATUALIZAR QUANTIDADE
 router.patch('/:id/quantidade', (req, res) => {
@@ -154,6 +162,44 @@ router.patch('/:id/quantidade', (req, res) => {
             }
 
             res.status(200).send('Quantidade do produto atualizada');
+        });
+    })
+})
+
+// ALTERAR A DESCRIÇÃO DO PRODUTO
+router.put('/:id/descricao', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send('Erro: O ID inserido não era um número.');
+    }
+
+    const { descricao } = req.body;
+    if (!descricao) {
+        return res.status(400).send('Erro: A "descricao" é obrigatória.');
+    }
+
+    // Lendo o JSON de descrição
+    fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const descricoes = lerEconverterJSON(res, err, data);
+        if (!descricoes) { return; }
+
+        const produto = produtos.find(p => p.id_produto === id);
+        if (!produto) {
+            return res.status(404).send('Erro: Produto não encontrado.');
+        }
+
+        produto.descricao = descricao;
+
+        // Salvando a lista
+        const conteudo = JSON.stringify(descricoes, 0, 4);
+        fs.writeFile(caminhoProdutos, conteudo, (err) => {
+            if (err) {
+                console.error('Erro: ' + err);
+                res.status(500).send('Erro: ' + err)
+            }
+
+            res.status(200).send('Descrição do produto atualizada');
         });
     })
 })

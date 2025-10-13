@@ -25,18 +25,17 @@ router.get('/', (req, res) => {
     });
 });
 
-// Rota para obter UM PRODUTO ESPECIFICO
+// Rota para obter UM PRODUTO ESPECIFICO e sua DESCRICAO
 router.get('/:id', (req, res) => {
-    const id = v.validarID(req.params.id, res)
-    if (id === null || id === undefined) {
-        return;
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send('Erro: O ID inserido não era um número.');
     }
 
     // Lendo a lista de tarefas
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Lendo e convertendo o conteúdo do JSON com os produtos
         const produtos = v.lerEconveterJSON(err, data, res)
-
         // Verificando se a lista foi lida
         if (!produtos) {
             return
@@ -47,7 +46,17 @@ router.get('/:id', (req, res) => {
 
         // Verificando se o produto foi encontrado e enviando como resposta
         if (produto) {
-            res.status(200).send(produto);
+            fs.readFile(`./descricoes/${id}.html`, 'utf-8', (errD, descricao) => {
+                // if (errD) {
+                //     res.status(500).send(errD);
+                //     return
+                // }
+                if (!descricao) {
+                    descricao=""
+                }
+
+                res.status(200).json({produto, descricao});
+            })
         }
         else {
             res.status(404).send('Produto não encontrado');
