@@ -82,5 +82,7 @@ header, footer {
 }
 
 .fundoCinza {
-    background-color: rgb(226, 226, 226);
+    /* background-color: #e2e2e2; */
+    /* background-color: #efefef; */
+    background-color: #2125290d;
 }

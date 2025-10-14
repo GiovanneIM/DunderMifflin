@@ -1,11 +1,94 @@
-"use client"
+// "use client"
 
+// import { useEffect, useState } from "react";
+// import './prodCarrinho.css';
+
+// export default function ProdCarrinho({ id_prod, qtd }) {
+//     const [produto, setProduto] = useState(null);
+//     const [contagem, setContagem] = useState(qtd);
+//     const [precoTotalProduto, setTP] = useState(qtd);
+
+//     useEffect(() => {
+//         async function carregarProduto() {
+//             try {
+//                 const res = await fetch(`http://localhost:4000/produtos/${id_prod}`);
+//                 const data = await res.json();
+//                 setProduto(data.produto);
+//             } catch (error) {
+//                 console.error("Erro ao buscar produto:", error);
+//             }
+//         }
+
+//         console.log(id_prod);
+
+//         if (!isNaN(id_prod)) carregarProduto();
+//     }, [id_prod]);
+
+//     useEffect(() => {
+//         if (contagem < 1) {
+//             setContagem(1)
+//         }
+//     }, [contagem]);
+
+//     useEffect(() => {
+//         produto && (setTP((contagem * produto.preco).toFixed(2).replace('.', ',')))
+//     }, [contagem, produto])
+
+
+//     return <>
+//         {produto && (
+//             <div className='pc col-12'>
+//                 <div className='col-12 col-sm-3 pc-imagem'>
+//                     <img src={produto.imagem?.[0]} />
+//                 </div>
+
+//                 <div className="col-12 col-sm-9 d-flex flex-column justify-content-between p-3 gap-2">
+//                     <div>
+//                         <div className="pc-nome">{produto.nome}</div>
+//                         <div className="pc-legenda">
+//                             <div>{produto.marca}</div>
+//                             <div>ID {produto.id}</div>
+//                         </div>
+//                     </div>
+
+//                     <div className="d-flex col-12 flex-wrap" style={{ rowGap: '0.5rem' }}>
+//                         <div className="col-12 col-sm-4">
+//                             <div><b>Quantidade</b></div>
+//                             <div className="pc-contador_div">
+//                                 <div>
+//                                     <button className='pc-btn-contador' onClick={() => { setContagem(contagem - 1) }}>-</button>
+//                                     <div className='pc-contador'>{contagem}</div>
+//                                     <button className='pc-btn-contador' onClick={() => { setContagem(contagem + 1) }}>+</button>
+//                                 </div>
+//                             </div>
+//                         </div>
+
+//                         <div className="col-6 col-sm-4">
+//                             <div><b>Preço unitário</b></div>
+//                             <div className="pc-preco">R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+//                         </div>
+
+//                         <div className="col-6 col-sm-4">
+//                             <div><b>Preço total</b></div>
+//                             <div className="pc-precoTotal">R$ {precoTotalProduto}</div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         )}
+//     </>
+// }
+
+
+
+"use client"
 import { useEffect, useState } from "react";
 import './prodCarrinho.css';
 
-export default function ProdCarrinho({ id_prod, qtd }) {
+export default function ProdCarrinho({ id_prod, qtd, funcaoAlterar }) {
     const [produto, setProduto] = useState(null);
     const [contagem, setContagem] = useState(qtd);
+    const [precoTotalProduto, setTP] = useState(0);
 
     useEffect(() => {
         async function carregarProduto() {
@@ -13,43 +96,61 @@ export default function ProdCarrinho({ id_prod, qtd }) {
                 const res = await fetch(`http://localhost:4000/produtos/${id_prod}`);
                 const data = await res.json();
                 setProduto(data.produto);
+                funcaoAlterar(id_prod, contagem, data.produto.preco); // inicializa no carrinho
             } catch (error) {
                 console.error("Erro ao buscar produto:", error);
             }
         }
-
-        console.log(id_prod);
-
         if (!isNaN(id_prod)) carregarProduto();
     }, [id_prod]);
 
     useEffect(() => {
-        if (contagem < 1) {
-            setContagem(1)
+        if (produto) {
+            if (contagem < 1) setContagem(1);
+            const total = contagem * produto.preco;
+            setTP(total.toFixed(2).replace('.', ','));
+            funcaoAlterar(id_prod, contagem, produto.preco);
         }
-    }, [contagem]);
+    }, [contagem, produto]);
 
+    return produto && (
+        <div className='pc col-12'>
+            <div className='col-12 col-sm-3 pc-imagem'>
+                <img src={produto.imagem?.[0]} />
+            </div>
 
-    return <>
-        {produto && (
-            <div className='pc'>
-                <div className='pc-imagem'><img src={produto.imagem?.[0]} /></div>
-
+            <div className="col-12 col-sm-9 d-flex flex-column justify-content-between p-3 gap-2">
                 <div>
                     <div className="pc-nome">{produto.nome}</div>
-                    <div className="pc-legnda">{produto.marca}   {produto.id}</div>
+                    <div className="pc-legenda">
+                        <div>{produto.marca}</div>
+                        <div>ID {produto.id}</div>
+                    </div>
                 </div>
 
-                <div className="pc-contador">
-                    <div className='pc-btn-contador' onClick={() => { setContagem(contagem - 1) }}>-</div>
-                    <div className='contador'>{contagem}</div>
-                    <div className='pc-btn-contador' onClick={() => { setContagem(contagem + 1) }}>+</div>
+                <div className="d-flex col-12 flex-wrap" style={{ rowGap: '0.5rem' }}>
+                    <div className="col-12 col-sm-4">
+                        <div><b>Quantidade</b></div>
+                        <div className="pc-contador_div">
+                            <div>
+                                <button className='pc-btn-contador' onClick={() => setContagem(c => c - 1)}>-</button>
+                                <div className='pc-contador'>{contagem}</div>
+                                <button className='pc-btn-contador' onClick={() => setContagem(c => c + 1)}>+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-6 col-sm-4">
+                        <div><b>Preço unitário</b></div>
+                        <div className="pc-preco">R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+                    </div>
+
+                    <div className="col-6 col-sm-4">
+                        <div><b>Preço total</b></div>
+                        <div className="pc-precoTotal">R$ {precoTotalProduto}</div>
+                    </div>
                 </div>
-
-                <div className="pc-preco">{produto.preco}</div>
-
-                <div className="pc-precoTotal"></div>
             </div>
-        )}
-    </>
+        </div>
+    );
 }
