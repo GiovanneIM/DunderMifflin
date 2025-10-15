@@ -55,6 +55,47 @@ export default function ProdutoDetalhes() {
         </div>
     }
 
+    /* Função para quando o usuário adiciona ao carrinho */
+    function adicionarCarrinho() {
+        const container = document.getElementById("toastContainer");
+
+        if (!container) return;
+
+        // Criando um toat
+        const toast = document.createElement("div");
+        toast.className = "toast align-items-center text-bg-light show mb-2";
+        toast.role = "alert";
+        toast.ariaLive = "assertive";
+        toast.ariaAtomic = "true";
+        toast.style.minWidth = "250px";
+
+        toast.innerHTML = `
+            <div class="toast-header">
+                <strong class="me-auto">Produto adicionado</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body d-flex align-items-center gap-2">
+                <img src="${produto.imagem[0]}" alt="${produto.nome}" class="toast-img" style="width:40px;height:40px;object-fit:cover;border-radius:5px;" />
+                <div>
+                <div>${produto.nome}</div>
+                <div>Quantidade: ${contagem}</div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(toast);
+
+        // Inicializa e exibe o toast
+        const toastInstance = new window.bootstrap.Toast(toast, { delay: 2500 });
+        toastInstance.show();
+
+        // Remove o toast do DOM depois de sumir
+        toast.addEventListener("hidden.bs.toast", () => {
+            toast.remove();
+        });
+
+    }
+
     return (
         <>
             <div className="container gap-4 d-flex flex-column ">
@@ -135,7 +176,7 @@ export default function ProdutoDetalhes() {
                                     </div>
 
                                     <div>
-                                        <button className='btn btn-1'>
+                                        <button className='btn btn-1' onClick={() => { adicionarCarrinho() }}>
                                             Adicionar ao carrinho
                                         </button>
                                     </div>

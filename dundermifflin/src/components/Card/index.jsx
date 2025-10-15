@@ -22,7 +22,7 @@ export default function Card({ id, nome, imagem, preco }) {
 
         if (!container) return;
 
-        // Criando o toat
+        // Criando um toat
         const toast = document.createElement("div");
         toast.className = "toast align-items-center text-bg-light show mb-2";
         toast.role = "alert";
