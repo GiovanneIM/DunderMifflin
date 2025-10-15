@@ -4,7 +4,7 @@
         "tipo": "gerente",
         "nome": "nome",
         "senha": "senha",
-        "listadecompra": "sda",
+        "listadecompra": [],
         "idEmpresa": 0
     }
 ]

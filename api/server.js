@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
+// Arquivos
+const caminhoEmpresas = './json/empresas.json'
+const caminhoGerentes = './json/gerentes.json'
+
 // MIDDLEWARES
 const middlewares = require('./middlewares/middlewares.js');
 app.use(middlewares);
@@ -9,6 +13,50 @@ app.use(middlewares);
 // Autenticação
 const autenticacao = require('./middlewares/autenticacao.js');
 
+
+// Rota para fazer login
+app.post('/login', (req, res) => {
+    const { id, senha, tipoLogin } = req.body;
+
+    if (isNaN(id) || !senha) {
+        return res.status(400).send('ID e/ou senha incorretos.');
+    }
+
+    if (tipoLogin === 'empresa') {
+        fs.readFile(caminhoEmpresas, 'utf-8', (err, data) => {
+            const empresas = v.lerEconveterJSON(err, data, res);
+            if (!empresas) { return }
+
+            const empresa = empresas.find((emp) => { return emp.id === id });
+
+            if (!empresa || empresa.senha !== senha) {
+                res.status(401).send('ID e/ou senha incorretos.');
+                return;
+            }
+
+            req.session.empresa = empresa;
+            console.log(`Empresa (${empresa.id}) ${empresa.nome} logada com sucesso.`);
+            res.status(200).send(`Empresa (${empresa.id}) ${empresa.nome} logada com sucesso.`);
+        })
+    }
+    else if (tipoLogin === 'gerente') {
+        fs.readFile(caminhoGerentes, 'utf-8', (err, data) => {
+            const gerentes = v.lerEconveterJSON(err, data, res);
+            if (!gerentes) { return }
+
+            const gerente = gerentes.find((emp) => { return emp.id === id });
+
+            if (!gerente || gerente.senha !== senha) {
+                res.status(401).send('ID e/ou senha incorretos.');
+                return;
+            }
+
+            req.session.gerente = gerente;
+            console.log(`Gerente (${gerente.id}) ${gerente.nome} logada com sucesso.`);
+            res.status(200).send(`Gerente (${gerente.id}) ${gerente.nome} logada com sucesso.`);
+        })
+    }
+});
 
 
 // ROTAS

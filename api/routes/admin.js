@@ -7,6 +7,7 @@ const caminhoDescricao = './json/descricoes.json';
 
 const v = require('../js/validacoes.js')
 
+
 // ADICIONAR PRODUTO
 router.post('/adicionar', (req, res) => {
     // Recebendo os dados
