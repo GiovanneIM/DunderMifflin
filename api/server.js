@@ -1,33 +1,25 @@
-const express = require('express')
-const app = express()
-const port = 4000
-
-const cors = require("cors");
-
-// Permitir requisições vindas do front-end (Next.js)
-app.use(cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // endereço do seu front-end
-
-    credentials: true                // se precisar enviar cookies/sessões
-}));
-
+const express = require('express');
+const app = express();
+const port = 4000;
 
 
 
 // MIDDLEWARES
-const logger = require('./middlewares/logger.js')
-app.use(logger)
+const middlewares = require('./middlewares/middlewares.js');
+app.use(middlewares);
 
-const autenticacao = require('./middlewares/autenticacao.js')
+// Autenticação
+const autenticacao = require('./middlewares/autenticacao.js');
 
-app.use(express.json());
+
 
 // ROTAS
-const rotasUsuario = require('./routes/produtos.js')
+const rotasUsuario = require('./routes/produtos.js') // PRODUTOS
 app.use('/produtos', rotasUsuario)
 
-const rotasAdmin = require('./routes/admin.js')
+const rotasAdmin = require('./routes/admin.js') // ADMIN
 app.use('/admin', rotasAdmin)
+
 
 
 // INICIANDO O SERVIDOR
@@ -35,7 +27,6 @@ app.listen(port, () => {
     console.log(`Servidor ativo em: http://localhost:${port}`);
 });
 
-// PRODUTOS
 
 
 
@@ -52,7 +43,7 @@ app.listen(port, () => {
 
 
 /*
-    Excelente pergunta 👏
+
 
 Um site B2B (business-to-business) de materiais de escritório não vende para o consumidor final, mas sim para empresas, escolas, escritórios contábeis, indústrias, órgãos públicos, clínicas, etc.
 

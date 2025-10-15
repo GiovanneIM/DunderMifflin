@@ -5,6 +5,7 @@ const fs = require('fs');
 const caminhoProdutos = './json/produtos.json';
 const caminhoDescricao = './json/descricoes.json';
 
+const v = require('../js/validacoes.js')
 
 // ADICIONAR PRODUTO
 router.post('/adicionar', (req, res) => {
@@ -19,7 +20,7 @@ router.post('/adicionar', (req, res) => {
     // Lendo a lista de produtos
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const produtos = lerEconverterJSON(res, err, data);
+        const produtos = v.lerEconverterJSON(res, err, data);
         if (!produtos) { return; }
 
         // Criando um novo produto
@@ -78,7 +79,7 @@ router.patch('/:id/imagem', (req, res) => {
     }
 
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
-        const produtos = lerEconverterJSON(res, err, data);
+        const produtos = v.lerEconverterJSON(res, err, data);
         if (!produtos) return;
 
         // Busca o produto pelo ID
@@ -141,7 +142,7 @@ router.patch('/:id/quantidade', (req, res) => {
     // Lendo a lista de produtos
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const produtos = lerEconverterJSON(res, err, data);
+        const produtos = v.lerEconverterJSON(res, err, data);
         if (!produtos) { return; }
 
         // Procurando e alterando a quantidade do produto
@@ -181,7 +182,7 @@ router.put('/:id/descricao', (req, res) => {
     // Lendo o JSON de descrição
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const descricoes = lerEconverterJSON(res, err, data);
+        const descricoes = v.lerEconverterJSON(res, err, data);
         if (!descricoes) { return; }
 
         const produto = produtos.find(p => p.id_produto === id);
@@ -203,29 +204,6 @@ router.put('/:id/descricao', (req, res) => {
         });
     })
 })
-
-
-
-function lerEconverterJSON(res, err, data) {
-    if (err) {
-        const mensagemErro = 'Erro: ' + err;
-        console.log(mensagemErro);
-        res.status(100).send(mensagemErro);
-        return false;;
-    }
-
-    let produtos;
-    try {
-        produtos = JSON.parse(data);
-    } catch (error) {
-        const mensagemErro = 'Erro: ' + error;
-        console.log(mensagemErro);
-        res.status(100).send(mensagemErro);
-        return false;
-    }
-
-    return produtos;
-}
 
 
 
