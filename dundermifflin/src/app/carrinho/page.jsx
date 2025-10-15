@@ -69,7 +69,7 @@ export default function Carrinho() {
                 <div className="mb-3">
                     <label htmlFor="comentario" className="form-label"><b>Comentário</b></label>
                     <textarea
-                        className="form-control"
+                        className="form-control bordaCinza"
                         id="comentario"
                         rows={3}
                         placeholder="Adicione um comentário para a sua lista"
