@@ -6,14 +6,37 @@ const fs = require('fs');
 // Validações
 const v = require('../js/validacoes.js')
 
+const caminhoEmpresas = './json/empresas.json'
+const caminhoGerentes = './json/gerentes.json'
+
+
 
 // ROTAS
 
-// Rota para obter os gerente de compras da empresa
-router.post('/:id/gerente', (req, res) => {})
+// Rota para fazer login
+router.post('/login', (req, res) => {
+    const { id, senha } = req.body;
+    
+    if (isNaN(id) || !senha) {
+        return res.status(400).send('ID e/ou senha incorretos.');
+    }
 
-// Rota para adicionar um novo gerente de compras
-router.post('/:id/gerente', (req, res) => {})
+    fs.readFile(caminhoGerentes, 'utf-8', (err, data) => {
+        const gerentes = v.lerEconveterJSON(err, data, res);
+        if (!gerentes) { return }
 
-// Rota para excluir um gerente de compras
-router.delete('/:id/gerente', (req, res) => {})
+        const gerente = gerentes.find((emp) => { return emp.id === id });
+
+        if (!gerente || gerente.senha !== senha) {
+            res.status(401).send('ID e/ou senha incorretos.');
+            return;
+        }
+
+        req.session.gerente = gerente;
+        console.log(`Gerente ${gerente.nome} - ${gerente.id} logado com sucesso.`);
+        res.send(`Gerente ${gerente.nome} - ${gerente.id} logado com sucesso.`);
+    })
+});
+
+
+module.exports = router;

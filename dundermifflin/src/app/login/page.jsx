@@ -1,11 +1,47 @@
+'use client'
+
 import './login.css'
 import Image from 'next/image'
+import { useState } from 'react';
 
 export default function Login() {
+    const [loginInfo, setLoginInfo] = useState({ id: '', senha: '' });
+    const [usuario, setUsuario] = useState('gerente');
+
+    function fazerLogin(e) {
+        e.preventDefault();
+
+        const idNum = Number(loginInfo.id);
+        const corpoReq = { ...loginInfo, id: idNum };
+
+        console.log('Login enviado:', loginInfo);
+        console.log('Tipo de Usuário:', usuario);
+
+        const urlLogin = `http://localhost:4000/${usuario}/login`;
+        fetch(urlLogin, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(corpoReq)
+        })
+        .then(res => console.log(res))
+    }
+
+    function atualizarInfoLogin(e) {
+        const { id, value } = e.target;
+        setLoginInfo(prev => ({ ...prev, [id]: value }));
+    }
+
+
+    function atualizarUsuario(e) {
+        setUsuario(e.target.value);
+    }
+
     return <>
 
         <div className='corpo d-flex flex-wrap'>
-            <div>
+            <div className='col-12 col-sm-6'>
                 <a
                     href={'/'}
                 >
@@ -18,20 +54,21 @@ export default function Login() {
                 </a>
             </div>
 
-            <div className='div_branca'>
+            <div className='div_branca col-12 col-sm-6'>
                 <div>
 
-                    <form className='form-signin'>
+                    <form className='form-signin' id='form-login' onSubmit={fazerLogin}>
                         <h1 className=" titulo h1 mb-3 fw-normal">fazer login</h1>
 
                         <div className="form-floating">
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control"
-                                id="floatingInput"
+                                id="id"
+                                onChange={atualizarInfoLogin}
                                 placeholder="name@example.com"
                             />
-                            <label htmlFor="floatingInput">ID</label>
+                            <label htmlFor="id">ID</label>
                         </div>
 
                         <div className="form-floating">
@@ -39,20 +76,38 @@ export default function Login() {
                             <input
                                 type="password"
                                 className="form-control"
-                                id="floatingPassword"
+                                id="senha"
+                                onChange={atualizarInfoLogin}
                                 placeholder="Password"
                             />
-                            <label htmlFor="floatingPassword">Senha</label>
+                            <label htmlFor="senha">Senha</label>
                         </div>
 
                         <div className="form-check text-start my-3 seletor col-12">
                             <div className='col-4'>
-                                <input type="radio" className="btn-check" name="options-base" id="option5" autoComplete="off" defaultChecked="on" />
+                                <input
+                                    type="radio"
+                                    className="btn-check"
+                                    name="options-base"
+                                    id="option5"
+                                    autoComplete="off"
+                                    value="gerente"
+                                    onChange={atualizarUsuario}
+                                    defaultChecked="on"
+                                />
                                 <label className="btn btn-esq" htmlFor="option5">Gerente</label>
                             </div>
 
                             <div className='col-4'>
-                                <input type="radio" className="btn-check" name="options-base" id="option6" autoComplete="off" />
+                                <input
+                                    type="radio"
+                                    className="btn-check"
+                                    name="options-base"
+                                    id="option6"
+                                    autoComplete="off"
+                                    value="empresa"
+                                    onChange={atualizarUsuario}
+                                />
                                 <label className="btn btn-dir" htmlFor="option6">Empresa</label>
                             </div>
                         </div>
@@ -69,7 +124,7 @@ export default function Login() {
                             </label>
                         </div>
 
-                        <button className="btn btn-1 w-100 py-2" type="submit">
+                        <button className="btn btn-1 w-100 py-2" type="submit" id='btn-login'>
                             Login
                         </button>
 

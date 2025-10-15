@@ -63,16 +63,11 @@ export default function Navbar() {
                     </form>
 
                     <div className="text-end">
-                        <button type="button" className="btn btn-1">
-                            <Link href={'/login'}>
+                        <a href={'/login'}>
+                            <button type="button" className="btn btn-1">
                                 Entrar
-                            </Link>
-                        </button>
-                        {/* <button type="button" className="btn btn-1">
-                            <Link href={'/cadastro'}>
-                                Cadastrar
-                            </Link>
-                        </button> */}
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
-
-
 // MIDDLEWARES
 const middlewares = require('./middlewares/middlewares.js');
 app.use(middlewares);
@@ -19,6 +17,12 @@ app.use('/produtos', rotasUsuario)
 
 const rotasAdmin = require('./routes/admin.js') // ADMIN
 app.use('/admin', rotasAdmin)
+
+const rotasEmpresa = require('./routes/empresa.js') // EMPRESA CLIENTE
+app.use('/empresa', rotasEmpresa)
+
+const rotasGerente = require('./routes/gerente.js') // GERENTE DE COMPRAS
+app.use('/gerente', rotasGerente)
 
 
 

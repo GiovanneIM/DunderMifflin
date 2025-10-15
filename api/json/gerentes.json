@@ -1,0 +1,10 @@
+[
+    {
+        "id": 0,
+        "tipo": "gerente",
+        "nome": "nome",
+        "senha": "senha",
+        "listadecompra": "sda",
+        "idEmpresa": 0
+    }
+]
