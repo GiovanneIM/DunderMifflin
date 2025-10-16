@@ -32,6 +32,14 @@ Decidi construir o sistema para uma empresa fictícia de venda de materiais de e
 
 O sistema foi desenvolvido para gerenciar a relação entre **Administradores**, **Empresas Clientes** e **Gerentes de Compras**, permitindo o controle completo de produtos, listas de compras e aprovações.
 
+### 👥 Tipos de Usuário
+
+| Tipo | Função Principal |
+|--------|------------------|
+| **Administrador** | Gerencia empresas, produtos e listas de compras |
+| **Empresa Cliente** | Controla seus gerentes e aprova listas de compras |
+| **Gerente de Compras** | Cria e envia listas de compras para aprovação |
+
 ### 🧍‍♂️ Administradores
 - Acessam o sistema através do endereço:  
   👉 `http://localhost:3000/admin`
@@ -55,14 +63,6 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
   - **Adicionar produtos** à sua lista de compras  
   - **Finalizar e enviar** a lista para sua respectiva empresa  
   - **Aguardar aprovação** da empresa cliente
-
-### 👥 Tipos de Usuário
-
-| Tipo | Função Principal |
-|--------|------------------|
-| **Administrador** | Gerencia empresas, produtos e listas de compras |
-| **Empresa Cliente** | Controla seus gerentes e aprova listas de compras |
-| **Gerente de Compras** | Cria e envia listas de compras para aprovação |
 
 ---
 
