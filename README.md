@@ -6,7 +6,7 @@ Projeto Interdisciplinhar envolvendo as diciplinas de <b>Backend</b> e <b>Fronte
     Neste projeto foi dada a tarefa de desenvolver um site para uma loja de comércio B2B (Business to Business), ou seja, um site para uma empresa que tenha outras empresas como público alvo.
     O site devia contar com:
     <ul>
-        <li><b>API<b> em seu BackEnd, construída com a biblioteca <b>express</b> do Node.JS</li>
+        <li><b>API</b> em seu BackEnd, construída com a biblioteca <b>express</b> do Node.JS</li>
         <li><b>FrontEnd</b> responsível construído em um projeto NEXT.JS</li>
     </ul>
 </div>
