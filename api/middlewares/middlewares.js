@@ -11,22 +11,25 @@ router.use(cors({
 
 
 // SESSÃO
-const session = require('express-session');
-router.use(session({
-    secret: 'segredo',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // A sessão expira em 1 dia
-}));
+const sessao = require('./sessao.js') 
+router.use(sessao)
+
+// const session = require('express-session');
+// router.use(session({
+//     secret: 'segredo',
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { maxAge: 1000 * 60 * 60 * 24 } // A sessão expira em 1 dia
+// }));
 
 
-// Verificando sessão
-router.use((req, res, next) => {
-    if (req.session.usuarioId) {
-        req.usuario = usuarios.find(u => u.ID === req.session.usuarioId);
-    }
-    next();
-});
+// // Verificando sessão
+// router.use((req, res, next) => {
+//     if (req.session.usuarioId) {
+//         req.usuario = usuarios.find(u => u.ID === req.session.usuarioId);
+//     }
+//     next();
+// });
 
 
 // LOGGER

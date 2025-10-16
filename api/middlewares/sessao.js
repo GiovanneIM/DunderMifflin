@@ -1,7 +1,8 @@
-
+const express = require('express');
+const router = express.Router();
 const session = require('express-session');
 
-app.use(session({
+router.use(session({
     secret: 'segredo',
     resave: false,
     saveUninitialized: false,
@@ -9,9 +10,18 @@ app.use(session({
 }));
 
 // Verificando sessões
-app.use((req, res, next) => {
-    if (req.session.usuarioId) {
-        req.usuario = usuarios.find(u => u.ID === req.session.usuarioId);
+router.use((req, res, next) => {
+    const tiposDeUsuarios = ['gerente', 'empresa', 'admin'];
+
+    for (const tipo of tiposDeUsuarios) {
+        if (req.session[tipo]) {
+            req.usuario = req.session[tipo];
+            req.usuario.tipo = tipo;
+            break;
+        }
     }
+
     next();
 });
+
+module.exports = router;
