@@ -157,3 +157,104 @@ DunderMifflin/
   <sub>Inspirado na série <i>The Office</i> 🏢</sub>
 </p>
 
+Seu código está organizado de forma modular e bem estruturada, o que é ótimo. Vou revisar rapidamente o fluxo da aplicação e, em seguida, destacar os ajustes importantes e potenciais problemas, especialmente com relação à sessão, CORS, e integração com o front-end.
+
+✅ Visão Geral do Fluxo
+
+Arquivo sessao.js
+
+Configura a sessão via express-session.
+
+Verifica se há um usuário logado nas sessões com base em três tipos: gerente, empresa, admin.
+
+Anexa o objeto do usuário na req.usuario.
+
+Arquivo middleware.js
+
+Configura o CORS com credentials: true (essencial para cookies).
+
+Aplica o middleware de sessão (sessao.js) e um logger.
+
+Habilita express.json() para aceitar JSON no corpo das requisições.
+
+Arquivo server.js
+
+Aplica todos os middlewares antes das rotas.
+
+Define rotas para diferentes perfis (/admin, /empresa, /gerente, etc).
+
+Inicia o servidor na porta 4000.
+
+❗ Pontos de Atenção Críticos
+1. Problemas comuns com express-session + CORS
+
+Se seu front-end está em http://localhost:3000 e seu back-end em http://localhost:4000, você precisa garantir que os cookies de sessão estão sendo enviados corretamente.
+
+✅ SOLUÇÃO:
+
+Adicione essas configurações no express-session dentro do sessao.js:
+
+cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 dia
+    httpOnly: true,
+    secure: false, // true em produção com HTTPS
+    sameSite: 'lax' // ou 'none' se for HTTPS e domínios diferentes
+}
+
+
+🔒 Se estiver usando HTTPS e domínios diferentes, use:
+
+secure: true,
+sameSite: 'none'
+
+2. Middleware de sessão deve ser aplicado apenas uma vez
+
+Se por acaso você aplicar o middleware sessao.js duas vezes (como em middleware.js e diretamente em outro lugar), isso pode causar bugs ou comportamentos inesperados (sessão não persistente, por exemplo).
+
+✅ Está tudo certo aqui, porque ele está sendo aplicado apenas uma vez em middlewares.js, que é usado em server.js.
+
+3. Evite mutações diretas na sessão
+
+Este trecho:
+
+req.usuario = req.session[tipo];
+req.usuario.tipo = tipo;
+
+
+Modifica o objeto da sessão diretamente. Isso pode causar bugs se o mesmo objeto de sessão for usado em outro lugar.
+
+✅ Melhor usar:
+
+req.usuario = { ...req.session[tipo], tipo };
+
+4. Seu front-end precisa usar credentials: 'include'
+
+No fetch/Axios no front-end, você precisa garantir que os cookies sejam enviados com as requisições:
+
+// Exemplo com fetch
+fetch('http://localhost:4000/rota', {
+  method: 'POST',
+  credentials: 'include', // ESSENCIAL
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ ...dados })
+});
+
+✅ Checklist final
+Item	OK?	Observações
+CORS com credentials: true	✅	Está correto
+Cookie de sessão com secure, sameSite, httpOnly	⚠️	Adicionar no sessao.js
+Sessão aplicada uma vez	✅	OK
+req.usuario seguro	⚠️	Usar spread { ...obj }
+credentials: 'include' no front-end	❓	Verifique no React/Vue/etc
+Requisições em JSON	✅	express.json() está ativado
+Se ainda estiver com problema de sessão não persistir, verifique:
+
+O front-end está usando credentials: 'include'?
+
+Está testando com navegador habilitado para cookies de terceiros?
+
+Está em localhost ou já com HTTPS (isso muda sameSite e secure)?
+
+Se quiser, posso revisar um trecho do código do front-end também (React, por exemplo) para garantir que a sessão esteja funcionando corretamente. Só mandar.
