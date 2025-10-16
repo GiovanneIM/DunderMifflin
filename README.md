@@ -144,4 +144,8 @@ DunderMifflin/
 
 ---
 
-<p align="center">Feito por <b>Giovanne Isaac Marques</b></p>
+<p align="center">
+  Feito por <b>Giovanne Isaac Marques</b><br>
+  <sub>Inspirado na série <i>The Office</i> 🏢</sub>
+</p>
+
