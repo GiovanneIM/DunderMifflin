@@ -4,7 +4,6 @@ Projeto Interdisciplinhar envolvendo as diciplinas de <b>Backend</b> e <b>Fronte
 <h3>Descrição do Projeto</h3>
 <div>
     Neste projeto foi dada a tarefa de desenvolver um site para uma loja de comércio <b>B2B (Business to Business)</b> - ou seja, um sistema voltado para empresas que vendem produtos ou serviços a outras empresas.
-    
     <br/><br/>
     
     O site deve conter:
@@ -14,7 +13,6 @@ Projeto Interdisciplinhar envolvendo as diciplinas de <b>Backend</b> e <b>Fronte
     </ul>
     
     <br/>
-    
     Observação: Todos os produtos exibidos no site devem ser obtidos através de requisições à API.
 </div>
 
