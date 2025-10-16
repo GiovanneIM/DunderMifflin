@@ -58,7 +58,7 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
 
 ### 👥 Tipos de Usuário
 
-| Tipos | Função Principal |
+| Tipo | Função Principal |
 |--------|------------------|
 | **Administrador** | Gerencia empresas, produtos e listas de compras |
 | **Empresa Cliente** | Controla seus gerentes e aprova listas de compras |
