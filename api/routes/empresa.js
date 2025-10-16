@@ -9,6 +9,8 @@ const v = require('../js/validacoes.js')
 const caminhoEmpresas = './json/empresas.json'
 const caminhoGerentes = './json/gerentes.json'
 
+// ROTAS
+
 // Rota para fazer login
 router.post('/login', (req, res) => {
     const { id, senha } = req.body;
@@ -33,9 +35,6 @@ router.post('/login', (req, res) => {
         res.status(200).send(`Empresa (${empresa.id}) ${empresa.nome} logada com sucesso.`);
     })
 });
-
-
-// ROTAS
 
 // Rota para obter os gerente de compras da empresa
 router.get('/gerente', (req, res) => {

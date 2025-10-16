@@ -9,8 +9,6 @@ const v = require('../js/validacoes.js')
 const caminhoEmpresas = './json/empresas.json'
 const caminhoGerentes = './json/gerentes.json'
 
-
-
 // ROTAS
 
 // Rota para fazer login
@@ -25,7 +23,7 @@ router.post('/login', (req, res) => {
         const gerentes = v.lerEconveterJSON(err, data, res);
         if (!gerentes) { return }
 
-        const gerente = gerentes.find((emp) => { return emp.id === id });
+        const gerente = gerentes.find((ger) => { return ger.id === id });
 
         if (!gerente || gerente.senha !== senha) {
             res.status(401).send('ID e/ou senha incorretos.');
@@ -34,7 +32,7 @@ router.post('/login', (req, res) => {
 
         req.session.gerente = gerente;
         console.log(`Gerente ${gerente.nome} - ${gerente.id} logado com sucesso.`);
-        res.send(`Gerente ${gerente.nome} - ${gerente.id} logado com sucesso.`);
+        res.status(200).send(`Gerente ${gerente.nome} - ${gerente.id} logado com sucesso.`);
     })
 });
 

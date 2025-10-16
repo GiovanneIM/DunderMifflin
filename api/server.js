@@ -14,6 +14,7 @@ app.use(middlewares);
 const autenticacao = require('./middlewares/autenticacao.js');
 
 
+
 // Rota para fazer login
 app.post('/login', (req, res) => {
     const { id, senha, tipoLogin } = req.body;

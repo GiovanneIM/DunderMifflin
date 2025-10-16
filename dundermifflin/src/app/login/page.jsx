@@ -8,7 +8,7 @@ export default function Login() {
     const [loginInfo, setLoginInfo] = useState({ id: '', senha: '' });
     const [usuario, setUsuario] = useState('gerente');
 
-    function fazerLogin(e) {
+    async function fazerLogin(e) {
         e.preventDefault();
 
         const idNum = Number(loginInfo.id);
@@ -20,12 +20,17 @@ export default function Login() {
         const urlLogin = `http://localhost:4000/${usuario}/login`;
         fetch(urlLogin, {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(corpoReq)
         })
-        .then(res => console.log(res))
+        .then(async res => {
+            const texto = await res.text();
+            console.log("Status:", res.status);
+            console.log("Resposta:", texto);
+        })
     }
 
     function atualizarInfoLogin(e) {
