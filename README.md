@@ -1,4 +1,4 @@
-<h1 align="center">📄 Dunder Mifflin Paper Company, Inc</h1>
+<h1 align="center">📄 Dunder Mifflin Paper Company, Inc 📄</h1>
 
 <p align="center">
   <b>Projeto Interdisciplinar</b><br>
