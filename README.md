@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" alt="Logo Dunder Mifflin" width="200"/>
+  <img src="./logoPreta.svg" alt="Logo Dunder Mifflin" width="200"/>
 </p>
 
 <h1 align="center">📄 Dunder Mifflin Paper Company, Inc 📄</h1>
