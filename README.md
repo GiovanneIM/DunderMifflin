@@ -56,9 +56,9 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
   - **Finalizar e enviar** a lista para sua respectiva empresa  
   - **Aguardar aprovação** da empresa cliente
 
-### 👥 Perfis de Usuário
+### 👥 Tipos de Usuário
 
-| Perfil | Função Principal |
+| Tipos | Função Principal |
 |--------|------------------|
 | **Administrador** | Gerencia empresas, produtos e listas de compras |
 | **Empresa Cliente** | Controla seus gerentes e aprova listas de compras |
