@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./logo.png" alt="Logo Dunder Mifflin" width="200"/>
+</p>
+
 <h1 align="center">📄 Dunder Mifflin Paper Company, Inc 📄</h1>
 
 <p align="center">
