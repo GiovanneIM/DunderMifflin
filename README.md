@@ -37,39 +37,53 @@ O site conta com:
 ## 🚀 Como Executar o Projeto
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seuusuario/dunder-mifflin-b2b.git
-
-# Entre na pasta do projeto
-cd dunder-mifflin-b2b
-
-# Instale as dependências
-npm install
-
-# Inicie o servidor Backend
-npm run server
-
-# Inicie o Frontend
-npm run dev
+  # Clone o repositório
+  git clone https://github.com/GiovanneIM/DunderMifflin.git
+  
+  # Entre na pasta do projeto
+  cd DunderMifflin
+  
+  # Entre na pasta da API
+  cd api
+  
+  # Instale as dependências do BackEnd
+  npm install
+  
+  # Inicie o servidor Backend
+  npm server.js
+  
+  # Em um novo terminal, acesse a pasta do projeto Next
+  cd dundermifflin
+  
+  # Instale as dependências do FrontEnd
+  npm install
+  
+  # Inicie o servidor FrontEnd
+  npm run dev
 ```
-Acesse o projeto em:
-👉 http://localhost:3000
+Acesse o projeto em: http://localhost:3000
+
+---
 
 ## 📂 Estrutura do Projeto
 ```
-dunder-mifflin-b2b/
+DunderMifflin/
 │
-├── backend/
-│   ├── index.js
+├── api/
+│   ├── server.js
 │   ├── routes/
-│   ├── controllers/
-│   └── models/
+│   ├── middlewares/
+│   ├── json/
+│   └── js/
 │
-└── frontend/
+└── dundermifflin/
     ├── pages/
     ├── components/
     └── styles/
 ```
+
+---
+
 ## 📌 Funcionalidades
 
 Listagem de produtos obtidos via API
@@ -80,14 +94,6 @@ Interface responsiva com Bootstrap
 
 Comunicação entre BackEnd e FrontEnd via requisições HTTP
 
-## 💭 Melhorias Futuras
+---
 
-Implementar autenticação JWT
-
-Criar painel administrativo para gerenciar produtos
-
-Integrar com banco de dados (ex: MongoDB ou MySQL)
-
-Adicionar testes automatizados
-
-<p align="center"> Feito com ❤️ por <b>Dunder Mifflin Dev Team</b> 🧠 </p> ```
+<p align="center">Feito por <b>Giovanne Isaac Marques</b></p>
