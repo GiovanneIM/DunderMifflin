@@ -5,6 +5,12 @@
   Envolvendo as disciplinas de <b>Backend</b> e <b>Frontend</b>.
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-Express-green" alt="Node.js">
+  <img src="https://img.shields.io/badge/Next.js-Frontend-blue" alt="Next.js">
+  <img src="https://img.shields.io/badge/Bootstrap-Responsive-purple" alt="Bootstrap">
+</p>
+
 ---
 
 ## 🧾 Descrição do Projeto
@@ -17,6 +23,43 @@ O site conta com:
 - Um **FrontEnd** desenvolvido com **Next.js**, responsável por consumir a API e exibir os produtos
 
 > 💡 **Observação:** Todos os produtos exibidos no site devem ser obtidos por meio de requisições à API.
+
+---
+
+## 💡 Ideia Realizada
+
+Decidi construir o sistema para uma empresa fictícia de venda de materiais de escritório chamada **Dunder Mifflin Paper Company, Inc**, inspirada na série *The Office*.
+
+O sistema foi desenvolvido para gerenciar a relação entre **Administradores**, **Empresas Clientes** e **Gerentes de Compras**, permitindo o controle completo de produtos, listas de compras e aprovações.
+
+### 🧍‍♂️ Administradores
+- Acessam o sistema através do endereço:  
+  👉 `http://localhost:3000/admin`
+- Realizam login e são direcionados para a página `/admin/home`.
+- Possuem acesso a funcionalidades de:
+  - Cadastro e gerenciamento de **empresas clientes**  
+  - Controle de **produtos do estoque**  
+  - Acompanhamento e aprovação de **listas de compras** enviadas pelas empresas
+
+### 🏢 Empresas Clientes
+- Acessam o site pelo endereço principal:  
+  👉 `http://localhost:3000`
+- Após clicar em **Login**, são direcionadas para `/login`.
+- Após autenticação, podem:
+  - Cadastrar e gerenciar seus **gerentes de compras**  
+  - Visualizar e aprovar as **listas de compras** enviadas pelos gerentes vinculados à empresa
+
+### 🛒 Gerentes de Compras
+- Também acessam o sistema via `http://localhost:3000`
+- Após login, podem:
+  - **Adicionar produtos** à sua lista de compras  
+  - **Finalizar e enviar** a lista para sua respectiva empresa  
+  - **Aguardar aprovação** da empresa cliente
+
+---
+
+> 🧠 **Resumo:**  
+> O sistema cria um fluxo completo de compras B2B, permitindo que administradores gerenciem o catálogo, empresas aprovem pedidos e gerentes façam requisições de produtos — tudo integrado em uma interface web.
 
 ---
 
@@ -50,10 +93,10 @@ O site conta com:
   npm install
   
   # Inicie o servidor Backend
-  npm server.js
+  node server.js
   
   # Em um novo terminal, acesse a pasta do projeto Next
-  cd dundermifflin
+  cd ../dundermifflin
   
   # Instale as dependências do FrontEnd
   npm install
@@ -86,13 +129,10 @@ DunderMifflin/
 
 ## 📌 Funcionalidades
 
-Listagem de produtos obtidos via API
-
-Login e gerenciamento de sessão
-
-Interface responsiva com Bootstrap
-
-Comunicação entre BackEnd e FrontEnd via requisições HTTP
+- Listagem de produtos obtidos via API  
+- Login e gerenciamento de sessão  
+- Interface responsiva com Bootstrap  
+- Comunicação entre BackEnd e FrontEnd via requisições HTTP  
 
 ---
 
