@@ -32,6 +32,10 @@ O site conta com:
 
 ## 💡 Ideia Realizada
 
+<p align="center">
+  <img src="./logoPreta.svg" alt="Logo Dunder Mifflin" width="120"/>
+</p>
+
 Decidi construir o sistema para uma empresa fictícia de venda de materiais de escritório chamada **Dunder Mifflin Paper Company, Inc**, inspirada na série *The Office*.
 
 O sistema foi desenvolvido para gerenciar a relação entre **Administradores**, **Empresas Clientes** e **Gerentes de Compras**, permitindo o controle completo de produtos, listas de compras e aprovações.
