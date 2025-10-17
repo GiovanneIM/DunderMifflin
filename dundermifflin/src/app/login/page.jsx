@@ -12,25 +12,23 @@ export default function Login() {
         e.preventDefault();
 
         const idNum = Number(loginInfo.id);
-        const corpoReq = { ...loginInfo, id: idNum };
+        const corpoReq = { ...loginInfo, id: idNum, tipoLogin: usuario };
 
-        console.log('Login enviado:', loginInfo);
+        console.log('Login enviado:', corpoReq);
         console.log('Tipo de Usuário:', usuario);
 
-        const urlLogin = `http://localhost:4000/${usuario}/login`;
+        const urlLogin = `http://localhost:4000/login`;
         fetch(urlLogin, {
             method: 'POST',
             credentials: "include",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(corpoReq)
         })
-        .then(async res => {
-            const texto = await res.text();
-            console.log("Status:", res.status);
-            console.log("Resposta:", texto);
-        })
+            .then(async res => {
+                const texto = await res.text();
+                console.log("Status:", res.status);
+                console.log("Resposta:", texto);
+            })
     }
 
     function atualizarInfoLogin(e) {
@@ -41,6 +39,20 @@ export default function Login() {
 
     function atualizarUsuario(e) {
         setUsuario(e.target.value);
+    }
+
+    async function verificarLogin(e) {
+        e.preventDefault();
+        const urlLogin = `http://localhost:4000/verificarLogin`;
+        fetch(urlLogin, {
+            method: 'GET',
+            credentials: "include",
+        })
+            .then(async res => {
+                const texto = await res.text();
+                console.log("Status:", res.status);
+                console.log("Resposta:", texto);
+            })
     }
 
     return <>
@@ -138,6 +150,10 @@ export default function Login() {
                             <a className="text-body-secondary" href='/cadastro'>Como ter uma conta</a>
                         </div>
                     </form>
+
+                    <button className="btn btn-2 w-100 py-2" onClick={verificarLogin} id='btn-login'>
+                        Verificar Login
+                    </button>
                 </div>
             </div>
         </div>

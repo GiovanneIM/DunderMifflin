@@ -6,9 +6,40 @@ const port = 4000;
 const caminhoEmpresas = './json/empresas.json'
 const caminhoGerentes = './json/gerentes.json'
 
+
+
 // MIDDLEWARES
-const middlewares = require('./middlewares/middlewares.js');
-app.use(middlewares);
+const cors = require("cors");
+const session = require('express-session');
+
+// CORS - Middleware para permitir acessar pelo FrontEnd
+app.use(cors({
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // endereço do front-end
+    credentials: true // Para enviar cookies/sessões
+}));
+
+// JSON - Leitura de JSON em requisições
+app.use(express.json()); 
+
+// SESSION - Middleware para criar sessões
+app.use(session({
+    secret: 'segredo',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        maxAge: 1000 * 60 * 60 * 24, 
+        secure: false, 
+        sameSite: 'none'
+    }
+}));
+
+// Sessao
+const sessao = require('./middlewares/sessao.js') 
+app.use(sessao)
+
+// Logger
+const logger = require('./middlewares/logger.js') 
+app.use(logger)
 
 // Autenticação
 const autenticacao = require('./middlewares/autenticacao.js');

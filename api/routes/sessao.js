@@ -52,16 +52,16 @@ router.post('/login', (req, res) => {
 });
 
 // Rota para verificar se há um usuário logado
-router.get('/verificar-login', (req, res) => {
+router.get('/verificarLogin', (req, res) => {
 
-    if (req.usuario) {
-        // Respondendo que há um usuário logado, passando as informações dele e o tipo
-        res.json({ logado: true, usuario: req.usuario, tipo: req.usuario.tipo });
-    }
-    else {
-        // Respondendo que não há um usuário logado
-        res.json({ logado: false });
-    }
+  if (req.usuario) {
+    // Respondendo que há um usuário logado, passando as informações dele e o tipo
+    res.json({ logado: true, usuario: req.usuario, tipo: req.usuario.tipo });
+  } 
+  else {
+    // Respondendo que não há um usuário logado
+    res.json({ logado: false });
+  }
 
 });
 
