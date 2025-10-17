@@ -10,18 +10,20 @@ router.use(session({
 }));
 
 // Verificando sessões
-router.use((req, res, next) => {
-    const tiposDeUsuarios = ['gerente', 'empresa', 'admin'];
+// router.use((req, res, next) => {
+//     const tiposDeUsuarios = ['gerente', 'empresa', 'admin'];
 
-    for (const tipo of tiposDeUsuarios) {
-        if (req.session[tipo]) {
-            req.usuario = req.session[tipo];
-            req.usuario.tipo = tipo;
-            break;
-        }
-    }
+//     for (const tipo of tiposDeUsuarios) {
+//         if (req.session[tipo]) {
+//             req.usuario = req.session[tipo];
+//             req.usuario.tipo = tipo;
+//             break;
+//         }
+//     }
 
-    next();
-});
+//     if (!req.usuario) req.usuario = null;
+
+//     next();
+// });
 
 module.exports = router;

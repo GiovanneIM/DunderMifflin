@@ -15,7 +15,7 @@ const caminhoAdmins = './json/admins.json'
 router.post('/login', (req, res) => {
     const { id, senha, tipoLogin } = req.body;
 
-    if (req.usuario) {
+     if (['gerente', 'empresa', 'admin'].some(tipo => req.session[tipo])) {
         res.status(400).send('Já há um usuário logado.');
         return;
     }
@@ -43,7 +43,10 @@ router.post('/login', (req, res) => {
         }
 
         req.session[tipoLogin] = usuario;
-        console.log(`${tipoLogin} (${usuario.id}) ${usuario.nome} logadao (a) com sucesso.`);
+        req.session[tipoLogin].tipo = tipoLogin;
+
+        console.log(`${tipoLogin} (${usuario.id}) ${usuario.nome} logado (a) com sucesso.`);
+        console.log("Session ID atual:", req.sessionID);
         res.status(200).send(`${tipoLogin} (${usuario.id}) ${usuario.nome} logado (a) com sucesso.`);
     })
 });
@@ -51,14 +54,14 @@ router.post('/login', (req, res) => {
 // Rota para verificar se há um usuário logado
 router.get('/verificar-login', (req, res) => {
 
-  if (req.usuario) {
-    // Respondendo que há um usuário logado, passando as informações dele e o tipo
-    res.json({ logado: true, usuario: req.usuario, tipo: req.usuario.tipo });
-  } 
-  else {
-    // Respondendo que não há um usuário logado
-    res.json({ logado: false });
-  }
+    if (req.usuario) {
+        // Respondendo que há um usuário logado, passando as informações dele e o tipo
+        res.json({ logado: true, usuario: req.usuario, tipo: req.usuario.tipo });
+    }
+    else {
+        // Respondendo que não há um usuário logado
+        res.json({ logado: false });
+    }
 
 });
 
