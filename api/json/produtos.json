@@ -4,7 +4,10 @@
         "nome": "Papel A4 Sulfite 75g 500 folhas - Go Office",
         "preco": 30.9,
         "marca": "Go Office",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/045145.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/045145_5.jpg?ims=1000x",
@@ -17,23 +20,29 @@
         "quantidade": 7
     },
     {
-        "id": 1,
         "nome": "Papel A4 Sulfite Branco Caixa 5000 Folhas 75g - Go Office",
         "preco": 275.9,
         "marca": "Go Office",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/045840.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/045840_1.jpg?ims=1000x"
         ],
-        "quantidade": 0
+        "id": 1,
+        "quantidade":0
     },
     {
         "id": 2,
         "nome": "Saco Plástico Ofício Sem Furos 0.12 Micras Pacote 100 Unidades",
         "preco": 31.49,
         "marca": "Go Office",
-        "categoria": ["Organização", "Saco Plástico Ofício"],
+        "categoria": [
+            "Organização",
+            "Saco Plástico Ofício"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/037555.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037555_1.jpg?ims=1000x",
@@ -45,9 +54,12 @@
     {
         "id": 3,
         "nome": "Papel A4 Amarelo 210x297mm 75g 500 folhas - Chamex",
-        "preco": 35.90,
+        "preco": 35.9,
         "marca": "Chamex",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/050961.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/050961_2.jpg?ims=1000x"
@@ -57,9 +69,12 @@
     {
         "id": 4,
         "nome": "Papel A4 Reciclado 75g 500 folhas - Go Office Eco",
-        "preco": 25.90,
+        "preco": 25.9,
         "marca": "Go Office",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/053925.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/053925_1.jpg?ims=1000x",
@@ -71,9 +86,12 @@
     {
         "id": 5,
         "nome": "Papel A4 Rosa 75 g 210 x 297 mm 500 folhas | Report",
-        "preco": 36.90,
+        "preco": 36.9,
         "marca": "Report",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/040158.jpg?ims=1000x"
         ],
@@ -82,9 +100,12 @@
     {
         "id": 6,
         "nome": "Papel A4 Amarelo 210x297mm 75g 500 folhas | Report",
-        "preco": 36.90,
+        "preco": 36.9,
         "marca": "Report",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/040156.jpg?ims=1000x"
         ],
@@ -93,9 +114,12 @@
     {
         "id": 7,
         "nome": "Papel A4 Verde 210x297mm 75g 500 folhas | Report",
-        "preco": 36.90,
+        "preco": 36.9,
         "marca": "Report",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/040159.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/040159_1.jpg?ims=1000x",
@@ -106,9 +130,12 @@
     {
         "id": 8,
         "nome": "Papel A4 Azul 210x297mm 75g 500 folhas | Report",
-        "preco": 36.90,
+        "preco": 36.9,
         "marca": "Report",
-        "categoria": ["Papel", "Papel A4"],
+        "categoria": [
+            "Papel",
+            "Papel A4"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/040157.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/040157_1.jpg?ims=1000x",
@@ -119,9 +146,12 @@
     {
         "id": 9,
         "nome": "Caneta Esferográfica Compactor Economic Vermelha Caixa com 50 unidades",
-        "preco": 44.90,
+        "preco": 44.9,
         "marca": "Compactor",
-        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "categoria": [
+            "Canetas e Marcadores",
+            "Caneta Esferográfica"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/052209.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/052209_1.jpg?ims=1000x",
@@ -132,9 +162,12 @@
     {
         "id": 10,
         "nome": "Caneta Esferográfica Compactor Economic Azul Caixa com 50 unidades",
-        "preco": 44.90,
+        "preco": 44.9,
         "marca": "Compactor",
-        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "categoria": [
+            "Canetas e Marcadores",
+            "Caneta Esferográfica"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/052210.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/052210_1.jpg?ims=1000x",
@@ -145,9 +178,12 @@
     {
         "id": 11,
         "nome": "Caneta Esferográfica Compactor Economic Preta Caixa com 50 unidades",
-        "preco": 44.90,
+        "preco": 44.9,
         "marca": "Compactor",
-        "categoria": ["Canetas e Marcadores", "Caneta Esferográfica"],
+        "categoria": [
+            "Canetas e Marcadores",
+            "Caneta Esferográfica"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/052211.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/052211_1.jpg?ims=1000x",
@@ -158,9 +194,12 @@
     {
         "id": 12,
         "nome": "Caixa de Correspondência Dupla Articulável Cristal | Maxcril",
-        "preco": 41.90,
+        "preco": 41.9,
         "marca": "Maxcril",
-        "categoria": ["Organização", "Escaninhos e Correspondência"],
+        "categoria": [
+            "Organização",
+            "Escaninhos e Correspondência"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/018727.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/018727_1.jpg?ims=1000x",
@@ -174,7 +213,10 @@
         "nome": "Caixa de Correspondência Dupla Articulável Fumê | Maxcril",
         "preco": 42.29,
         "marca": "Maxcril",
-        "categoria": ["Organização", "Escaninhos e Correspondência"],
+        "categoria": [
+            "Organização",
+            "Escaninhos e Correspondência"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/018728.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/018728_1.jpg?ims=1000x"
@@ -186,7 +228,10 @@
         "nome": "Fita Adesiva 24 mm x 50 metros Transparente 4 unidades | Sooper",
         "preco": 14.49,
         "marca": "Sooper",
-        "categoria": ["Blocos Adesivo, Colas e Fitas", "Fita Adesiva"],
+        "categoria": [
+            "Blocos Adesivo, Colas e Fitas",
+            "Fita Adesiva"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/044601.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/044601_1.jpg?ims=1000x",
@@ -198,9 +243,12 @@
     {
         "id": 15,
         "nome": "Fita Adesiva Transparente 45 mm X 100 m | 3M Scotch",
-        "preco": 12.90,
+        "preco": 12.9,
         "marca": "Scotch",
-        "categoria": ["Blocos Adesivo, Colas e Fitas", "Fita Adesiva"],
+        "categoria": [
+            "Blocos Adesivo, Colas e Fitas",
+            "Fita Adesiva"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/043473.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/043473_1.jpg?ims=1000x",
@@ -212,9 +260,12 @@
     {
         "id": 16,
         "nome": "Bloco Adesivo Amarelo Neon 76 mm x 76 mm 45 folhas | Post-it 3M",
-        "preco": 7.90,
+        "preco": 7.9,
         "marca": "3M",
-        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "categoria": [
+            "Adesivos, Colas e Fitas",
+            "Bloco adesivo"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/037014.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037014_1.jpg?ims=1000x",
@@ -226,9 +277,12 @@
     {
         "id": 17,
         "nome": "Bloco Adesivo Azul 76 mm x 76 mm 45 folhas | Post-it 3M",
-        "preco": 7.90,
+        "preco": 7.9,
         "marca": "3M",
-        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "categoria": [
+            "Adesivos, Colas e Fitas",
+            "Bloco adesivo"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/037016.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037016_1.jpg?ims=1000x",
@@ -240,9 +294,12 @@
     {
         "id": 18,
         "nome": "Bloco Adesivo Laranja 76 mm x 76 mm 45 folhas | Post-it 3M",
-        "preco": 7.90,
+        "preco": 7.9,
         "marca": "3M",
-        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "categoria": [
+            "Adesivos, Colas e Fitas",
+            "Bloco adesivo"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/037015.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037015_1.jpg?ims=1000x",
@@ -254,9 +311,12 @@
     {
         "id": 19,
         "nome": "Bloco Adesivo Lilás 76 mm x 76 mm 90 folhas | Post-it 3M",
-        "preco": 12.90,
+        "preco": 12.9,
         "marca": "3M",
-        "categoria": ["Adesivos, Colas e Fitas", "Bloco adesivo"],
+        "categoria": [
+            "Adesivos, Colas e Fitas",
+            "Bloco adesivo"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/037018.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/037018_1.jpg?ims=1000x",
@@ -268,9 +328,12 @@
     {
         "id": 20,
         "nome": "Arquivo Morto Kraft Gigante 26x26,5x37 cm 10 unidades | Go Office",
-        "preco": 69.90,
+        "preco": 69.9,
         "marca": "Go Office",
-        "categoria": ["Caixa e Arquivos", "Arquivo Morto"],
+        "categoria": [
+            "Caixa e Arquivos",
+            "Arquivo Morto"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/023322.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/023322_1.jpg?ims=1000x",
@@ -282,9 +345,12 @@
     {
         "id": 21,
         "nome": "Arquivo Morto Kraft Pequeno 13x24x34cm 10 unidades | Go Office",
-        "preco": 35.90,
+        "preco": 35.9,
         "marca": "Go Office",
-        "categoria": ["Caixa e Arquivos", "Arquivo Morto"],
+        "categoria": [
+            "Caixa e Arquivos",
+            "Arquivo Morto"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/023321.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/023321_1.jpg?ims=1000x",
@@ -296,9 +362,12 @@
     {
         "id": 22,
         "nome": "Envelope Kraft 200 mm X 280 mm 75g 250 unidades",
-        "preco": 52.90,
+        "preco": 52.9,
         "marca": "Romitec",
-        "categoria": ["Envelopes", "Kraft"],
+        "categoria": [
+            "Envelopes",
+            "Kraft"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/036460.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/036460_1.jpg?ims=1000x",
@@ -309,9 +378,12 @@
     {
         "id": 23,
         "nome": "Envelope Saco Kraft 250 mm x 353 mm 250 unidades 75 g",
-        "preco": 91.90,
+        "preco": 91.9,
         "marca": "Romitec",
-        "categoria": ["Envelopes", "Kraft"],
+        "categoria": [
+            "Envelopes",
+            "Kraft"
+        ],
         "imagem": [
             "https://fotos.oceanob2b.com/High/041688.jpg?ims=1000x",
             "https://fotos.oceanob2b.com/High/041688_1.jpg?ims=1000x",

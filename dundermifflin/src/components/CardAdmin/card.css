@@ -1,0 +1,126 @@
+a:hover {
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
+.link_card{
+    all: unset;
+}
+
+.card {
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-img {
+    width: 15rem;
+    height: 15rem;
+    overflow: hidden;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.card-img img{    
+    object-fit: contain;
+    width: 238px;
+    height: 238px;
+}
+.card-img:hover {
+    filter: brightness(75%);
+}
+
+.card-corpo {
+    padding: 1rem;
+}
+
+.card-nome {
+    /*Div*/
+    width: 100%;
+    display: -webkit-box;            /* cria uma caixa flexível para texto */
+    -webkit-box-orient: vertical;    /* orienta o texto verticalmente */
+    -webkit-line-clamp: 2;           /* permite no máximo 2 linhas */
+    overflow: hidden;                /* corta o que ultrapassar */
+    text-overflow: ellipsis;
+
+    /*Texto*/
+    color: #212529 !important;
+    font-weight: 600; /* negrito médio */
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-preco {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #008000;
+    margin-bottom: 0.6rem;
+}
+
+.card-botoes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-botoes .btn-1{
+    font-size: 0.8rem;
+}
+
+.div_contador {
+    width: 4rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+
+    border: 1px solid #212529 !important;
+    overflow: hidden;
+}
+.btn-contador {
+    all: unset;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-contador:hover {
+    background-color: rgb(173, 171, 171);
+}
+.contador {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.botao_carrinho {
+    width: 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+/* TOAST */
+.toast-body {
+    display: flex;
+}
+.toast-img {
+    height: 5rem;
+}
+
+.card .card-nome a {
+    all: unset;
+}
+
+
+

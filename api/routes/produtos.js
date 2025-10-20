@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     // Lendo a lista de tarefas
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Lendo e convertendo o conteúdo do JSON com os produtos
-        const produtos = v.lerEconveterJSON(err, data, res)
+        const produtos = v.lerEconverterJSON(err, data, res)
         if (!produtos) { return }
 
         // Enviando os produtos
@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
     // Lendo a lista de tarefas
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Lendo e convertendo o conteúdo do JSON com os produtos
-        const produtos = v.lerEconveterJSON(err, data, res)
+        const produtos = v.lerEconverterJSON(err, data, res)
         // Verificando se a lista foi lida
         if (!produtos) {
             return

@@ -15,7 +15,7 @@ export default function RegistrarProduto() {
 
     const [novaImagem, setNovaImagem] = useState('')
 
-    
+
 
     // Adicionando o produto ao banco
     function cadastrarProduto(e) {
@@ -23,21 +23,24 @@ export default function RegistrarProduto() {
 
         const produto = {
             nome,
-            preco,
+            "preco": Number(preco.replace(',', '.')),
             marca,
-            categoria,
-            subcategoria,
-            descricao,
-            imagens
+            "categoria": [categoria, subcategoria],
+            "imagem": imagens,
         }
 
         console.log("Produto a cadastrar:", produto)
-        // aqui você pode fazer:
-        // fetch("http://localhost:4000/produtos", { method: "POST", body: JSON.stringify(produto), headers: { "Content-Type": "application/json" } })
+        fetch("http://localhost:4000/admin/adicionar", {
+            method: "POST",
+            body: JSON.stringify(produto),
+            headers: { "Content-Type": "application/json" },
+            credentials: 'include'
+        })
+            .then(res => console.log(res))
     }
 
 
-
+    
     // Abrir modal
     function abrirModal() {
         const modal = new bootstrap.Modal(document.getElementById('modalImagem'))
@@ -150,7 +153,6 @@ export default function RegistrarProduto() {
 
 
 
-
         {/* MODAL */}
         <div className="modal fade" id="modalImagem" tabIndex="-1" aria-labelledby="modalImagemLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -168,6 +170,9 @@ export default function RegistrarProduto() {
                         <input type="text" id="linkImagem" className="form-control" placeholder="URL da imagem" value={novaImagem} onChange={(e) => setNovaImagem(e.target.value)} />
                     </div>
 
+                    {novaImagem && (
+                        <img src={novaImagem} alt="Preview" className="img-fluid mt-3" />
+                    )}
                     {/* BOTÕES */}
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>

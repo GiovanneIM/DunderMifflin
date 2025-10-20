@@ -11,7 +11,7 @@ const v = require('../js/validacoes.js')
 // ADICIONAR PRODUTO
 router.post('/adicionar', (req, res) => {
     // Recebendo os dados
-    const { nome, preco, marca } = req.body;
+    const { nome, preco, marca, categoria, imagem } = req.body;
 
     // Validando os dados passados
     if (!nome || !preco || !marca || isNaN(preco)) {
@@ -21,7 +21,7 @@ router.post('/adicionar', (req, res) => {
     // Lendo a lista de produtos
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const produtos = v.lerEconverterJSON(res, err, data);
+        const produtos = v.lerEconverterJSON(err, data, res);
         if (!produtos) { return; }
 
         // Criando um novo produto
@@ -36,9 +36,9 @@ router.post('/adicionar', (req, res) => {
             "id": idNovoProduto,
             "nome": nome,
             "preco": preco,
-            "marca": marca,
-            "categoria": [],
-            "imagem": [],
+            "marca": marca ? marca : "",
+            "categoria": categoria ? categoria : [],
+            "imagem": imagem ? imagem : [],
             "quantidade": 0
         }
 
@@ -62,6 +62,47 @@ router.post('/adicionar', (req, res) => {
 
                 res.status(201).send('Produto adicionado com o ID: ' + idNovoProduto);
             });
+        });
+    })
+})
+
+// ATUALIZAR AS INFORMAÇÕES DE UM PRODUTO
+router.put('/atualizar/:id', (req, res) => {
+    // Recebendo os dados
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send('Erro: O ID inserido não era um número.');
+    }
+
+    const { produto } = req.body;
+
+    // Validando os dados passados
+    if (!produto.nome || !produto.preco || !produto.marca || isNaN(produto.preco)) {
+        return res.status(400).json({ erro: 'Campos nome e preço (float) são obrigatórios.' });
+    }
+
+    // Lendo a lista de produtos
+    fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const produtos = v.lerEconverterJSON(err, data, res);
+        if (!produtos) { return; }
+
+        // Adicionando produto à lista
+        const index = produtos.findIndex(prod => prod.id === id);
+        if (index === -1) {
+            return res.status(404).send('Produto não encontrado.');
+        }
+
+        produtos[index] = { ...produto, id };
+
+        // Salvando a lista de produtos
+        fs.writeFile(caminhoProdutos, JSON.stringify(produtos, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar produtos:', err);
+                return res.status(500).send('Erro ao salvar produtos.');
+            }
+
+            res.status(201).send('Produto atualzado!');
         });
     })
 })

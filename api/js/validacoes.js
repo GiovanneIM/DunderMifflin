@@ -1,4 +1,4 @@
-function lerEconveterJSON (err, data, res) {
+function lerEconverterJSON (err, data, res) {
     // Verifica se houve erro na leitura
     if (err) {
         console.log(`Erro na leitura do arquivo: ${err}`);
@@ -23,5 +23,5 @@ function lerEconveterJSON (err, data, res) {
 
 
 module.exports = {
-    lerEconveterJSON
+    lerEconverterJSON
 }

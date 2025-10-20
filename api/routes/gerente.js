@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
     }
 
     fs.readFile(caminhoGerentes, 'utf-8', (err, data) => {
-        const gerentes = v.lerEconveterJSON(err, data, res);
+        const gerentes = v.lerEconverterJSON(err, data, res);
         if (!gerentes) { return }
 
         const gerente = gerentes.find((ger) => { return ger.id === id });
