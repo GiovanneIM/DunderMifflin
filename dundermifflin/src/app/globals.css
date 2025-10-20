@@ -81,8 +81,24 @@ header, footer {
     border-color: #2125293d !important;
 }
 
+.bordaPreta {
+    border-color: #212529 !important;
+}
+
 .fundoCinza {
-    /* background-color: #e2e2e2; */
-    /* background-color: #efefef; */
     background-color: #2125290d;
+}
+
+.fundoBranco {
+    background-color: #fff;
+}
+
+.container-form {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+}
+
+.container-form .form-floating {
+    margin: 0 0.75rem;
 }

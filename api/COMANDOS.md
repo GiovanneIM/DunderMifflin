@@ -6,7 +6,7 @@ curl -X POST -H 'Content-Type: application/json' -d '{"nome":"", "preco":0.00}' 
 
 ###### **Adicionar imagem**
 
-$ curl -X PATCH -H 'Content-Type: application/json' -d '{"imagem":"" (, "remover":true)}' http://localhost:4000/admin/:id/imagem                    
+curl -X PATCH -H 'Content-Type: application/json' -d '{"imagem":"" (, "remover":true)}' http://localhost:4000/admin/:id/imagem
 
 
 

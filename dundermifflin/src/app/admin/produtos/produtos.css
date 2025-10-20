@@ -1,0 +1,53 @@
+.adicionarImagem {
+    background-color: #fff;
+    border: 1px solid #2125293d;
+    border-radius: 0.375rem;
+    padding: 0;
+    overflow: hidden;
+    padding-bottom: 1rem;
+}
+
+.botaoAdicionar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #2125293d !important;
+    border-radius: 0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.botaoAdicionar:hover {
+    background-color: #2125293d;
+}
+
+.imgDiv {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    margin: 0 1rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
+    border: #2125293d 1px solid;
+    border-left: 0;
+    border-right: 0;
+    position: relative;
+    gap: 1rem;
+}
+
+.imgExcluir {
+    height: 1.7rem;
+    width: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2125293d;
+    font-weight: 700;
+}
+
+.imgLink {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
