@@ -2,16 +2,10 @@ button a {
     all: unset;
 }
 
-.bordaCinza {
-    border-color: #2125293d !important;
-}
-
 header .bi {
     transition: transform 0.3s ease;
 }
 
 header a:hover {
     text-decoration: none;
-}
-.btn_navbar:hover {
 }

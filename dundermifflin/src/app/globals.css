@@ -85,12 +85,17 @@ header, footer {
     border-color: #212529 !important;
 }
 
+.fundoBranco {
+    background-color: #fff;
+}
+
 .fundoCinza {
     background-color: #2125290d;
 }
 
-.fundoBranco {
-    background-color: #fff;
+.fundoPreto {
+    background-color: #212529 !important;
+    color: #fff !important;
 }
 
 .container-form {
