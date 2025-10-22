@@ -2,14 +2,52 @@ const express = require('express');
 const router = express.Router();
 
 const fs = require('fs');
-const caminhoProdutos = './json/produtos.json';
-const caminhoDescricao = './json/descricoes.json';
-const caminhoEmpresas = './json/empresas.json';
 
+// Validações
 const v = require('../js/validacoes.js')
 
+// Arquivos
+const caminhoAdmins = './json/admins.json'
+const caminhoEmpresas = './json/empresas.json'
+const caminhoGerentes = './json/gerentes.json'
+const caminhoProdutos = './json/produtos.json';
 
-// ADICIONAR PRODUTO
+// ROTAS
+
+// Rota para fazer login
+router.post('/login', (req, res) => {
+    // Recebendo as informações de login
+    const { id, senha } = req.body;
+
+    // Validando as informações
+    if (isNaN(id) || !senha) {
+        return res.status(400).send('ID e/ou senha incorretos.');
+    }
+
+    // Lendo os admin
+    fs.readFile(caminhoAdmins, 'utf-8', (err, data) => {
+        const admins = v.lerEconveterJSON(err, data, res);
+        if (!admins) { return }
+
+        // Procurando pelo admin
+        const admin = admins.find((emp) => { return emp.id === id });
+
+        // Verificando se o admin foi encontrado e se a senha está certa
+        if (!admin || admin.senha !== senha) {
+            res.status(401).send('ID e/ou senha incorretos.');
+            return;
+        }
+
+        // Login bem sucedido
+        console.log(`Empresa (${empresa.id}) - ${empresa.nome} logada.`);
+        res.status(200).json({
+            "sucesso": true,
+            "usuario": { "id": admin.id, "tipo": "admin", "nome": admin.nome }
+        });
+    })
+});
+
+// Rota para adicionar um produto
 router.post('/adicionar', (req, res) => {
     // Recebendo os dados
     const { nome, preco, marca, categoria, imagem } = req.body;
@@ -67,7 +105,7 @@ router.post('/adicionar', (req, res) => {
     })
 })
 
-// ATUALIZAR AS INFORMAÇÕES DE UM PRODUTO
+// Rota para atualizar as informações de um produto
 router.put('/atualizar/:id', (req, res) => {
     // Recebendo os dados
     const id = parseInt(req.params.id);
@@ -108,7 +146,7 @@ router.put('/atualizar/:id', (req, res) => {
     })
 })
 
-// ATUALIZAR QUANTIDADE
+// Rota para alterar a quantidade de um produto
 router.patch('/:id/quantidade', (req, res) => {
     // Recebendo a imagem
     const id = parseInt(req.params.id);
@@ -149,7 +187,7 @@ router.patch('/:id/quantidade', (req, res) => {
     })
 })
 
-// ALTERAR A DESCRIÇÃO DO PRODUTO
+// Rota para alterar a descrição de um produto
 router.put('/:id/descricao', (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -187,8 +225,7 @@ router.put('/:id/descricao', (req, res) => {
     })
 })
 
-
-// REGISTRAR EMPRESA
+// Rota para registrar um empresa
 router.post('/registrarEmpresa', (req, res) => {
     // Recebendo os dados
     const { empresa } = req.body;

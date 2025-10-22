@@ -2,40 +2,20 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
-// Arquivos
-const caminhoEmpresas = './json/empresas.json'
-const caminhoGerentes = './json/gerentes.json'
 
 
 
 // MIDDLEWARES
-const cors = require("cors");
-const session = require('express-session');
-
-// CORS - Middleware para permitir acessar pelo FrontEnd
-app.use(cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // endereço do front-end
-    credentials: true // Para enviar cookies/sessões
-}));
 
 // JSON - Leitura de JSON em requisições
-app.use(express.json()); 
+app.use(express.json());
 
-// SESSION - Middleware para criar sessões
-app.use(session({
-    secret: 'segredo',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { 
-        maxAge: 1000 * 60 * 60 * 24, 
-        secure: false, 
-        sameSite: 'none'
-    }
+// CORS - Middleware para permitir acessar pelo FrontEnd
+const cors = require("cors");
+app.use(cors({
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // endereço do front-end
+    credentials: true // Para receber cookies
 }));
-
-// Sessao
-const sessao = require('./middlewares/sessao.js') 
-app.use(sessao)
 
 // Logger
 const logger = require('./middlewares/logger.js') 
@@ -46,12 +26,10 @@ const autenticacao = require('./middlewares/autenticacao.js');
 
 
 
+
 // ROTAS
 const rotasUsuario = require('./routes/produtos.js') // PRODUTOS
 app.use('/produtos', rotasUsuario)
-
-const rotasSessao = require('./routes/sessao.js') // SESSÃO
-app.use('/', rotasSessao)
 
 const rotasAdmin = require('./routes/admin.js') // ADMIN
 app.use('/admin', rotasAdmin)
@@ -61,6 +39,7 @@ app.use('/empresa', rotasEmpresa)
 
 const rotasGerente = require('./routes/gerente.js') // GERENTE DE COMPRAS
 app.use('/gerente', rotasGerente)
+
 
 
 
@@ -86,111 +65,81 @@ app.listen(port, () => {
 
 /*
 
+Papelaria e escrita
 
-Um site B2B (business-to-business) de materiais de escritório não vende para o consumidor final, mas sim para empresas, escolas, escritórios contábeis, indústrias, órgãos públicos, clínicas, etc.
+    Canetas (esferográficas, marca-texto, corretivas, pincéis, etc.)
 
-Então o foco deve ser produtos em volume, reposição constante e atendimento corporativo (faturas, pedidos recorrentes, orçamento via CNPJ, etc).
+    Lápis e lapiseiras
 
-🧩 Categorias e produtos que um B2B de escritório pode vender
-🖊️ Papelaria e escrita
+    Borrachas, apontadores
 
-Canetas (esferográficas, marca-texto, corretivas, pincéis, etc.)
+    Cadernos, blocos, agendas
 
-Lápis e lapiseiras
+    Papel A4 / A3 (sulfite, reciclado, fotográfico, colorido)
 
-Borrachas, apontadores
+    Post-its e etiquetas adesivas
 
-Cadernos, blocos, agendas
+Arquivamento e organização
 
-Papel A4 / A3 (sulfite, reciclado, fotográfico, colorido)
+    Pastas (suspensas, catálogo, sanfonadas, elásticas)
 
-Post-its e etiquetas adesivas
+    Fichários e refis
 
-📚 Arquivamento e organização
+    Divisórias
 
-Pastas (suspensas, catálogo, sanfonadas, elásticas)
+    Clipes, grampos, elásticos
 
-Fichários e refis
+    Caixas organizadoras
 
-Divisórias
+    Arquivos de aço e gaveteiros
 
-Clipes, grampos, elásticos
+Suprimentos de informática e impressão
 
-Caixas organizadoras
+    Toners e cartuchos (HP, Epson, Canon, Brother, etc.)
 
-Arquivos de aço e gaveteiros
+    Papéis especiais (fotográfico, etiquetas, adesivos)
 
-🧾 Suprimentos de informática e impressão
+    Mídias (pendrives, HDs externos, DVDs, etc.)
 
-Toners e cartuchos (HP, Epson, Canon, Brother, etc.)
+    Teclados, mouses, cabos, adaptadores
 
-Papéis especiais (fotográfico, etiquetas, adesivos)
+    Suportes para monitor e notebook
 
-Mídias (pendrives, HDs externos, DVDs, etc.)
+    Extensões e filtros de linha
 
-Teclados, mouses, cabos, adaptadores
+Mobiliário de escritório
 
-Suportes para monitor e notebook
+    Mesas e escrivaninhas
 
-Extensões e filtros de linha
+    Cadeiras ergonômicas
 
-🪑 Mobiliário de escritório
+    Armários e arquivos metálicos
 
-Mesas e escrivaninhas
+    Estações de trabalho
 
-Cadeiras ergonômicas
+    Suportes de monitor e organizadores de mesa
 
-Armários e arquivos metálicos
+Copa e limpeza corporativa
 
-Estações de trabalho
+    Copos descartáveis, guardanapos, talheres
 
-Suportes de monitor e organizadores de mesa
+    Cafés, açúcar, adoçante, chá
 
-☕ Copa e limpeza corporativa
+    Produtos de limpeza (álcool, detergente, desinfetante)
 
-Copos descartáveis, guardanapos, talheres
+    Papel higiênico, papel toalha
 
-Cafés, açúcar, adoçante, chá
+    Sacos de lixo
 
-Produtos de limpeza (álcool, detergente, desinfetante)
+Equipamentos e utilidades
 
-Papel higiênico, papel toalha
+    Calculadoras
 
-Sacos de lixo
+    Tesouras, estiletes e refis
 
-🧰 Equipamentos e utilidades
+    Grampeadores e perfuradores
 
-Calculadoras
+    Quadros brancos e murais de avisos
 
-Tesouras, estiletes e refis
-
-Grampeadores e perfuradores
-
-Quadros brancos e murais de avisos
-
-Seladoras e balanças (para envios e embalagens)
-
-🧍‍♂️ EPI e segurança (para empresas que misturam segmentos)
-
-Máscaras, luvas, óculos de proteção
-
-Protetores auriculares
-
-Calçados de segurança
-
-Aventais e uniformes
-
-📦 Serviços e diferenciais B2B
-
-Além dos produtos, um bom site B2B pode oferecer:
-
-Pedidos recorrentes / assinatura de materiais
-
-Cotações personalizadas por CNPJ
-
-Descontos por volume
-
-Entrega programada para escritórios
-
-Faturamento para pagamento a prazo (boleto 30 dias)
+    Seladoras e balanças (para envios e embalagens)
 */

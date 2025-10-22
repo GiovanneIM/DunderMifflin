@@ -12,6 +12,7 @@ const v = require('../js/validacoes.js')
 
 
 // ROTAS
+
 // Rota para obter TODOS os produtos
 router.get('/', (req, res) => {
     // Lendo a lista de tarefas
@@ -25,7 +26,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// Rota para obter UM PRODUTO ESPECIFICO e sua DESCRICAO
+// Rota para obter UM PRODUTO específico e sua DESCRICAO
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id) ) {

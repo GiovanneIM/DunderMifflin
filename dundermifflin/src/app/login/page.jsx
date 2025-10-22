@@ -12,23 +12,35 @@ export default function Login() {
         e.preventDefault();
 
         const idNum = Number(loginInfo.id);
-        const corpoReq = { ...loginInfo, id: idNum, tipoLogin: usuario };
+        const corpoReq = { senha: loginInfo.senha, id: idNum, tipoLogin: usuario };
 
         console.log('Login enviado:', corpoReq);
-        console.log('Tipo de Usuário:', usuario);
 
-        const urlLogin = `http://localhost:4000/login`;
+        const urlLogin = `http://localhost:4000/${usuario}/login`;
         fetch(urlLogin, {
             method: 'POST',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(corpoReq)
         })
-            .then(async res => {
-                const texto = await res.text();
-                console.log("Status:", res.status);
-                console.log("Resposta:", texto);
-            })
+        .then(async res => {
+            const data = await res.json();
+            console.log("Status:", res.status);
+            console.log("Resposta:", data);
+
+            if (data.sucesso) {
+                const usuarioLogin = data.usuario;
+                console.log("Login feito para:", usuarioLogin);
+
+                localStorage.setItem('usuario', JSON.stringify({
+                    id: usuarioLogin.id,
+                    tipo: usuarioLogin.tipo,
+                    nome: usuarioLogin.nome
+                }));
+            } else {
+                console.error("Erro no login:", data.error);
+            }
+        })
     }
 
     function atualizarInfoLogin(e) {
