@@ -36,6 +36,47 @@ router.post('/login', (req, res) => {
     })
 });
 
+// Rota para obter todas as empresas
+router.get('/', (req, res) => {
+    // Lendo a lista de tarefas
+    fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
+        // Lendo e convertendo o conteúdo do JSON com os produtos
+        const produtos = v.lerEconverterJSON(err, data, res)
+        if (!produtos) { return }
+
+        // Enviando os produtos
+        res.status(200).json(produtos)
+    });
+});
+
+// Rota para obter UMA EMPRESA específica
+router.get('/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id) ) {
+        return res.status(400).send('Erro: O ID inserido não era um número.');
+    }
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        // Lendo e convertendo o conteúdo do JSON com as empresas
+        const empresas = v.lerEconverterJSON(err, data, res)
+        // Verificando se a lista foi lida
+        if (!empresas) {
+            return
+        }
+
+        // Procurando o empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+
+        // Verificando se o empresa foi encontrado e enviando como resposta
+        if (empresa) {
+            res.status(200).json({ empresa });
+        } else {
+            res.status(404).json({ erro: 'Empresa não encontrada.' });
+        }
+    });
+});
+
 // Rota para obter os gerente de compras da empresa
 router.get('/gerente', (req, res) => {
     fs.readFile(caminhoGerentes, 'utf-8', (err, data) => {
