@@ -86,11 +86,11 @@ header, footer {
 }
 
 .fundoBranco {
-    background-color: #fff;
+    background-color: #fff !important;
 }
 
 .fundoCinza {
-    background-color: #2125290d;
+    background-color: #2125290d !important;
 }
 
 .fundoPreto {

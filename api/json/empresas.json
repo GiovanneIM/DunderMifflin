@@ -1,7 +1,13 @@
 [
     {
-        "id":0,
-        "nome":"SENAI",
-        "senha":"123"
+        "razaoSocial": "teste teste teste",
+        "nomeFantasia": "teste",
+        "cnpj": "12.341.111/1111-11",
+        "telefone": "(11) 11111-1111",
+        "cep": "11111-111",
+        "numero": "111111",
+        "complemento": "111111",
+        "id": 0,
+        "senha": "Empresa0"
     }
 ]

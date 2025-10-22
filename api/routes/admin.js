@@ -4,6 +4,7 @@ const router = express.Router();
 const fs = require('fs');
 const caminhoProdutos = './json/produtos.json';
 const caminhoDescricao = './json/descricoes.json';
+const caminhoEmpresas = './json/empresas.json';
 
 const v = require('../js/validacoes.js')
 
@@ -107,67 +108,6 @@ router.put('/atualizar/:id', (req, res) => {
     })
 })
 
-// ADICIONAR E REMOVER IMAGENS
-router.patch('/:id/imagem', (req, res) => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-        return res.status(400).send('Erro: O ID inserido não era um número.');
-    }
-
-    const { imagem, remover } = req.body;
-
-    if (!imagem) {
-        return res.status(400).send('Erro: Campo "imagem" é obrigatório.');
-    }
-
-    fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
-        const produtos = v.lerEconverterJSON(res, err, data);
-        if (!produtos) return;
-
-        // Busca o produto pelo ID
-        const produto = produtos.find(p => p.id === id);
-        if (!produto) {
-            return res.status(404).send('Produto não encontrado.');
-        }
-
-        // REMOVER IMAGEM
-        if (remover === true) {
-            // Procurando o ID da imagem no vetor imagens
-            const index = produto.imagem.indexOf(imagem);
-
-            // Se a imagem não for encontrada
-            if (index === -1) {
-                return res.status(404).send('A imagem informada não foi encontrada no produto.');
-            }
-
-            // Removendo a imagem
-            produto.imagem.splice(index, 1);
-        }
-
-        // ADICIONAR IMAGEM
-        else {
-            // Verifica se a imagem já está no vetor
-            if (produto.imagem.includes(imagem)) {
-                return res.status(400).send('A imagem já está cadastrada neste produto.');
-            }
-
-            produto.imagem.push(imagem);
-        }
-
-        // Salvando a lista
-        fs.writeFile(caminhoProdutos, JSON.stringify(produtos, null, 4), (err) => {
-            if (err) {
-                console.error('Erro ao salvar arquivo:', err);
-                return res.status(500).send('Erro ao salvar produto.');
-            }
-
-            res.status(200).json({
-                mensagem: remover ? 'Imagem removida do produto' : 'Imagem adicionada ao produto'
-            });
-        });
-    });
-})
-
 // ATUALIZAR QUANTIDADE
 router.patch('/:id/quantidade', (req, res) => {
     // Recebendo a imagem
@@ -248,5 +188,44 @@ router.put('/:id/descricao', (req, res) => {
 })
 
 
+// REGISTRAR EMPRESA
+router.post('/registrarEmpresa', (req, res) => {
+    // Recebendo os dados
+    const { empresa } = req.body;
+
+    // Lendo a lista de produtos
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const empresas = v.lerEconverterJSON(err, data, res);
+        if (!empresas) { return; }
+
+        // Descobrindo o id da empresa
+        let idNovaEmpresa;
+        try {
+            idNovaEmpresa = empresas[empresas.length - 1].id + 1;
+        } catch (error) {
+            idNovaEmpresa = 0;
+        }
+
+        const emp = {
+            ...empresa,
+            "id": idNovaEmpresa,
+            "senha": `Empresa${idNovaEmpresa}`
+        }
+
+        // Adicionando produto à lista
+        empresas.push(emp);
+
+        // Salvando a lista de empresas
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).send('Erro ao registrar empresa.');
+            }
+
+            res.status(201).json({"id": emp.id, "senha": emp.senha});
+        });
+    })
+})
 
 module.exports = router;
