@@ -19,12 +19,17 @@ router.post('/login', (req, res) => {
 
     // Validando as informações
     if (isNaN(id) || !senha) {
-        return res.status(400).send('ID e/ou senha incorretos.');
+        res.status(400).json({
+            "sucesso": false,
+            "mensagem": 'ID e/ou senha incorretos.'
+        });
+        return
     }
+
 
     // Lendo as empresas
     fs.readFile(caminhoEmpresas, 'utf-8', (err, data) => {
-        const empresas = v.lerEconveterJSON(err, data, res);
+        const empresas = v.lerEconverterJSON(err, data, res);
         if (!empresas) { return }
 
         // Procurando pela empresa
@@ -32,7 +37,12 @@ router.post('/login', (req, res) => {
 
         // Verificando se a empresa foi encontrada e se a senha está certa
         if (!empresa || empresa.senha !== senha) {
-            res.status(401).send('ID e/ou senha incorretos.');
+            console.log('Encontro');
+
+            res.status(401).json({
+                "sucesso": false,
+                "mensagem": 'ID e/ou senha incorretos.'
+            });
             return;
         }
 
@@ -62,7 +72,10 @@ router.get('/:id', (req, res) => {
     // Recebendo e validando o id
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).json({ erro: 'O ID inserido não era um número.'});
+        return res.status(400).json({
+            sucesso: true,
+            erro: 'O ID inserido não era um número.'
+        });
     }
 
     // Lendo a lista de empresas
@@ -77,32 +90,86 @@ router.get('/:id', (req, res) => {
 
         // Verificando se a empresa foi encontrada e enviando como resposta
         if (empresa) {
-            res.status(200).json({ empresa });
+            res.status(200).json({
+                sucesso: true,
+                empresa: empresa
+            });
         } else {
-            res.status(404).json({ erro: 'Empresa não encontrada.' });
+            res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
         }
     });
 });
 
 // Rota para obter os gerente de compras da empresa
-router.get('/gerentes', (req, res) => {
-    const { idEmpresa } = req.body;
+router.get('/:id/gerentes', (req, res) => {
+    const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).json({ erro: 'O ID inserido não era um número.'});
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
     }
 
     fs.readFile(caminhoGerentes, 'utf-8', (err, data) => {
-        const gerentes = v.lerEconveterJSON(err, data, res);
+        const gerentes = v.lerEconverterJSON(err, data, res);
         if (!gerentes) { return }
 
-        const gerentesEmpresa = gerentes.filter((ger) => { return ger.idEmpresa === idEmpresa });
+        const gerentesEmpresa = gerentes.filter((ger) => { return ger.idEmpresa === id });
 
-        res.status(200).json(gerentesEmpresa)
+        res.status(200).json({
+            sucesso: true,
+            gerentes: gerentesEmpresa
+        })
     })
 })
 
 // Rota para adicionar um novo gerente de compras
 router.post('/gerente', (req, res) => {
+    const { gerente } = req.body;
+
+    // Lendo a lista de gerentes
+    fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const gerentes = v.lerEconverterJSON(err, data, res);
+        if (!gerentes) { return; }
+
+        // Descobrindo o id do gerente
+        let idNovoGerente;
+        try {
+            idNovoGerente = gerentes[gerentes.length - 1].id + 1;
+        } catch (error) {
+            idNovoGerente = 0;
+        }
+
+        // Criando o objeto do novo gerente
+        const ger = {
+            ...gerente,
+            "id": idNovoGerente,
+            "senha": `Gerente${idNovoGerente}`
+        }
+
+        // Adicionando produto à lista
+        gerentes.push(ger);
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar gerentes:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao registrar gerente.'
+                });
+            }
+
+            res.status(201).json({
+                sucesso: true,
+                gerente: { "id": ger.id, "senha": ger.senha }
+            });
+        });
+    })
 })
 
 // Rota para excluir um gerente de compras

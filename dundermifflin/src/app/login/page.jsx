@@ -1,75 +1,91 @@
 'use client'
 
+/*
+    Página Login
+        * Preencher informações para login (ID e senha)
+        * Selecionar o tipo de usuário (Gerente ou Empresa)
+*/
+
 import './login.css'
+
 import Image from 'next/image'
+
 import { useState } from 'react';
 
-export default function Login() {
-    const [loginInfo, setLoginInfo] = useState({ id: '', senha: '' });
-    const [usuario, setUsuario] = useState('gerente');
 
+export default function Login() {
+    const [id, setID] = useState('');
+    const [senha, setSenha] = useState('');
+    const [tipoUsuario, setTipoUsuario] = useState('gerente');
+    const [erro, setErro] = useState('');
+    const [loginSucesso, setLoginSucesso] = useState(null);
+
+    /* Função para atualizar o ID */
+    function atualizarID(e) {
+        setID(e.target.value);
+    }
+
+    /* Função para atualizar a Senha */
+    function atualizarSenha(e) {
+        setSenha(e.target.value);
+    }
+
+    /* Função para atualizar o tipo do usuário */
+    function atualizarUsuario(e) {
+        setTipoUsuario(e.target.value);
+    }
+
+    /* Função para fazer a requisição à API e confirmar o login */
     async function fazerLogin(e) {
         e.preventDefault();
 
-        const idNum = Number(loginInfo.id);
-        const corpoReq = { senha: loginInfo.senha, id: idNum, tipoLogin: usuario };
+        // Criando o corpo da requisição
+        const infosLogin = { senha: senha, id: Number(id) };
 
-        console.log('Login enviado:', corpoReq);
+        console.log('Informações de login:', infosLogin);
+        console.log('Tipo de usuário:', tipoUsuario);
 
-        const urlLogin = `http://localhost:4000/${usuario}/login`;
+        // Link do endpoint da API
+        const urlLogin = `http://localhost:4000/${tipoUsuario}/login`;
+
+        // Fazendo a requisição à API
         fetch(urlLogin, {
             method: 'POST',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(corpoReq)
-        })
-        .then(async res => {
-            const data = await res.json();
-            console.log("Status:", res.status);
-            console.log("Resposta:", data);
-
-            if (data.sucesso) {
-                const usuarioLogin = data.usuario;
-                console.log("Login feito para:", usuarioLogin);
-
-                localStorage.setItem('usuario', JSON.stringify({
-                    id: usuarioLogin.id,
-                    tipo: usuarioLogin.tipo,
-                    nome: usuarioLogin.nome
-                }));
-            } else {
-                console.error("Erro no login:", data.error);
-            }
-        })
-    }
-
-    function atualizarInfoLogin(e) {
-        const { id, value } = e.target;
-        setLoginInfo(prev => ({ ...prev, [id]: value }));
-    }
-
-
-    function atualizarUsuario(e) {
-        setUsuario(e.target.value);
-    }
-
-    async function verificarLogin(e) {
-        e.preventDefault();
-        const urlLogin = `http://localhost:4000/verificarLogin`;
-        fetch(urlLogin, {
-            method: 'GET',
-            credentials: "include",
+            body: JSON.stringify(infosLogin)
         })
             .then(async res => {
-                const texto = await res.text();
+                const data = await res.json();
                 console.log("Status:", res.status);
-                console.log("Resposta:", texto);
+                console.log("Resposta:", data);
+
+                if (data.sucesso) {
+                    const usuariologado = data.usuario;
+
+                    // Salvando as informações do usuário
+                    localStorage.setItem('usuario', JSON.stringify({
+                        id: usuariologado.id,
+                        tipo: usuariologado.tipo,
+                        nome: usuariologado.nome
+                    }));
+
+                    // Exibindo o toast de sucesso
+                    setLoginSucesso(true)
+
+                    // Redirecionando o usuário
+                    setTimeout(() => { window.location.href = `/${tipoUsuario}`; }, 1500);
+                } else {
+                    console.error("Erro no login:", data.mensagem);
+                    setErro(data.mensagem);
+                }
             })
     }
 
     return <>
-
+        {/* Corpo */}
         <div className='corpo d-flex flex-wrap'>
+            {/* Logo */}
             <div className='col-12 col-sm-6'>
                 <a
                     href={'/'}
@@ -83,35 +99,25 @@ export default function Login() {
                 </a>
             </div>
 
+            {/* Login */}
             <div className='div_branca col-12 col-sm-6'>
                 <div>
-
                     <form className='form-signin' id='form-login' onSubmit={fazerLogin}>
                         <h1 className=" titulo h1 mb-3 fw-normal">fazer login</h1>
 
+                        {/* ID */}
                         <div className="form-floating">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="id"
-                                onChange={atualizarInfoLogin}
-                                placeholder="name@example.com"
-                            />
+                            <input type="text" className="form-control" id="id" onChange={atualizarID} required />
                             <label htmlFor="id">ID</label>
                         </div>
 
+                        {/* Senha */}
                         <div className="form-floating">
-
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="senha"
-                                onChange={atualizarInfoLogin}
-                                placeholder="Password"
-                            />
+                            <input type="password" className="form-control" id="senha" onChange={atualizarSenha} required />
                             <label htmlFor="senha">Senha</label>
                         </div>
 
+                        {/* Tipo de usuário */}
                         <div className="form-check text-start my-3 seletor col-12">
                             <div className='col-4'>
                                 <input
@@ -141,6 +147,7 @@ export default function Login() {
                             </div>
                         </div>
 
+                        {/* Lembre de mim - DECORATIVO*/}
                         <div className="form-check text-start my-3">
                             <input
                                 className="form-check-input"
@@ -153,21 +160,33 @@ export default function Login() {
                             </label>
                         </div>
 
-                        <button className="btn btn-1 w-100 py-2" type="submit" id='btn-login'>
-                            Login
-                        </button>
+                        {/* Login */}
+                        <button className="btn btn-1 w-100 py-2" type="submit" id='btn-login'>Login</button>
 
-                        <div className='legenda'>
-                            <p className="text-body-secondary">Ainda não possui uma conta?</p>
+                        {/* Mensagem de erro */}
+                        <div className='msgErro'>{erro && '- ' + erro}</div>
+
+                        {/* <div className='legenda'>
+                            <p className="text-body-secondary">Não possui uma conta?</p>
                             <a className="text-body-secondary" href='/cadastro'>Como ter uma conta</a>
-                        </div>
+                        </div> */}
                     </form>
-
-                    <button className="btn btn-2 w-100 py-2" onClick={verificarLogin} id='btn-login'>
-                        Verificar Login
-                    </button>
                 </div>
             </div>
         </div>
+
+        {/* Toast */}
+        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 2000 }}>
+            {loginSucesso && (
+                <div className="toast show align-items-center text-bg-success border-0" role="alert">
+                    <div className="d-flex">
+                        <div className="toast-body">
+                            Login efetuado com sucesso!
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+
     </>
 }

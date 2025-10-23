@@ -107,3 +107,22 @@ header, footer {
 .container-form .form-floating {
     margin: 0 0.75rem;
 }
+
+
+.redesSociais a {
+    color: rgb(33, 37, 41);
+}
+
+.redesSociais a:hover {
+    color: rgb(33, 37, 41, 0.75)
+    
+}
+
+
+.redesSociais .bi {
+    transition: transform 0.3s ease;
+}
+
+.redesSociais .bi:hover {
+    transform: scale(1.3);
+}

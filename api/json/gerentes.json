@@ -1,10 +1,22 @@
 [
     {
+        "nomeCompleto": "Teste Teste",
+        "nomeUsuario": "Teste",
+        "email": "teste@gmail.com",
+        "telefone": "(11) 11111-1111",
+        "idFilial": 0,
+        "idEmpresa": 0,
         "id": 0,
-        "tipo": "gerente",
-        "nome": "nome",
-        "senha": "senha",
-        "listadecompra": [],
-        "idEmpresa": 0
+        "senha": "Gerente0"
+    },
+    {
+        "nomeCompleto": "Teste Teste",
+        "nomeUsuario": "Teste",
+        "email": "teste@gmail.com",
+        "telefone": "(11) 11111-1111",
+        "idFilial": 1,
+        "idEmpresa": 0,
+        "id": 1,
+        "senha": "Gerente1"
     }
 ]

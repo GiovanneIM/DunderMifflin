@@ -31,6 +31,7 @@ export default function Navbar() {
             <div className="px-3 py-2 text-bg-dark border-bottom">
                 <div className="container">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        {/* Logo */}
                         <a href="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                             <img src="/img/DUNDERbranco.svg" alt="Logo Dunder Mifflin" height="80" />
                         </a>
@@ -49,6 +50,7 @@ export default function Navbar() {
 
             <div className="px-3 py-2 border-bottom mb-3 bordaCinza">
                 <div className="container d-flex flex-wrap justify-content-center">
+                    {/* Procurar */}
                     <form className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto" role="procurar">
                         <input type="procurar" className="form-control bordaCinza" placeholder="Procurar..." aria-label="Procurar" />
                     </form>
@@ -57,9 +59,7 @@ export default function Navbar() {
                     {!usuario &&
                         <div className="text-end">
                             <a href={'/login'}>
-                                <button type="button" className="btn btn-1">
-                                    Entrar
-                                </button>
+                                <button type="button" className="btn btn-1">Entrar</button>
                             </a>
                         </div>
                     }

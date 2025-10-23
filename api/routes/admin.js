@@ -230,7 +230,7 @@ router.post('/registrarEmpresa', (req, res) => {
     // Recebendo os dados
     const { empresa } = req.body;
 
-    // Lendo a lista de produtos
+    // Lendo a lista de empresas
     fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
         const empresas = v.lerEconverterJSON(err, data, res);

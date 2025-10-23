@@ -2,25 +2,6 @@ footer {
     color: #212529;
 }
 
-footer a {
-    color: rgb(33, 37, 41);
-}
-
-footer a:hover {
-    color: rgb(33, 37, 41, 0.75)
-    
-}
-
-
-footer .bi {
-    transition: transform 0.3s ease;
-}
-
-footer .bi:hover {
-    transform: scale(1.3);
-}
-
-
 footer .div_logo {
     position: 'relative'; 
     width: '100%';

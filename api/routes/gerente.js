@@ -19,7 +19,11 @@ router.post('/login', (req, res) => {
 
     // Validando as informações
     if (isNaN(id) || !senha) {
-        return res.status(400).send('ID e/ou senha incorretos.');
+        res.status(400).json({
+            "sucesso": false,
+            "mensagem": 'ID e/ou senha incorretos.'
+        });
+        return
     }
 
     // Lendo os gerentes
@@ -32,7 +36,10 @@ router.post('/login', (req, res) => {
 
         // Verificando se o gerente foi encontrado e se a senha está certa
         if (!gerente || gerente.senha !== senha) {
-            res.status(401).send('ID e/ou senha incorretos.');
+            res.status(401).json({
+                "sucesso": false,
+                "mensagem": 'ID e/ou senha incorretos.'
+            });
             return;
         }
 
@@ -62,7 +69,10 @@ router.get('/:id', (req, res) => {
     // Recebendo e validando o id
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).json({ erro: 'O ID inserido não era um número.'});
+        return res.status(400).json({ 
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
     }
 
     // Lendo a lista de gerentes
@@ -77,9 +87,15 @@ router.get('/:id', (req, res) => {
 
         // Verificando se o gerente foi encontrado e enviando como resposta
         if (gerente) {
-            res.status(200).json({ gerente });
+            res.status(200).json({ 
+                sucesso: true,
+                gerente: gerente 
+            });
         } else {
-            res.status(404).json({ erro: 'Gerente não encontrado.' });
+            res.status(404).json({ 
+                sucesso: false,
+                erro: 'Gerente não encontrado.'
+            });
         }
     });
 });

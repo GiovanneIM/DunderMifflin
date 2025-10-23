@@ -80,16 +80,16 @@ export default function RegistrarEmpresa() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ empresa })
         })
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('emp-id').value = data.id;
-                id = data.id;
-                document.getElementById('emp-senha').value = data.senha;
-                document.getElementById('emp-nome').innerHTML = empresa.nomeFantasia;
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('emp-id').value = data.id;
+            id = data.id;
+            document.getElementById('emp-senha').value = data.senha;
+            document.getElementById('emp-nome').innerHTML = empresa.nomeFantasia;
 
-                const modal = new bootstrap.Modal(document.getElementById('modalEmpRegistrada'))
-                modal.show()
-            })
+            const modal = new bootstrap.Modal(document.getElementById('modalEmpRegistrada'))
+            modal.show()
+        })
     }
 
     function redirecionar (e) {

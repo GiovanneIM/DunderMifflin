@@ -24,6 +24,14 @@ header, footer {
     border-color: #2125293d;
 }
 
+.msgErro {
+    color: red;
+    margin-top: 0.25rem;
+    font-size: small;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.25rem;
+}
 
 .legenda {
     margin-top: 0.25rem;
