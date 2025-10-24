@@ -1,11 +1,10 @@
 import CardNav from "@/components/CardNav"
-import './home.css'
 
 export default function Home() {
     return <>
-        <div className="container">
-            <div className="home-navegacao col-12">
-                <div className="col-7 col-sm-4 col-lg-3">
+        <div className="container d-flex align-items-center justify-content-center">
+            <div className="d-flex flex-wrap gap-3 align-items-center justify-content-center col-12">
+                <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
                         texto="Produtos"
                         svg='
@@ -14,7 +13,7 @@ export default function Home() {
                         link='/admin/produtos'
                     />
                 </div>
-                <div className="col-7 col-sm-4 col-lg-3">
+                <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
                         texto="Empresas Clientes"
                         svg='
@@ -24,7 +23,7 @@ export default function Home() {
                         link='/admin/empresas'
                     />
                 </div>
-                <div className="col-7 col-sm-4 col-lg-3">
+                <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
                         texto="Registrar Empresa Cliente"
                         svg='
@@ -35,7 +34,7 @@ export default function Home() {
                         link='/admin/empresas/registrar'
                     />
                 </div>
-                <div className="col-7 col-sm-4 col-lg-3">
+                <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
                         texto="Pedidos Pendentes"
                         svg='
@@ -46,7 +45,7 @@ export default function Home() {
                         link='/admin/'
                     />
                 </div>
-                <div className="col-7 col-sm-4 col-lg-3">
+                <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
                         texto="Pedidos Concluídos"
                         svg='
@@ -57,8 +56,7 @@ export default function Home() {
                         link='/admin/'
                     />
                 </div>
-                <div className="d-none d-lg-flex col-lg-3">
-                </div>
+                <div className="d-none d-lg-block col-lg-3"></div>
             </div>
         </div>
     </>

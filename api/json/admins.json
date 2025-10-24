@@ -1,8 +1,7 @@
 [
     {
         "id":0,
-        "tipo":"admin",
-        "nome":"nome",
+        "nome":"Michael",
         "senha":"senha"
     }
 ]

@@ -1,8 +1,6 @@
 .ca {
     width: 300px;
-    /* border: 1px solid; */
     overflow: hidden;
-    box-shadow: 0px 3px 10px #212529;
 }
 
 .ca-ID {
@@ -17,47 +15,35 @@
 }
 
 .ca-img {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.ca-img img {
-    width: 300px;
-    height: 300px;
-    object-fit: contain;
-}
-
-.ca-infos {
-    width: 100%;
-    padding: 0.5rem
-}
-
-.card-nome {
-    /*Div*/
+.ca-nome {
     width: 100%;
     display: -webkit-box;
-    /* cria uma caixa flexível para texto */
     -webkit-box-orient: vertical;
-    /* orienta o texto verticalmente */
     -webkit-line-clamp: 2;
-    /* permite no máximo 2 linhas */
+    line-clamp: 2;
     overflow: hidden;
-    /* corta o que ultrapassar */
     text-overflow: ellipsis;
-
-    /*Texto*/
-    color: #212529 !important;
-    font-weight: 600;
-    /* negrito médio */
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
 }
 
+.ca-cat {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.ca-botoes button{
+    width: 7rem;
+}
 
-/* MODAL */
-.btn-fechar {
-    --bs-btn-close-color: white !important;
+.ca-titulo {
+    font-weight: 600;
 }

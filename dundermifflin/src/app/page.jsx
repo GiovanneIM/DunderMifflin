@@ -44,19 +44,26 @@ export default async function Home() {
             <div className="row align-items-center g-5 py-5" style={{ borderBottom: '1px solid #212529' }}>
                 <div className=" col-12 text-center mb-0">
                     <h3 className="titulo fs-3" style={{ letterSpacing: '1px' }}>Alguns de nossos produtos</h3>
-                    <p className="text-muted">Aqui estão alguns dos produtos mais procurados por nossos clientes corporativos.</p>
+                    <p className="text-muted">Confira alguns dos produtos mais procurados por nossos clientes.</p>
                 </div>
                 <div className="gap-4 d-flex flex-wrap justify-content-center">
                     {
-                        produtos && produtos.slice(0, 5).map((produto, index) => {
+                        produtos && produtos.slice(0, 5).map((produto) => {
                             return <CardMostruario
-                                key={index}
+                                key={produto.id}
                                 nome={produto.nome}
                                 imagem={produto.imagem[0]}
                                 preco={produto.preco}
                             />
                         })
                     }
+                </div>
+                <div className="col-12 d-flex justify-content-center align-items-center">
+                    <div>
+                        <a href="/mostruario">
+                            <button className="btn btn-1">Ver mais produtos</button>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -109,10 +116,18 @@ export default async function Home() {
                 <div className="col-12 text-center titulo fs-3" style={{ letterSpacing: '1px' }} >Algumas de nossas empresas clientes</div>
                 <div className="gap-4 d-flex flex-wrap justify-content-center">
                     <div className="gap-5 d-flex flex-wrap justify-content-center align-items-center">
-                        <img src="https://sitefiespstorage.blob.core.windows.net/uploads/2022/08/file-20220802140942-senai-logo-e1659449473382.jpg" alt="SENAI" width="160" height="auto" className="" />
-                        <img src="https://tse4.mm.bing.net/th/id/OIP.JK5mdFOdg9zMmhz0_soHkwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="GM" width="160" height="auto" className="" />
-                        <img src="https://logosmarcas.net/wp-content/uploads/2020/11/Santander-Logo.png" alt="Santander" width="160" height="auto" className="" />
-                        <img src="https://www.pngplay.com/wp-content/uploads/9/Nestle-Logo-Transparent-Free-PNG.png" alt="Nestle" width="160" height="auto" className="" />
+                        <div className="card empresas-clientes shadow-sm p-3">
+                            <img src="https://sitefiespstorage.blob.core.windows.net/uploads/2022/08/file-20220802140942-senai-logo-e1659449473382.jpg" alt="SENAI" className="img-completa" />
+                        </div>
+                        <div className="card empresas-clientes shadow-sm p-3">
+                            <img src="https://tse4.mm.bing.net/th/id/OIP.JK5mdFOdg9zMmhz0_soHkwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="GM" className="img-completa" />
+                        </div>
+                        <div className="card empresas-clientes shadow-sm p-3">
+                            <img src="https://logosmarcas.net/wp-content/uploads/2020/11/Santander-Logo.png" alt="Santander" className="img-completa" />
+                        </div>
+                        <div className="card empresas-clientes shadow-sm p-3">
+                            <img src="https://www.pngplay.com/wp-content/uploads/9/Nestle-Logo-Transparent-Free-PNG.png" alt="Nestle" className="img-completa" />
+                        </div>
                     </div>
                 </div>
             </div>

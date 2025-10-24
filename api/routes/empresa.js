@@ -20,8 +20,8 @@ router.post('/login', (req, res) => {
     // Validando as informações
     if (isNaN(id) || !senha) {
         res.status(400).json({
-            "sucesso": false,
-            "mensagem": 'ID e/ou senha incorretos.'
+            sucesso: false,
+            mensagem: 'ID e/ou senha incorretos.'
         });
         return
     }
@@ -40,8 +40,8 @@ router.post('/login', (req, res) => {
             console.log('Encontro');
 
             res.status(401).json({
-                "sucesso": false,
-                "mensagem": 'ID e/ou senha incorretos.'
+                sucesso: false,
+                mensagem: 'ID e/ou senha incorretos.'
             });
             return;
         }
@@ -49,8 +49,8 @@ router.post('/login', (req, res) => {
         // Login bem sucedido
         console.log(`Empresa (${empresa.id}) - ${empresa.nome} logada.`);
         res.status(200).json({
-            "sucesso": true,
-            "usuario": { "id": empresa.id, "tipo": "empresa", "nome": empresa.nomeFantasia }
+            sucesso: true,
+            usuario: { "id": empresa.id, "tipo": "empresa", "nome": empresa.nomeFantasia }
         });
     })
 });

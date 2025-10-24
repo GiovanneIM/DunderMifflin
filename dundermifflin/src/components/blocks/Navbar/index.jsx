@@ -51,16 +51,17 @@ export default function Navbar() {
             <div className="px-3 py-2 border-bottom mb-3 bordaCinza">
                 <div className="container d-flex flex-wrap justify-content-center">
                     {/* Procurar */}
-                    <form className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto" role="procurar">
+                    {/* <form className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto" role="procurar">
                         <input type="procurar" className="form-control bordaCinza" placeholder="Procurar..." aria-label="Procurar" />
-                    </form>
+                    </form> */}
+                    <div className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto">
+
+                    </div>
 
                     {/* Botão de Login */}
                     {!usuario &&
                         <div className="text-end">
-                            <a href={'/login'}>
-                                <button type="button" className="btn btn-1">Entrar</button>
-                            </a>
+                            <button className="btn btn-1" onClick={() => { window.location.href = '/login' }}>Entrar</button>
                         </div>
                     }
 

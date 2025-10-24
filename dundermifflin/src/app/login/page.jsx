@@ -1,9 +1,9 @@
 'use client'
 
 /*
-    Página Login
-        * Preencher informações para login (ID e senha)
-        * Selecionar o tipo de usuário (Gerente ou Empresa)
+    Página Login - Gerentes e empresas
+        - Preencher informações para login (ID e senha)
+        - Selecionar o tipo de usuário (Gerente ou Empresa)
 */
 
 import './login.css'
@@ -18,7 +18,7 @@ export default function Login() {
     const [senha, setSenha] = useState('');
     const [tipoUsuario, setTipoUsuario] = useState('gerente');
     const [erro, setErro] = useState('');
-    const [loginSucesso, setLoginSucesso] = useState(null);
+    const [usuario, setUsuario] = useState(null);
 
     /* Função para atualizar o ID */
     function atualizarID(e) {
@@ -39,6 +39,9 @@ export default function Login() {
     async function fazerLogin(e) {
         e.preventDefault();
 
+        // Limpa a mensagem de erro
+        setErro(' ');
+
         // Criando o corpo da requisição
         const infosLogin = { senha: senha, id: Number(id) };
 
@@ -54,32 +57,30 @@ export default function Login() {
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(infosLogin)
+        }).then(async res => {
+            const data = await res.json();
+            console.log("Status:", res.status);
+            console.log("Resposta:", data);
+
+            if (data.sucesso) {
+                const userLogado = data.usuario;
+
+                setUsuario(userLogado)
+
+                // Salvando as informações do usuário
+                localStorage.setItem('usuario', JSON.stringify({
+                    id: userLogado.id,
+                    tipo: userLogado.tipo,
+                    nome: userLogado.nome
+                }));
+
+                // Redirecionando o usuário
+                setTimeout(() => { window.location.href = `/${tipoUsuario}`; }, 1500);
+            } else {
+                // Mensagem de erro
+                setErro(data.mensagem);
+            }
         })
-            .then(async res => {
-                const data = await res.json();
-                console.log("Status:", res.status);
-                console.log("Resposta:", data);
-
-                if (data.sucesso) {
-                    const usuariologado = data.usuario;
-
-                    // Salvando as informações do usuário
-                    localStorage.setItem('usuario', JSON.stringify({
-                        id: usuariologado.id,
-                        tipo: usuariologado.tipo,
-                        nome: usuariologado.nome
-                    }));
-
-                    // Exibindo o toast de sucesso
-                    setLoginSucesso(true)
-
-                    // Redirecionando o usuário
-                    setTimeout(() => { window.location.href = `/${tipoUsuario}`; }, 1500);
-                } else {
-                    console.error("Erro no login:", data.mensagem);
-                    setErro(data.mensagem);
-                }
-            })
     }
 
     return <>
@@ -149,44 +150,42 @@ export default function Login() {
 
                         {/* Lembre de mim - DECORATIVO*/}
                         <div className="form-check text-start my-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                defaultValue="remember-me"
-                                id="checkDefault"
-                            />
-                            <label className="form-check-label" htmlFor="checkDefault">
-                                Lembre de mim
-                            </label>
+                            <input className="form-check-input" type="checkbox" defaultValue="remember-me" id="checkDefault" />
+                            <label className="form-check-label" htmlFor="checkDefault">Lembre de mim</label>
                         </div>
 
-                        {/* Login */}
+                        {/* Botão Login */}
                         <button className="btn btn-1 w-100 py-2" type="submit" id='btn-login'>Login</button>
 
                         {/* Mensagem de erro */}
                         <div className='msgErro'>{erro && '- ' + erro}</div>
 
-                        {/* <div className='legenda'>
-                            <p className="text-body-secondary">Não possui uma conta?</p>
+                        {/* Legendas */}
+                        <div className='legenda'>
+                            <div className="text-body-secondary">Não se lembra de sua senha?</div>
+                            <a className="text-body-secondary" href='/cadastro'>Esqueci minha senha</a>
+                        </div>
+                        <div className='legenda'>
+                            <div className="text-body-secondary">Não possui uma conta?</div>
                             <a className="text-body-secondary" href='/cadastro'>Como ter uma conta</a>
-                        </div> */}
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
 
-        {/* Toast */}
+        {/* Toast - Mensagem de sucesso */}
         <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 2000 }}>
-            {loginSucesso && (
+            {usuario && (
                 <div className="toast show align-items-center text-bg-success border-0" role="alert">
                     <div className="d-flex">
-                        <div className="toast-body">
-                            Login efetuado com sucesso!
+                        <div className="toast-body" id='corpo-toast'>
+                            <strong>Login efetuado com sucesso!</strong> <br/>
+                            Seja bem-vindo(a) <strong>{usuario.nome}</strong>
                         </div>
                     </div>
                 </div>
             )}
         </div>
-
     </>
 }

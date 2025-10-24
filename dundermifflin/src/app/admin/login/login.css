@@ -11,6 +11,13 @@ footer {
     align-items: center;
 }
 
+.corpo>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .corpo * {
     border-color: #2125293d;
 }
@@ -29,7 +36,8 @@ footer {
     max-width: 400px;
 }
 
-.legenda {
+.msgErro {
+    color: red;
     margin-top: 0.25rem;
     font-size: small;
     display: flex;
@@ -37,6 +45,13 @@ footer {
     column-gap: 0.25rem;
 }
 
+.legenda {
+    margin-top: 0.25rem;
+    font-size: small;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.25rem;
+}
 
 .form-signin {
     margin-top: 1rem;
@@ -47,7 +62,7 @@ footer {
     padding: 1rem .75rem;
 }
 
-.form-signin input[type="email"] {
+.form-signin input[type="text"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -65,7 +80,6 @@ input[type="radio"] {
     accent-color: #212529 !important;
     /* muda a cor do círculo preenchido */
 }
-
 
 .seletor {
     display: flex;

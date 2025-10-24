@@ -20,8 +20,8 @@ router.post('/login', (req, res) => {
     // Validando as informações
     if (isNaN(id) || !senha) {
         res.status(400).json({
-            "sucesso": false,
-            "mensagem": 'ID e/ou senha incorretos.'
+            sucesso: false,
+            mensagem: 'ID e/ou senha incorretos.'
         });
         return
     }
@@ -37,8 +37,8 @@ router.post('/login', (req, res) => {
         // Verificando se o gerente foi encontrado e se a senha está certa
         if (!gerente || gerente.senha !== senha) {
             res.status(401).json({
-                "sucesso": false,
-                "mensagem": 'ID e/ou senha incorretos.'
+                sucesso: false,
+                mensagem: 'ID e/ou senha incorretos.'
             });
             return;
         }
@@ -46,8 +46,8 @@ router.post('/login', (req, res) => {
         // Login bem sucedido
         console.log(`Gerente (${gerente.id}) - ${gerente.nome} logado.`);
         res.status(200).json({
-            "sucesso": true,
-            "usuario": { "id": gerente.id, "tipo": "gerente", "nome": gerente.nome }
+            sucesso: true,
+            usuario: { "id": gerente.id, "tipo": "gerente", "nome": gerente.nome }
         });
     })
 });

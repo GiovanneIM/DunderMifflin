@@ -21,28 +21,35 @@ router.post('/login', (req, res) => {
 
     // Validando as informações
     if (isNaN(id) || !senha) {
-        return res.status(400).send('ID e/ou senha incorretos.');
+        res.status(400).json({
+            sucesso: false,
+            mensagem: 'ID e/ou senha incorretos.'
+        });
+        return
     }
 
     // Lendo os admin
     fs.readFile(caminhoAdmins, 'utf-8', (err, data) => {
-        const admins = v.lerEconveterJSON(err, data, res);
+        const admins = v.lerEconverterJSON(err, data, res);
         if (!admins) { return }
 
         // Procurando pelo admin
         const admin = admins.find((emp) => { return emp.id === id });
 
-        // Verificando se o admin foi encontrado e se a senha está certa
+        // Verificando se o admin não foi encontrado ou se a senha está certa
         if (!admin || admin.senha !== senha) {
-            res.status(401).send('ID e/ou senha incorretos.');
-            return;
+            res.status(401).json({
+                sucesso: false,
+                mensagem: 'ID e/ou senha incorretos.'
+            });
+            return
         }
 
         // Login bem sucedido
-        console.log(`Empresa (${empresa.id}) - ${empresa.nome} logada.`);
+        console.log(`Admin (${admin.id}) - ${admin.nome} logado.`);
         res.status(200).json({
-            "sucesso": true,
-            "usuario": { "id": admin.id, "tipo": "admin", "nome": admin.nome }
+            sucesso: true,
+            usuario: { id: admin.id, tipo: "admin", nome: admin.nome }
         });
     })
 });
@@ -260,7 +267,7 @@ router.post('/registrarEmpresa', (req, res) => {
                 return res.status(500).send('Erro ao registrar empresa.');
             }
 
-            res.status(201).json({"id": emp.id, "senha": emp.senha});
+            res.status(201).json({ "id": emp.id, "senha": emp.senha });
         });
     })
 })

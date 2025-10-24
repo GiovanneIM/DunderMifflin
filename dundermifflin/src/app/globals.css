@@ -28,6 +28,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    padding: 0 !important;
 }
 
 * {
@@ -125,4 +127,16 @@ header, footer {
 
 .redesSociais .bi:hover {
     transform: scale(1.3);
+}
+
+.empresas-clientes {
+    width: 10rem;
+    height: 10rem !important;
+    background-color: white;
+}
+
+.img-completa {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
