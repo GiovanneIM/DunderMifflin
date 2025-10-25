@@ -2,7 +2,7 @@ import CardNav from "@/components/CardNav"
 
 export default function Home() {
     return <>
-        <div className="container d-flex align-items-center justify-content-center">
+        <div className="container d-flex align-items-center justify-content-center flex-grow-1">
             <div className="d-flex flex-wrap gap-3 align-items-center justify-content-center col-12">
                 <div className="col-10 col-sm-4 col-lg-3">
                     <CardNav
