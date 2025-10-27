@@ -2,8 +2,10 @@
 
 /*
     Página Login - Administradores
-        - Preencher informações para login (ID e senha)
-        - Selecionar o tipo de usuário (Gerente ou Empresa)
+        • Preencher informações para login (ID e senha)
+        • Verificar o ID e a Senha
+        • Salvar as informações
+        • Redirecionar para HOME
 */
 
 import './login.css'

@@ -95,7 +95,7 @@ router.post('/adicionar', (req, res) => {
         produtos.push(produto);
 
         // Criando o HTML da descrição
-        const desc = descricao? descricao : `<div>${nome}</div>`;
+        const desc = descricao ? descricao : `<div>${nome}</div>`;
         fs.writeFile(`./descricoes/${idNovoProduto}.html`, desc, (err) => {
             if (err) {
                 console.error('Erro ao criar o arquivo da descrição:', err);
@@ -269,6 +269,45 @@ router.put('/:id/descricao', (req, res) => {
             }
 
             res.status(200).send('Descrição do produto atualizada');
+        });
+    })
+})
+
+// Rota para excluir de um produto
+router.delete('/produto/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'Erro: O ID inserido não era um número.'
+        });
+    }
+
+    // Lendo o JSON de descrição
+    fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const produtos = v.lerEconverterJSON(err, data, res);
+        if (!produtos) { return; }
+
+        // Filtrando todos os produtos que não tiverem o ID passado
+        const produtosAposExclusao = produtos.filter(p => p.id !== id);
+
+        // Salvando a lista
+        const conteudo = JSON.stringify(produtosAposExclusao, 0, 4);
+        fs.writeFile(caminhoProdutos, conteudo, (err) => {
+            if (err) {
+                console.error('Erro: ' + err);
+                res.status(500).json({
+                    sucesso: false,
+                    mensagem: 'Erro: ' + err
+                })
+                return
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Produto excluído com sucesso'
+            });
         });
     })
 })

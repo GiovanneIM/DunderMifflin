@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './card.css'
 
-export default function CardAdmin({ produto }) {
+export default function CardProdAdmin({ produto }) {
     const [contagem, setContagem] = useState(1);
     const [quantidade, setQuantidade] = useState(produto.quantidade);
 

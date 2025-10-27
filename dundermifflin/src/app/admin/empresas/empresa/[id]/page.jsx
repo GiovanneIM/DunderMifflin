@@ -11,7 +11,7 @@ export default function Empresa() {
     useEffect(() => {
         async function carregarEmpresa() {
             try {
-                const res = await fetch(`http://localhost:4000/empresa/${id}`);
+                const res = await fetch(`http://localhost:4000/empresas/${id}`);
                 const data = await res.json();
                 if (data.empresa) setEmpresa(data.empresa);
             } catch (error) {

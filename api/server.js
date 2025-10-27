@@ -35,10 +35,10 @@ const rotasAdmin = require('./routes/admin.js') // ADMIN
 app.use('/admin', rotasAdmin)
 
 const rotasEmpresa = require('./routes/empresa.js') // EMPRESA CLIENTE
-app.use('/empresa', rotasEmpresa)
+app.use('/empresas', rotasEmpresa)
 
 const rotasGerente = require('./routes/gerente.js') // GERENTE DE COMPRAS
-app.use('/gerente', rotasGerente)
+app.use('/gerentes', rotasGerente)
 
 
 

@@ -20,6 +20,8 @@ export default function Produto() {
     const [descricao, setDescricao] = useState(null);
     const [contagem, setContagem] = useState(1);
 
+    const [excluir, setExcluir] = useState(null);
+
 
     // Recebendo o produto
     useEffect(() => {
@@ -42,8 +44,14 @@ export default function Produto() {
     }, [id]);
 
     // Função para abrir o modal para estocar
-    function abrirModal() {
+    function abrirEstocar() {
         const modal = new bootstrap.Modal(document.getElementById(`modalEstocar-${produto.id}`));
+        modal.show();
+    }
+
+    // Função para abrir o modal para excluir
+    function abrirExcluir() {
+        const modal = new bootstrap.Modal(document.getElementById(`modalExcluir-${produto.id}`));
         modal.show();
     }
 
@@ -88,6 +96,27 @@ export default function Produto() {
                 setQuantidade(prev => prev + contagem)
                 modal.hide();
                 container.appendChild(toast);
+            } else {
+                console.log(data.mensagem);
+            }
+        })
+    }
+
+    function excluirProduto() {
+        const modal = bootstrap.Modal.getInstance(document.getElementById(`modalExcluir-${produto.id}`));
+
+        fetch(`http://localhost:4000/admin/produto/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(async res => {
+            const data = await res.json();
+
+            if (data.sucesso) {
+                modal.hide();
+                setExcluir(true)
+
+                // Redirecionando o usuário
+                setTimeout(() => { window.location.href = `/admin/produtos`; }, 1500);
             } else {
                 console.log(data.mensagem);
             }
@@ -159,13 +188,13 @@ export default function Produto() {
                             <div className="info-linha"><strong>Preço</strong> R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
                             <div className="info-linha"><strong>Categoria</strong> {produto.categoria[0]} → {produto.categoria[1]}</div>
                             {/* Botão atualizar */}
-                            <div className='ms-auto'><button className='btn btn-1' onClick={() => {window.location.href = `/admin/produtos/atualizar/${produto.id}`}}>Atualizar informações</button></div>
+                            <div className='ms-auto'><button className='btn btn-1' onClick={() => { window.location.href = `/admin/produtos/atualizar/${produto.id}` }}>Atualizar informações</button></div>
                         </div>
 
                         <div className="d-flex flex-column gap-3 p-3 rounded shadow bg-light bordaCompleta bordaCinza">
                             <div className="info-linha"><strong>Estoque</strong> {quantidade}</div>
                             {/* Botão adicionar ao estoque */}
-                            <div className='ms-auto'><button className='btn btn-2 fundoBranco' onClick={abrirModal}>Adicionar ao estoque</button></div>
+                            <div className='ms-auto'><button className='btn btn-2 fundoBranco' onClick={abrirEstocar}>Adicionar ao estoque</button></div>
                         </div>
                     </div>
 
@@ -174,10 +203,16 @@ export default function Produto() {
                         <div className='fs-3 mb-3'><strong>Descrição</strong></div>
                         <div className='descricao' dangerouslySetInnerHTML={{ __html: descricao }}></div>
                     </div>
+
+                    {/* Excluir produto */}
+                    <div className='d-flex col-12 p-3 rounded shadow bg-light bordaCompleta bordaCinza descricao'>
+                        <div className='fs-3'><strong>Excluir</strong></div>
+                        <div className='ms-auto'><button className='btn btn-3' onClick={abrirExcluir}>Excluir produto</button></div>
+                    </div>
                 </div>
             </div>
 
-            {/* MODAL */}
+            {/* MODAL - Estoque*/}
             <div className="modal fade" id={`modalEstocar-${produto.id}`} tabIndex="-1" aria-labelledby="modalEstocarLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
@@ -246,6 +281,77 @@ export default function Produto() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* MODAL - Excluir*/}
+            <div className="modal fade" id={`modalExcluir-${produto.id}`} tabIndex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+
+                        {/* CABEÇALHO */}
+                        <div className="modal-header fundoPreto">
+                            <h5 className="modal-title" id="modalExcluirLabel">Excluir produto</h5>
+                            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+
+                        {/* CORPO */}
+                        <div className="modal-body">
+                            <div className='col-12 p-3 d-flex flex-wrap justify-content-center align-items-center row-gap-2 mb-3 fundoCinza rounded'>
+                                {/* IMAGEM */}
+                                <div className="ca-img col-7 ratio-1 border rounded p-1 fundoBranco">
+                                    <img src={produto.imagem[0]} className='img-completa' />
+                                </div>
+
+                                {/* INFORMAÇÕES GERAIS */}
+                                <div className='col-12 col-sm-5 ps-sm-3 d-flex flex-wrap row-gap-2'>
+                                    <div className='col-6 col-sm-12 pe-1 p-sm-0'>
+                                        <div className="fw-semibold">Marca:</div>
+                                        <div className='ps-2'>{produto.marca}</div>
+                                    </div>
+                                    <div className='col-6 col-sm-12 ps-1 p-sm-0'>
+                                        <div className="fw-semibold">Preço:</div>
+                                        <div className='ps-2'>R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+                                    </div>
+                                    <div className='col-6 col-sm-12'>
+                                        <div className="fw-semibold">Estoque:</div>
+                                        <div className='ps-2'>{quantidade}</div>
+                                    </div>
+
+                                    <div className='col-12'>
+                                        <div className="fw-semibold">Categoria:</div>
+                                        <div className='ps-2 ca-cat'>{produto.categoria[0] + ' > ' + produto.categoria[1]}</div>
+                                    </div>
+                                </div>
+
+                                {/* NOME */}
+                                <div className='col-12'>
+                                    <div className="fw-semibold">Produto:</div>
+                                    <div className='ca-nome'>{produto.nome}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* BOTÕES */}
+                        <div className="modal-footer">
+                            <div className='col-12 fw-medium'>Tem certeza que deseja excluir o produto?</div>
+                            <div><button type="button" className="btn btn-2" data-bs-dismiss="modal" >Cancelar</button></div>
+                            <div><button type="button" className="btn btn-3" onClick={excluirProduto}>Confirmar</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* TOAST - Excluir - Mensagem de sucesso */}
+            <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 2000 }}>
+                {excluir && (
+                    <div className="toast show align-items-center text-bg-success border-0" role="alert">
+                        <div className="d-flex">
+                            <div className="toast-body" id='corpo-toast'>
+                                <strong>Produto excluído com sucesso!</strong>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
         }

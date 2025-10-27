@@ -10,7 +10,7 @@
 */
 
 import { useEffect, useState } from "react";
-import CardAdmin from "@/components/CardAdmin";
+import CardProdAdmin from "@/components/CardProdAdmin";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([]);
@@ -119,7 +119,7 @@ export default function Produtos() {
                 {produtosFiltrados.length > 0 ?
                     (
                         produtosFiltrados.map((produto, index) => (
-                            <CardAdmin produto={produto} key={index} />
+                            <CardProdAdmin produto={produto} key={index} />
                         ))
                     ) :
                     (

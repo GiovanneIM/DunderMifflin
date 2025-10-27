@@ -79,6 +79,15 @@ header, footer {
     background-color: rgb(33, 37, 41, 0.3) !important;
 }
 
+.btn-3 {
+    background-color: #212529 !important;
+    color: white !important;
+    /* border: 1px solid #212529 !important; */
+}
+.btn-3:hover {
+    background-color: red !important;
+}
+
 .bordaCompleta {
     border: 1px solid;
 }
