@@ -15,6 +15,7 @@
 }
 
 .ca-img {
+    aspect-ratio: 1;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -59,8 +59,6 @@ export default function Login() {
             body: JSON.stringify(infosLogin)
         }).then(async res => {
             const data = await res.json();
-            console.log("Status:", res.status);
-            console.log("Resposta:", data);
 
             if (data.sucesso) {
                 const userLogado = data.usuario;

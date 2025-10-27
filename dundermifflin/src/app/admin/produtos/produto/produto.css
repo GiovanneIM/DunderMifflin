@@ -1,0 +1,60 @@
+.info-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.5rem 0;
+}
+
+.info-linha strong {
+    color: #343a40;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+
+
+/* Contador */
+.div_contador {
+    width: fit-content;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #2125293d !important;
+    overflow: hidden;
+}
+
+.btn-contador {
+    all: unset;
+    height: 100%;
+    width: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-contador:hover {
+    background-color: rgb(173, 171, 171);
+}
+
+.contador {
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+/* tirando as setas do contador */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

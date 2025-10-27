@@ -1,13 +1,25 @@
 "use client"
 
-import ImagemProd from '@/components/ImagemProd'
+/*
+    Página para o gerente visualisar as informações
+        • Ver as informações do produto
+        • Opção para atualizar as informações do produto
+        • Opção para estocar unidades do produto
+*/
+
 import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import '../../produtos.css'
+import '../produto.css'
 
 export default function Produto() {
     const { id } = useParams();   // Obtendo o ID do produto
     const [produto, setProduto] = useState(null);
+    const [imagemPrincipal, setImagemPrincipal] = useState(null);
+    const [quantidade, setQuantidade] = useState(0);
+    const [descricao, setDescricao] = useState(null);
+    const [contagem, setContagem] = useState(1);
+
 
     // Recebendo o produto
     useEffect(() => {
@@ -15,9 +27,12 @@ export default function Produto() {
             try {
                 const res = await fetch(`http://localhost:4000/produtos/${id}`);
                 const data = await res.json();
-                const produto = data.produto;
+                const prod = await data.produto;
 
-                if (produto) { setProduto(produto); }
+                setDescricao(data.descricao);
+                setProduto(prod);
+                setQuantidade(prod.quantidade);
+                setImagemPrincipal(prod.imagem[0]);
             } catch (error) {
                 console.error("Erro ao buscar produto:", error);
             }
@@ -26,123 +41,213 @@ export default function Produto() {
         if (id) carregarProduto();
     }, [id]);
 
-
-    // Abrir modal
+    // Função para abrir o modal para estocar
     function abrirModal() {
-        const modal = new bootstrap.Modal(document.getElementById('modalImagem'))
-        modal.show()
+        const modal = new bootstrap.Modal(document.getElementById(`modalEstocar-${produto.id}`));
+        modal.show();
+    }
+
+    // Função para adicionar a quantidade ao estoque
+    function adicionarQuantidade() {
+        const modal = bootstrap.Modal.getInstance(document.getElementById(`modalEstocar-${produto.id}`));
+
+        const container = document.getElementById("toastContainer");
+
+        // Toast para confirmação
+        const toast = document.createElement("div");
+        toast.className = "toast align-items-center text-bg-light show mb-2";
+        toast.role = "alert";
+        toast.ariaLive = "assertive";
+        toast.ariaAtomic = "true";
+        toast.style.minWidth = "250px";
+
+        toast.innerHTML = `
+            <div class="toast-header fundoPreto">
+                <strong class="me-auto">Adicionado ao estoque</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body d-flex align-items-center gap-2">
+                <img src=${produto.imagem[0]} alt="${produto.id}" class="toast-img" style="width:40px;height:40px;object-fit:cover;border-radius:5px;" />
+                <div>
+                <div>
+                    <strong>Quantidade adicionada!</strong> <br /> 
+                    Produto <strong>${produto.id}</strong> - ${contagem} unidade(s) adicionadas.
+                </div>
+                </div>
+            </div>
+        `;
+
+        fetch(`http://localhost:4000/admin/${produto.id}/quantidade`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantidade: contagem })
+        }).then(async res => {
+            const data = await res.json();
+            if (data.sucesso) {
+                setQuantidade(prev => prev + contagem)
+                modal.hide();
+                container.appendChild(toast);
+            } else {
+                console.log(data.mensagem);
+            }
+        })
     }
 
     return <>
-        {produto && <div className="container corpo py-4">
-            <h2 className="titulo fs-2 text-center mb-4">produto {produto.id}</h2>
+        {produto && <>
+            <div className="container py-4">
 
-            <div className="d-flex flex-column align-items-center gap-4" onSubmit={atualizarProduto}>
-
-                <div className="col-12 col-lg-10 p-4 rounded fundoCinza border bordaCinza">
-                        /* DADOS DO PRODUTO */
-                    <h4 className="mb-3">Dados do Produto</h4>
-
-                    <div className="row col-12 g-3">
-                        <div className="col-md-6">{produto.nome}</div>
-
-                        <div className="col-md-6">
-                            <label htmlFor="preco" className="form-label">Preço <span className="text-body-secondary">*</span></label>
-
-                            <div className="input-group">
-                                <span className="input-group-text">R$</span>{" "}
-                                <input type="text" className="form-control" id="preco" placeholder="0,00" value={preco} onChange={(e) => setPreco(e.target.value)} required />
+                <div className="container d-flex flex-wrap row-gap-3">
+                    {/* Imagens do produto*/}
+                    <div className="col-12 col-lg-6 pe-0 pe-lg-2">
+                        <div className="galeria flex-column flex-md-row rounded shadow">
+                            {/* Imagem Principal */}
+                            <div className='img-galeria col-12 col-md-10'>
+                                <img
+                                    src={imagemPrincipal}
+                                    className="img-completa"
+                                    alt="Produto"
+                                />
                             </div>
-                        </div>
 
-                        <div className="col-md-6">
-                            <label htmlFor="marca" className="form-label">Marca <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="marca" placeholder="Marca" value={marca} onChange={(e) => setMarca(e.target.value)} required />
-                        </div>
+                            {/* Miniaturas  VERTICAL*/}
+                            <div className=" col-2 d-none d-md-flex justify-content-end">
+                                <div className="container-miniaturas cm-vertical col-10">
+                                    {
+                                        produto.imagem.map((imagem, index) => {
+                                            return <div
+                                                onClick={() => setImagemPrincipal(imagem)}
+                                                key={index}
+                                            >
+                                                <img
+                                                    src={imagem}
+                                                    className="img-thumbnail miniatura img-completa"
+                                                />
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            </div>
 
-                        <div className="col-md-6">
-                            <label htmlFor="cat1" className="form-label">Categoria Geral<span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="cat1" placeholder="Categoria Geral" value={categoria} onChange={(e) => setCategoria(e.target.value)} required />
-                        </div>
-
-                        <div className="col-md-6">
-                            <label htmlFor="cat2" className="form-label">Subcategoria<span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="cat2" placeholder="Subcategoria" value={subcategoria} onChange={(e) => setSubcategoria(e.target.value)} required />
-                        </div>
-                    </div>
-
-                        /* IMAGENS */
-                    <h4 className="mb-3 mt-4">Imagens</h4>
-
-                    <div className="row col-12 g-3 p-2">
-                        <div className="adicionarImagem col-12">
-                            <button
-                                type="button"
-                                className="botaoAdicionar btn col-12"
-                                onClick={abrirModal}
-                            >
-                                <div>Adicionar imagem</div>
-                                <div>+</div>
-                            </button>
-
-                            <div className='container-imagens p-3' id='divImagens'>
-                                {imagens && imagens.map((imagem, index) => {
-                                    return <ImagemProd key={index} imagem={imagem} funcaoExcluir={excluirImagem} index={index} />
-                                })}
+                            {/* Miniaturas  HORIZONTAL*/}
+                            <div className="container-miniaturas cm-horizontal d-md-none mt-2">
+                                {
+                                    produto.imagem.map((imagem, index) => {
+                                        return <div
+                                            onClick={() => setImagemPrincipal(imagem)}
+                                            key={index}
+                                            className='col-2'
+                                        >
+                                            <img
+                                                src={imagem}
+                                                className="img-thumbnail miniatura img-completa"
+                                            />
+                                        </div>
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
 
-                    {/* DESCRIÇÃO DO PRODUTO */}
-                    <h4 className="mb-3 mt-4">Descrição</h4>
+                    {/* Informações do produto */}
+                    <div className="col-12 col-lg-6 ps-0 ps-lg-2 d-flex flex-column justify-content-around row-gap-3">
+                        <div className="d-flex flex-column gap-3 p-3 rounded shadow bg-light bordaCompleta bordaCinza">
+                            <div className="info-linha"><strong>ID</strong> {produto.id}</div>
+                            <div className="info-linha"><strong>Produto</strong> {produto.nome}</div>
+                            <div className="info-linha"><strong>Marca</strong> {produto.marca}</div>
+                            <div className="info-linha"><strong>Preço</strong> R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+                            <div className="info-linha"><strong>Categoria</strong> {produto.categoria[0]} → {produto.categoria[1]}</div>
+                            {/* Botão atualizar */}
+                            <div className='ms-auto'><button className='btn btn-1' onClick={() => {window.location.href = `/admin/produtos/atualizar/${produto.id}`}}>Atualizar informações</button></div>
+                        </div>
 
-                    <div className="row col-12 g-3 p-2">
-                        <div className="form-floating">
-                            <textarea
-                                className="form-control bordaCinza"
-                                placeholder="Descrição do Produto"
-                                id="descricao"
-                                style={{ height: 200 }}
-                                value={descricao}
-                                onChange={(e) => setDescricao(e.target.value)}
-                            />
+                        <div className="d-flex flex-column gap-3 p-3 rounded shadow bg-light bordaCompleta bordaCinza">
+                            <div className="info-linha"><strong>Estoque</strong> {quantidade}</div>
+                            {/* Botão adicionar ao estoque */}
+                            <div className='ms-auto'><button className='btn btn-2 fundoBranco' onClick={abrirModal}>Adicionar ao estoque</button></div>
                         </div>
                     </div>
-                </div>
 
-                    /* REGISTRAR PRODUTO */
-                <div className="col-12 col-lg-10 d-flex justify-content-end">
-                    <button type="submit" className="btn btn-1">Atualizar Produto</button>
+                    {/* Descrição */}
+                    <div className='col-12 p-3 rounded shadow bg-light bordaCompleta bordaCinza descricao'>
+                        <div className='fs-3 mb-3'><strong>Descrição</strong></div>
+                        <div className='descricao' dangerouslySetInnerHTML={{ __html: descricao }}></div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {/* MODAL */}
+            <div className="modal fade" id={`modalEstocar-${produto.id}`} tabIndex="-1" aria-labelledby="modalEstocarLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+
+                        {/* CABEÇALHO */}
+                        <div className="modal-header fundoPreto">
+                            <h5 className="modal-title" id="modalImagemLabel">Adicionar ao estoque</h5>
+                            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+
+                        {/* CORPO */}
+                        <div className="modal-body">
+                            <div className='col-12 p-3 d-flex flex-wrap justify-content-center align-items-center row-gap-2 mb-3 fundoCinza rounded'>
+                                {/* IMAGEM */}
+                                <div className="ca-img col-7 ratio-1 border rounded p-1 fundoBranco">
+                                    <img src={produto.imagem[0]} className='img-completa' />
+                                </div>
+
+                                {/* INFORMAÇÕES GERAIS */}
+                                <div className='col-12 col-sm-5 ps-sm-3 d-flex flex-wrap row-gap-2'>
+                                    <div className='col-6 col-sm-12 pe-1 p-sm-0'>
+                                        <div className="fw-semibold">Marca:</div>
+                                        <div className='ps-2'>{produto.marca}</div>
+                                    </div>
+                                    <div className='col-6 col-sm-12 ps-1 p-sm-0'>
+                                        <div className="fw-semibold">Preço:</div>
+                                        <div className='ps-2'>R$ {produto.preco.toFixed(2).replace('.', ',')}</div>
+                                    </div>
+                                    <div className='col-6 col-sm-12'>
+                                        <div className="fw-semibold">Estoque:</div>
+                                        <div className='ps-2'>{quantidade}</div>
+                                    </div>
+
+                                    <div className='col-12'>
+                                        <div className="fw-semibold">Categoria:</div>
+                                        <div className='ps-2 ca-cat'>{produto.categoria[0] + ' > ' + produto.categoria[1]}</div>
+                                    </div>
+                                </div>
+
+                                {/* NOME */}
+                                <div className='col-12'>
+                                    <div className="fw-semibold">Produto:</div>
+                                    <div className='ca-nome'>{produto.nome}</div>
+                                </div>
+                            </div>
+
+                            {/* CONTADOR - Quantidade a adicionar */}
+                            <div className="d-flex flex-wrap column-gap-3 row-gap-2">
+                                <label htmlFor="quantidadeAdd" className="form-label fw-semibold m-0 d-flex justify-text-center align-items-center">Quantidades a adicionar:</label>
+                                <div className="div_contador rounded bordaCinza">
+                                    <button type="button" className="btn-contador" id='btnAdicionar' onClick={() => setContagem(prev => Math.max(prev - 1, 1))}>-</button>
+                                    <input
+                                        type="number" className="form-control bordaCinza contador text-center" id="quantidadeAdd" value={contagem} min={1}
+                                        onChange={(e) => setContagem(Number(e.target.value))}
+                                        required
+                                    />
+                                    <button type="button" className="btn-contador" onClick={() => setContagem(prev => Math.min(prev + 1, 100))}>+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* BOTÕES */}
+                        <div className="modal-footer">
+                            <div><button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button></div>
+                            <div><button type="button" className="btn btn-primary" onClick={adicionarQuantidade}>Adicionar</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
         }
-
-
-
-        {/* MODAL */}
-        <div className="modal fade" id="modalImagem" tabIndex="-1" aria-labelledby="modalImagemLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-
-                    {/* CABEÇALHO */}
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="modalImagemLabel">Adicionar Imagem</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-
-                    {/* INPUT */}
-                    <div className="modal-body">
-                        
-                    </div>
-
-                    {/* BOTÕES */}
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>
-                        <button type="button" className="btn btn-primary" >Adicionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </>
 }

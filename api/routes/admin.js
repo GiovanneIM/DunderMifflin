@@ -57,11 +57,14 @@ router.post('/login', (req, res) => {
 // Rota para adicionar um produto
 router.post('/adicionar', (req, res) => {
     // Recebendo os dados
-    const { nome, preco, marca, categoria, imagem } = req.body;
+    const { nome, preco, marca, categoria, imagem, descricao } = req.body;
 
     // Validando os dados passados
-    if (!nome || !preco || !marca || isNaN(preco)) {
-        return res.status(400).json({ erro: 'Campos nome e preço (float) são obrigatórios.' });
+    if (!nome || !preco || !marca || isNaN(preco) || !categoria[0] || !categoria[1] || !imagem[0]) {
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'Campos nome e preço (float) são obrigatórios.'
+        });
     }
 
     // Lendo a lista de produtos
@@ -82,9 +85,9 @@ router.post('/adicionar', (req, res) => {
             "id": idNovoProduto,
             "nome": nome,
             "preco": preco,
-            "marca": marca ? marca : "",
-            "categoria": categoria ? categoria : [],
-            "imagem": imagem ? imagem : [],
+            "marca": marca,
+            "categoria": categoria,
+            "imagem": imagem,
             "quantidade": 0
         }
 
@@ -92,21 +95,31 @@ router.post('/adicionar', (req, res) => {
         produtos.push(produto);
 
         // Criando o HTML da descrição
-        const descricao = `<div>${nome}</div>`;
-        fs.writeFile(`./descricoes/${idNovoProduto}.html`, descricao, (err) => {
+        const desc = descricao? descricao : `<div>${nome}</div>`;
+        fs.writeFile(`./descricoes/${idNovoProduto}.html`, desc, (err) => {
             if (err) {
                 console.error('Erro ao criar o arquivo da descrição:', err);
-                return res.status(500).send('Erro ao criar arquivo da descrição.');
+                return res.status(500).json({
+                    sucesso: false,
+                    mensagem: 'Erro ao criar arquivo da descrição.'
+                });
             }
 
             // Salvando a lista de produtos
             fs.writeFile(caminhoProdutos, JSON.stringify(produtos, null, 4), (err) => {
                 if (err) {
                     console.error('Erro ao salvar produtos:', err);
-                    return res.status(500).send('Erro ao salvar produtos.');
+                    return res.status(500).json({
+                        sucesso: true,
+                        mensagem: 'Erro ao salvar produtos.'
+                    });
                 }
 
-                res.status(201).send('Produto adicionado com o ID: ' + idNovoProduto);
+                res.status(201).json({
+                    sucesso: true,
+                    mensagem: 'Produto adicionado com o ID: ' + idNovoProduto,
+                    idProduto: idNovoProduto
+                });
             });
         });
     })
@@ -117,14 +130,20 @@ router.put('/atualizar/:id', (req, res) => {
     // Recebendo os dados
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).send('Erro: O ID inserido não era um número.');
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'Erro: O ID inserido não era um número.'
+        });
     }
 
     const { produto } = req.body;
 
     // Validando os dados passados
     if (!produto.nome || !produto.preco || !produto.marca || isNaN(produto.preco)) {
-        return res.status(400).json({ erro: 'Campos nome e preço (float) são obrigatórios.' });
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'Campos nome e preço (float) são obrigatórios.'
+        });
     }
 
     // Lendo a lista de produtos
@@ -136,40 +155,56 @@ router.put('/atualizar/:id', (req, res) => {
         // Adicionando produto à lista
         const index = produtos.findIndex(prod => prod.id === id);
         if (index === -1) {
-            return res.status(404).send('Produto não encontrado.');
+            return res.status(404).json({
+                sucesso: false,
+                mensagem: 'Produto não encontrado.'
+            });
         }
 
-        produtos[index] = { ...produto, id };
+        const quantidade = produtos[index].quantidade;
+
+        produtos[index] = { ...produto, id, quantidade };
 
         // Salvando a lista de produtos
         fs.writeFile(caminhoProdutos, JSON.stringify(produtos, null, 4), (err) => {
             if (err) {
                 console.error('Erro ao salvar produtos:', err);
-                return res.status(500).send('Erro ao salvar produtos.');
+                return res.status(500).json({
+                    sucesso: false,
+                    mensagem: 'Erro ao salvar produtos.'
+                });
             }
 
-            res.status(201).send('Produto atualzado!');
+            res.status(201).json({
+                sucesso: true,
+                mensagem: 'Atualização concluída'
+            });
         });
     })
 })
 
 // Rota para alterar a quantidade de um produto
 router.patch('/:id/quantidade', (req, res) => {
-    // Recebendo a imagem
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).send('Erro: O ID inserido não era um número.');
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'O ID inserido não era um número.'
+        });
     }
 
     const quantidade = parseInt(req.body.quantidade);
     if (isNaN(quantidade)) {
-        return res.status(400).send('Erro: A quantidade precisa ser um inteiro.');
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: 'Erro: A quantidade precisa ser um inteiro.'
+        });
     }
 
     // Lendo a lista de produtos
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const produtos = v.lerEconverterJSON(res, err, data);
+        const produtos = v.lerEconverterJSON(err, data, res);
         if (!produtos) { return; }
 
         // Procurando e alterando a quantidade do produto
@@ -186,10 +221,16 @@ router.patch('/:id/quantidade', (req, res) => {
         fs.writeFile(caminhoProdutos, conteudo, (err) => {
             if (err) {
                 console.error('Erro: ' + err);
-                res.status(500).send('Erro: ' + err)
+                res.status(500).json({
+                    sucesso: false,
+                    mensagem: 'Erro: ' + err
+                });
             }
 
-            res.status(200).send('Quantidade do produto atualizada');
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Quantidade do produto atualizada'
+            });
         });
     })
 })

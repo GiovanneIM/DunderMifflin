@@ -76,10 +76,10 @@ export default async function Produtos() {
 
 
         {/* Div para os toast */}
-        <div
+        {/* <div
             id="toastContainer"
             className="toast-container position-fixed bottom-0 end-0 p-3"
             style={{ zIndex: 1055 }}
-        ></div>
+        ></div> */}
     </>
 }

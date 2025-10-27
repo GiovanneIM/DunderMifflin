@@ -79,6 +79,10 @@ header, footer {
     background-color: rgb(33, 37, 41, 0.3) !important;
 }
 
+.bordaCompleta {
+    border: 1px solid;
+}
+
 .bordaCinza {
     border-color: #2125293d !important;
 }
@@ -92,7 +96,7 @@ header, footer {
 }
 
 .fundoCinza {
-    background-color: #2125290d !important;
+    background-color: #2125293d !important;
 }
 
 .fundoPreto {
