@@ -181,7 +181,7 @@ export default function Produto() {
 
                     {/* Informações do produto */}
                     <div className="col-12 col-lg-6 ps-0 ps-lg-2 d-flex flex-column justify-content-around row-gap-3">
-                        <div className="d-flex flex-column gap-3 p-3 rounded shadow bg-light bordaCompleta bordaCinza">
+                        <div className="d-flex flex-column gap-3 p-3 rounded shadow fundoBranco bordaCompleta bordaCinza">
                             <div className="info-linha"><strong>ID</strong> {produto.id}</div>
                             <div className="info-linha"><strong>Produto</strong> {produto.nome}</div>
                             <div className="info-linha"><strong>Marca</strong> {produto.marca}</div>
@@ -191,7 +191,7 @@ export default function Produto() {
                             <div className='ms-auto'><button className='btn btn-1' onClick={() => { window.location.href = `/admin/produtos/atualizar/${produto.id}` }}>Atualizar informações</button></div>
                         </div>
 
-                        <div className="d-flex flex-column gap-3 p-3 rounded shadow bg-light bordaCompleta bordaCinza">
+                        <div className="d-flex flex-column gap-3 p-3 rounded shadow fundoBranco bordaCompleta bordaCinza">
                             <div className="info-linha"><strong>Estoque</strong> {quantidade}</div>
                             {/* Botão adicionar ao estoque */}
                             <div className='ms-auto'><button className='btn btn-2 fundoBranco' onClick={abrirEstocar}>Adicionar ao estoque</button></div>
@@ -199,13 +199,13 @@ export default function Produto() {
                     </div>
 
                     {/* Descrição */}
-                    <div className='col-12 p-3 rounded shadow bg-light bordaCompleta bordaCinza descricao'>
+                    <div className='col-12 p-3 rounded shadow fundoBranco bordaCompleta bordaCinza descricao'>
                         <div className='fs-3 mb-3'><strong>Descrição</strong></div>
                         <div className='descricao' dangerouslySetInnerHTML={{ __html: descricao }}></div>
                     </div>
 
                     {/* Excluir produto */}
-                    <div className='d-flex col-12 p-3 rounded shadow bg-light bordaCompleta bordaCinza descricao'>
+                    <div className='d-flex col-12 p-3 rounded shadow fundoBranco bordaCompleta bordaCinza descricao'>
                         <div className='fs-3'><strong>Excluir</strong></div>
                         <div className='ms-auto'><button className='btn btn-3' onClick={abrirExcluir}>Excluir produto</button></div>
                     </div>

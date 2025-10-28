@@ -2,15 +2,16 @@
     {
         "razaoSocial": "teste teste teste",
         "nomeFantasia": "teste",
+        "logo": "https://placehold.co/300x300?text=teste",
         "cnpj": "12.341.111/1111-11",
         "telefone": "(11) 11111-1111",
-        "cep": "11111-111",
+        "cep": "09110-140",
         "estado": "São Paulo",
         "cidade": "São Paulo",
         "filiais": [
             {
                 "id": 0,
-                "cep": "11111-111",
+                "cep": "09110-140",
                 "nome": "filial 1"
             },
             {

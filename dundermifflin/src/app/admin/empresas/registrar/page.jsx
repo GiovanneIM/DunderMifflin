@@ -1,8 +1,16 @@
 'use client'
 
+/*
+    Página para registrar um empresa
+        • Preecher os dados da empresa
+        • Usar a API dos correios para buscar o endereço pelo CEP
+
+*/
+
 export default function RegistrarEmpresa() {
     let id;
 
+    /* Função para formater o CNPJ */
     async function CNPJ(e) {
         let cnpj = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
 
@@ -22,6 +30,7 @@ export default function RegistrarEmpresa() {
         e.target.value = cnpj; // Atualiza o texto no input
     }
 
+    /* Função para formatar o telefone */
     async function Telefone(e) {
         let tel = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
 
@@ -37,6 +46,7 @@ export default function RegistrarEmpresa() {
         e.target.value = tel; // Atualiza o texto no input
     }
 
+    /* Função para completar o endereço pelo CEP */
     async function CEP(e) {
         let cep = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
 
@@ -66,6 +76,7 @@ export default function RegistrarEmpresa() {
         }
     }
 
+    // Função para registrar a empresa
     function registrarEmpresa(e) {
         e.preventDefault();
 
@@ -92,6 +103,7 @@ export default function RegistrarEmpresa() {
         })
     }
 
+    // Função para registrar a empresa
     function redirecionar (e) {
         window.location.href = `/admin/empresas/empresa/${id}`;
     }

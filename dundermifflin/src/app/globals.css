@@ -71,7 +71,7 @@ header, footer {
 }
 
 .btn-2 {
-    background-color: transparent !important;
+    background-color: white !important;
     color: #212529 !important;
     border: 1px solid #212529 !important;
 }
@@ -152,4 +152,22 @@ header, footer {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+
+
+.info-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.5rem 0;
+    line-break: anywhere;
+    padding: 0.5rem;
+}
+
+.info-linha strong {
+    color: #343a40;
+    font-weight: 600;
+    min-width: 120px;
 }

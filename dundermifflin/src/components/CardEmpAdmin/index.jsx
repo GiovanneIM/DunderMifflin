@@ -14,8 +14,8 @@ export default function CardEmpAdmin({ empresa }) {
             {/* Corpo */}
             <div className='col-12 p-3 d-flex flex-wrap justify-content-between row-gap-2'>
                 <div className="ca-img col-7 ratio-1 border rounded p-1">
-                    {/* <img src={empresa.logo} className='img-completa' /> */}
-                    <img src='https://static.vecteezy.com/system/resources/previews/000/272/740/original/vector-colorful-circle-banner-template-horizontal-advertising-business-banner.jpg' className='img-completa' />
+                    <img src={empresa.logo} className='img-completa' />
+                    {/* <img src='https://static.vecteezy.com/system/resources/previews/000/272/740/original/vector-colorful-circle-banner-template-horizontal-advertising-business-banner.jpg' className='img-completa' /> */}
                 </div>
 
                 <div className="col-5 d-flex flex-column row-gap-2">
