@@ -44,7 +44,7 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
 
 | Tipo | Função Principal |
 |--------|------------------|
-| **Administrador** | Gerencia empresas, produtos e listas de compras |
+| **Administrador** | Gerencia produtos, empresas e listas de compras |
 | **Empresa Cliente** | Controla seus gerentes e aprova listas de compras |
 | **Gerente de Compras** | Cria e envia listas de compras para aprovação |
 
@@ -53,8 +53,8 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
   👉 `http://localhost:3000/admin`
 - Realizam login e são direcionados para a página `/admin/home`.
 - Possuem acesso a funcionalidades de:
-  - Cadastro e gerenciamento de **empresas clientes**  
   - Controle de **produtos do estoque**  
+  - Cadastro e gerenciamento de **empresas clientes**  
   - Acompanhamento e aprovação de **listas de compras** enviadas pelas empresas
 
 ### 🏢 Empresas Clientes
@@ -62,11 +62,13 @@ O sistema foi desenvolvido para gerenciar a relação entre **Administradores**,
   👉 `http://localhost:3000`
 - Após clicar em **Login**, são direcionadas para `/login`.
 - Após autenticação, podem:
-  - Cadastrar e gerenciar seus **gerentes de compras**  
+  - Cadastrar e gerenciar seus **gerentes de compras** e seus endereços de entrega
   - Visualizar e aprovar as **listas de compras** enviadas pelos gerentes vinculados à empresa
 
 ### 🛒 Gerentes de Compras
-- Também acessam o sistema via `http://localhost:3000`
+- Acessam o site pelo endereço principal:  
+  👉 `http://localhost:3000`
+- Após clicar em **Login**, são direcionadas para `/login`.
 - Após login, podem:
   - **Adicionar produtos** à sua lista de compras  
   - **Finalizar e enviar** a lista para sua respectiva empresa  
