@@ -103,6 +103,157 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// Rota para atualizar a imagem da logo da empresa
+router.patch('/:id/logo', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
+    }
+
+    const { logo } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        empresa.logo = logo;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao registrar empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Logo atualizada com sucesso.'
+            });
+        });
+    });
+});
+
+// Rota para atualizar nomes, CNPJ e telefone da empresa
+router.patch('/:id/infos', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
+    }
+
+    const { logo } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        empresa.logo = logo;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao registrar empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Logo atualizada com sucesso.'
+            });
+        });
+    });
+});
+
+// Rota para atualizar CEP, num e complemento do endereço da empresa
+router.patch('/:id/endereco', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
+    }
+
+    const { logo } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        empresa.logo = logo;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao registrar empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Logo atualizada com sucesso.'
+            });
+        });
+    });
+});
+
+
+
+
+
 // Rota para obter os gerente de compras da empresa
 router.get('/:id/gerentes', (req, res) => {
     const id = parseInt(req.params.id);

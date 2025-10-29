@@ -99,18 +99,18 @@ export default function AtualizarProduto() {
             headers: { "Content-Type": "application/json" },
             credentials: 'include'
         })
-        .then(async res => {
-            const data = await res.json();
-            if (data.sucesso) {
-                setSucesso(true);
+            .then(async res => {
+                const data = await res.json();
+                if (data.sucesso) {
+                    setSucesso(true);
 
-                // Redirecionando o usuário
-                setTimeout(() => { window.location.href = `/admin/produtos/produto/${id}`; }, 1500);
-            } else {
-                console.log(data.mensagem);
-            }
-        })
-        .catch(err => alert("Erro na requisição: " + err.message));
+                    // Redirecionando o usuário
+                    setTimeout(() => { window.location.href = `/admin/produtos/produto/${id}`; }, 1500);
+                } else {
+                    console.log(data.mensagem);
+                }
+            })
+            .catch(err => alert("Erro na requisição: " + err.message));
     }
 
 
@@ -207,7 +207,7 @@ export default function AtualizarProduto() {
                             <div className='col-12 col-lg-6 pe-0 pe-md-2'>
                                 <div className='fs-5 fw-medium my-2'>Definição</div>
                                 <textarea
-                                    className="form-control "
+                                    className="form-control bordaCinza"
                                     placeholder="Descrição do Produto"
                                     id="descricao"
                                     style={{ minHeight: 500, maxHeight: 500 }}
@@ -218,7 +218,7 @@ export default function AtualizarProduto() {
 
                             <div className='col-12 col-lg-6 ps-0 ps-md-2'>
                                 <div className='fs-5 fw-medium my-2'>Pré visualisação</div>
-                                <div className='descricao rounded p-2 bordaCompleta bordaCinza' style={{ minHeight: 500, maxHeight: 500, overflow: 'scroll' }} dangerouslySetInnerHTML={{ __html: descricao }}></div>
+                                <div className='descricao rounded p-2 bordaCompleta bordaCinza fundoCinza' style={{ minHeight: 500, maxHeight: 500, overflowY: 'scroll' }} dangerouslySetInnerHTML={{ __html: descricao }}></div>
                             </div>
                         </div>
                     </div>
@@ -253,6 +253,7 @@ export default function AtualizarProduto() {
                     {novaImagem && (
                         <img src={novaImagem} alt="Preview" className="img-fluid mt-3" />
                     )}
+                    
                     {/* BOTÕES */}
                     <div className="modal-footer">
                         <a type="button" className="btn btn-2" data-bs-dismiss="modal" >Cancelar</a>

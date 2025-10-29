@@ -34,7 +34,7 @@ export default function RegistrarEmpresa() {
     async function Telefone(e) {
         let tel = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
 
-        if (tel.length > 14) tel = tel.slice(0, 11);  // Limita o tamanho a 11 caracteres
+        if (tel.length > 11) tel = tel.slice(0, 11);  // Limita o tamanho a 11 caracteres
 
         // Formatação do Telefone
         if (tel.length > 7) {

@@ -2,7 +2,7 @@
     {
         "razaoSocial": "teste teste teste",
         "nomeFantasia": "teste",
-        "logo": "https://placehold.co/300x300?text=teste",
+        "logo": "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/11/pikachu-pokemon-escarlata-purpura-2888180.jpg?tf=3840x",
         "cnpj": "12.341.111/1111-11",
         "telefone": "(11) 11111-1111",
         "cep": "09110-140",
@@ -12,12 +12,16 @@
             {
                 "id": 0,
                 "cep": "09110-140",
-                "nome": "filial 1"
+                "nome": "filial 1",
+                "numero": "10",
+                "complemento": "a"
             },
             {
                 "id": 1,
-                "cep": "11111-222",
-                "nome": "filial 2"
+                "cep": "09110-001",
+                "nome": "filial 2",
+                "numero": "11",
+                "complemento": null
             }
         ],
         "numero": "111111",
