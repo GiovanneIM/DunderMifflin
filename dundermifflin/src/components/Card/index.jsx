@@ -48,7 +48,6 @@ export default function Card({ id, nome, imagem, preco }) {
 
     }
 
-
     return <>
         {/* CARD */}
         <div className="card" style={{ width: "15rem" }}>

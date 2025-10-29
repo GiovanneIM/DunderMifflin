@@ -130,7 +130,7 @@ header, footer {
 
 .redesSociais a:hover {
     color: rgb(33, 37, 41, 0.75)
-    
+
 }
 
 
@@ -158,11 +158,12 @@ header, footer {
 
 .info-linha {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dee2e6;
     padding: 0.5rem 0;
-    line-break: anywhere;
+    /* line-break: anywhere; */
     padding: 0.5rem;
 }
 
