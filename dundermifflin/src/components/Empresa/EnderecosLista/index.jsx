@@ -107,26 +107,27 @@ export default function EnderecosLista({ empresa }) {
 
     /* Excluir um endereço */
     function excluirEndereco() {
-        console.log(endExcluir);
+        // console.log(endExcluir);
         
-        // fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${enderecoExcluir}`, {
-        //     method: "DELETE",
-        //     credentials: 'include'
-        // })
-        //     .then(async res => {
-        //         const data = await res.json();
+        fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${endExcluir}`, {
+            method: "DELETE",
+            credentials: 'include'
+        })
+            .then(async res => {
+                const data = await res.json();
 
-        //         if (data.sucesso) {
-        //             const modalElement = document.getElementById('modalExcluirEndereco');
-        //             const modal = bootstrap.Modal.getInstance(modalElement);
-        //             modal.hide();
+                if (data.sucesso) {
+                    const modalElement = document.getElementById('modalExcluirEndereco');
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    modal.hide();
 
-        //             setEnderecos(data.enderecos);
-        //         } else {
-        //             console.log(data.mensagem);
-        //         }
-        //     })
-        //     .catch(err => alert("Erro na requisição: " + err.message));
+                    const enderecosRestantes = enderecos.filter((e) => e.id !== Number(endExcluir))
+                    setEnderecos(enderecosRestantes);
+                } else {
+                    console.log(data.mensagem);
+                }
+            })
+            .catch(err => alert("Erro na requisição: " + err.message));
     }
 
     return (
@@ -155,7 +156,7 @@ export default function EnderecosLista({ empresa }) {
                         style={{ height: '250px', overflowY: 'scroll' }}
                     >
                         <div className="col-12 p-3">
-                            {enderecos?.length > 0 ? (
+                            {enderecos?.length > 1 ? (
                                 enderecos.map(endereco =>
                                     endereco.id > 0 ? (
                                         <EnderecoItem

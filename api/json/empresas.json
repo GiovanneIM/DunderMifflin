@@ -21,23 +21,34 @@
                 "nome": "ENDEREÇO 2 - TESTE 2",
                 "numero": "111",
                 "complemento": "Portão 80"
-            },
-            {
-                "id": 2,
-                "nome": "123",
-                "cep": "12345-678",
-                "numero": "456",
-                "complemento": "456"
-            },
-            {
-                "id": 3,
-                "nome": "456",
-                "cep": "11111-111",
-                "numero": "11",
-                "complemento": "1111"
             }
         ],
         "id": 0,
         "senha": "Empresa0"
+    },
+    {
+        "razaoSocial": "EMPRESA",
+        "nomeFantasia": "TESTE",
+        "cnpj": "77.777.777/7777-77",
+        "telefone": "(88) 88888-8888",
+        "id": 1,
+        "senha": "Empresa1",
+        "logo": "https://placehold.co/600x400?text=TESTE}",
+        "enderecos": [
+            {
+                "id": 0,
+                "cep": "09110-020",
+                "nome": "TESTE",
+                "numero": "100",
+                "complemento": "Porta 3"
+            },
+            {
+                "id": 1,
+                "nome": "123213",
+                "cep": "09110-050",
+                "numero": "32",
+                "complemento": ""
+            }
+        ]
     }
 ]

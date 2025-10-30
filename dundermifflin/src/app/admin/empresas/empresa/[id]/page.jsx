@@ -16,11 +16,12 @@ import Logo from '@/components/Empresa/Logo';
 import InformacoesEmpresa from '@/components/Empresa/InformacoesEmpresa';
 import EnderecosLista from '@/components/Empresa/EnderecosLista';
 import GerentesLista from '@/components/Empresa/GerentesLista';
+import ListasEmpresa from '@/components/Empresa/ListasEmpresa';
 
 export default function Empresa() {
     const { id } = useParams();   // Obtendo o ID do produto
     const [empresa, setEmpresa] = useState();
-    const [endereco, setEndereco] = useState([]);
+    // const [endereco, setEndereco] = useState([]);
 
     /* Buscando a empresa */
     useEffect(() => {
@@ -57,10 +58,7 @@ export default function Empresa() {
                 <GerentesLista empresa={empresa} />
 
                 {/* Listas da empresa */}
-                <div className="col-12  p-3 bordaCompleta bordaCinza rounded d-flex flex-wrap">
-                    <div className='fs-4 mb-0 col-12'><strong>Listas</strong></div>
-                    <div className='col-12 p-3 bordaCompleta bordaCinza rounded d-flex flex-wrap'></div>
-                </div>
+                <ListasEmpresa empresa={empresa}/>
             </div>
         </div>
     );

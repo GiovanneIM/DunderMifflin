@@ -347,7 +347,7 @@ router.post('/registrarEmpresa', (req, res) => {
 
             "id": idNovaEmpresa,
             "senha": `Empresa${idNovaEmpresa}`,
-            "logo": `https://placehold.co/600x400?text=${empresa.nomeFantasia.replace(' ', '+')}}`,
+            "logo": `https://placehold.co/600x400?text=${empresa.nomeFantasia.replace(' ', '+')}`,
             "enderecos": [{
                 "id": 0,
                 "cep": empresa.cep,

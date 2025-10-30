@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from "react";
 import GerenteItem from "./GerenteItem";
 
 export default function GerentesLista({ empresa }) {
@@ -11,7 +14,44 @@ export default function GerentesLista({ empresa }) {
 
     /* Para guardar o gerente a ser excluído */
     const [gerExcluir, setGerExcluir] = useState('');
-    
+
+
+    /* Buscando os gerentes */
+    useEffect(() => {
+        async function carregarGerentes() {
+            try {
+                const res = await fetch(`http://localhost:4000/empresas/${empresa.id}/gerentes`);
+                const data = await res.json();
+
+                if (data.sucesso) {
+                    setGerentes(data.gerentes);
+                    console.log("Gerentes carregados:", data.gerentes);
+                } else {
+                    console.log("Falha ao carregar gerentes:", data.erro);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar gerentes:", error);
+            }
+        }
+
+        if (!isNaN(empresa.id)) carregarGerentes();
+    }, [empresa]);
+
+    /* Função para formatar o telefone */
+    async function Telefone(e) {
+        let tel = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
+
+        if (tel.length > 11) tel = tel.slice(0, 11);  // Limita o tamanho a 11 caracteres
+
+        // Formatação do Telefone
+        if (tel.length > 7) {
+            tel = tel.replace(/^(\d{2})(\d{5})(\d{1,4})$/, '($1) $2-$3');
+        } else if (tel.length > 2) {
+            tel = tel.replace(/^(\d{2})(\d{1,5})$/, '($1) $2');
+        }
+
+        setNvTel(tel); // Atualiza o texto no input
+    }
 
     /* Abrir modal para registrar novo endereço */
     function abrirRegistrar() {
@@ -28,6 +68,7 @@ export default function GerentesLista({ empresa }) {
     /* Registrar novo gerente */
     function registrarGerente() {
         const novoGerente = {
+            idEmpresa: empresa.id,
             nomeCompleto: nvNC,
             nomeUsuario: nvNU,
             email: nvEmail,
@@ -44,7 +85,7 @@ export default function GerentesLista({ empresa }) {
                 const data = await res.json();
 
                 if (data.sucesso) {
-                    const modalElement = document.getElementById('modalRegistrarEndereco');
+                    const modalElement = document.getElementById('modalRegistrarGerente');
                     const modal = bootstrap.Modal.getInstance(modalElement);
                     modal.hide();
 
@@ -64,26 +105,27 @@ export default function GerentesLista({ empresa }) {
 
     /* Excluir um gerente */
     function excluirGerente() {
-        console.log(gerExcluir);
-        
-        // fetch(`http://localhost:4000/empresas/${empresa.id}/gerente/${enderecoExcluir}`, {
-        //     method: "DELETE",
-        //     credentials: 'include'
-        // })
-        //     .then(async res => {
-        //         const data = await res.json();
+        // console.log(gerExcluir);
 
-        //         if (data.sucesso) {
-        //             const modalElement = document.getElementById('modalExcluirEndereco');
-        //             const modal = bootstrap.Modal.getInstance(modalElement);
-        //             modal.hide();
+        fetch(`http://localhost:4000/empresas/gerente/${gerExcluir}`, {
+            method: "DELETE",
+            credentials: 'include'
+        })
+            .then(async res => {
+                const data = await res.json();
 
-        //             setEnderecos(data.enderecos);
-        //         } else {
-        //             console.log(data.mensagem);
-        //         }
-        //     })
-        //     .catch(err => alert("Erro na requisição: " + err.message));
+                if (data.sucesso) {
+                    const modalElement = document.getElementById('modalExcluirGerente');
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    modal.hide();
+
+                    const gerentesRestantes = gerentes.filter((g) => g.id !== Number(gerExcluir))
+                    setGerentes(gerentesRestantes);
+                } else {
+                    console.log(data.mensagem);
+                }
+            })
+            .catch(err => alert("Erro na requisição: " + err.message));
     }
 
     return <>
@@ -155,120 +197,25 @@ export default function GerentesLista({ empresa }) {
                             <div className="col-12 p-3 rounded bordaCompleta bordaCinza">
                                 <div className="row g-3">
                                     <div className="col-12">
-                                        <label htmlFor="nome" className="form-label">
-                                            Nome do Gerente <span className="text-body-secondary">*</span>
-                                        </label>
-                                        <input
-                                            value={nvNome}
-                                            onChange={(e) => setNvNome(e.target.value)}
-                                            className="form-control bordaCinza"
-                                            id="nome"
-                                            placeholder="Nome"
-                                            type="text"
-                                            required
-                                        />
+                                        <label htmlFor="nomeComp" className="form-label">Nome Completo <span className="text-body-secondary">*</span></label>
+                                        <input value={nvNC} onChange={(e) => setNvNC(e.target.value)} className="form-control bordaCinza" type="text" id="nomeComp" placeholder="Nome" required/>
                                     </div>
 
                                     <div className="col-md-6">
-                                        <label htmlFor="cep" className="form-label">
-                                            CEP <span className="text-body-secondary">*</span>
+                                        <label htmlFor="nomeUser" className="form-label">Nome de usuário <span className="text-body-secondary">*</span></label>
+                                        <input value={nvNU} onChange={(e) => setNvNU(e.target.value)} className="form-control bordaCinza" type="text" id="nomeUser" placeholder="Nome de Usuário" required />
+                                    </div>
+
+                                    <div className="col-sm-6">
+                                        <label htmlFor="telefone" className="form-label">
+                                            Telefone <span className="text-body-secondary">*</span>
                                         </label>
-                                        <input
-                                            value={nvCEP}
-                                            onChange={CEP}
-                                            className="form-control bordaCinza"
-                                            id="cep"
-                                            placeholder="00000-000"
-                                            type="text"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label htmlFor="pais" className="form-label">País</label>
-                                        <input
-                                            value="Brasil"
-                                            type="text"
-                                            className="form-control fundoCinza"
-                                            id="pais"
-                                            placeholder="País"
-                                            disabled
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label htmlFor="estado" className="form-label">Estado</label>
-                                        <input
-                                            value={nvEndereco.uf}
-                                            type="text"
-                                            className="form-control fundoCinza"
-                                            id="estado"
-                                            placeholder="Estado"
-                                            disabled
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label htmlFor="cidade" className="form-label">Cidade</label>
-                                        <input
-                                            value={nvEndereco.localidade}
-                                            type="text"
-                                            className="form-control fundoCinza"
-                                            id="cidade"
-                                            placeholder="Cidade"
-                                            disabled
-                                        />
+                                        <input value={nvTel} onChange={Telefone} className="form-control bordaCinza" type="text" id="telefone" placeholder="Telefone" required />
                                     </div>
 
                                     <div className="col-12">
-                                        <label htmlFor="bairro" className="form-label">Bairro</label>
-                                        <input
-                                            value={nvEndereco.bairro}
-                                            type="text"
-                                            className="form-control fundoCinza"
-                                            id="bairro"
-                                            placeholder="Bairro"
-                                            disabled
-                                        />
-                                    </div>
-
-                                    <div className="col-12">
-                                        <label htmlFor="rua" className="form-label">Rua</label>
-                                        <input
-                                            value={nvEndereco.logradouro}
-                                            type="text"
-                                            className="form-control fundoCinza"
-                                            id="rua"
-                                            placeholder="Rua"
-                                            disabled
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label htmlFor="numero" className="form-label">
-                                            Número <span className="text-body-secondary">*</span>
-                                        </label>
-                                        <input
-                                            value={nvNumero}
-                                            onChange={(e) => setNvNumero(e.target.value)}
-                                            type="text"
-                                            className="form-control bordaCinza"
-                                            id="numero"
-                                            placeholder="Número"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-6">
-                                        <label htmlFor="complemento" className="form-label">Complemento</label>
-                                        <input
-                                            value={nvComplemento}
-                                            onChange={(e) => setNvComplemento(e.target.value)}
-                                            className="form-control bordaCinza"
-                                            id="complemento"
-                                            placeholder="Complemento"
-                                            type="text"
-                                        />
+                                        <label htmlFor="estado" className="form-label">E-mail <span className="text-body-secondary">*</span></label>
+                                        <input value={nvEmail} onChange={(e) => setNvEmail(e.target.value)} className="form-control bordaCinza" type="text" id="email" placeholder="E-mail" required />
                                     </div>
                                 </div>
                             </div>

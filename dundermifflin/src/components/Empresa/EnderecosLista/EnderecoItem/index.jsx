@@ -58,7 +58,6 @@ export default function EnderecoItem({ idEmpresa, endereco }) {
         const modal = new bootstrap.Modal(document.getElementById(`modalEnderecoInfo-${endereco.id}`));
         modal.show();
     }
-
     function fecharInfo() {
         const modalElement = document.getElementById(`modalEnderecoInfo-${endereco.id}`);
         const modal = bootstrap.Modal.getInstance(modalElement);
@@ -70,7 +69,6 @@ export default function EnderecoItem({ idEmpresa, endereco }) {
         const modal = new bootstrap.Modal(document.getElementById(`modalEnderecoAtualizar-${endereco.id}`));
         modal.show();
     }
-
     function fecharAtualizar() {
         const modalElement = document.getElementById(`modalEnderecoAtualizar-${endereco.id}`);
         const modal = bootstrap.Modal.getInstance(modalElement);

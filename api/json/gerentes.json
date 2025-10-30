@@ -1,20 +1,20 @@
 [
     {
-        "nomeCompleto": "Teste Teste",
-        "nomeUsuario": "Teste",
-        "email": "teste@gmail.com",
-        "telefone": "(11) 11111-1111",
+        "nomeCompleto": "Giovanne",
+        "nomeUsuario": "G10",
+        "email": "giovanne@gmail.com",
+        "telefone": "(21) 96621-3198",
         "idEmpresa": 0,
         "id": 0,
-        "senha": "Gerente0"
+        "senha": "senhaTeste"
     },
     {
-        "nomeCompleto": "Teste Teste",
-        "nomeUsuario": "Teste2",
-        "email": "teste2@gmail.com",
-        "telefone": "(11) 11111-1111",
-        "idEmpresa": 0,
         "id": 1,
+        "nomeCompleto": "teste",
+        "nomeUsuario": "123",
+        "telefone": "(11) 11111-1111",
+        "email": "222@qwe.com",
+        "idEmpresa": 1,
         "senha": "Gerente1"
     }
 ]
