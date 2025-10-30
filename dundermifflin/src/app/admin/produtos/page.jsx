@@ -10,7 +10,7 @@
 */
 
 import { useEffect, useState } from "react";
-import CardProdAdmin from "@/components/CardProdAdmin";
+import CardProdAdmin from "@/components/Cards/CardProdAdmin";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([]);

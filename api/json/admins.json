@@ -1,7 +1,8 @@
 [
     {
         "id":0,
-        "nome":"Michael",
+        "nomeCompleto":"Michael Gary Scott",
+        "nomeUsuario":"Michael - The best boss in the world.",
         "senha":"senha"
     }
 ]

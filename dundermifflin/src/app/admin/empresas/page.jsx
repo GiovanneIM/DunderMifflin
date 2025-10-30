@@ -9,7 +9,7 @@
 */
 
 import { useEffect, useState } from "react";
-import CardEmpAdmin from "@/components/CardEmpAdmin";
+import CardEmpAdmin from "@/components/Cards/CardEmpAdmin";
 
 export default function Empresas() {
     const [empresas, setEmpresas] = useState([]);

@@ -6,5 +6,6 @@ import './login/login.css'
 export default function () {
     window.location.href = '/admin/login'
 
-    return <div className='corpo'></div>
+    return <div style={{backgroundColor:'#212529', minHeight: '100vh'}}></div>
 }
+    

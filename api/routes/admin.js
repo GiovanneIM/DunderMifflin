@@ -12,7 +12,8 @@ const caminhoEmpresas = './json/empresas.json'
 const caminhoGerentes = './json/gerentes.json'
 const caminhoProdutos = './json/produtos.json';
 
-// ROTAS
+// =========================================================================
+// LOGIN
 
 // Rota para fazer login
 router.post('/login', (req, res) => {
@@ -53,6 +54,10 @@ router.post('/login', (req, res) => {
         });
     })
 });
+
+
+
+// PRODUTOS
 
 // Rota para adicionar um produto
 router.post('/adicionar', (req, res) => {
@@ -250,7 +255,7 @@ router.put('/:id/descricao', (req, res) => {
     // Lendo o JSON de descrição
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Validando e convertendo o conteúdo do arquivo
-        const descricoes = v.lerEconverterJSON(res, err, data);
+        const descricoes = v.lerEconverterJSON(err, data, res);
         if (!descricoes) { return; }
 
         const produto = produtos.find(p => p.id_produto === id);
@@ -312,6 +317,9 @@ router.delete('/produto/:id', (req, res) => {
     })
 })
 
+
+// EMPRESA
+
 // Rota para registrar um empresa
 router.post('/registrarEmpresa', (req, res) => {
     // Recebendo os dados
@@ -332,9 +340,23 @@ router.post('/registrarEmpresa', (req, res) => {
         }
 
         const emp = {
-            ...empresa,
+            "razaoSocial": empresa.razaoSocial,
+            "nomeFantasia": empresa.nomeFantasia,
+            "cnpj": empresa.cnpj,
+            "telefone": empresa.telefone,
+
             "id": idNovaEmpresa,
-            "senha": `Empresa${idNovaEmpresa}`
+            "senha": `Empresa${idNovaEmpresa}`,
+            "logo": `https://placehold.co/600x400?text=${empresa.nomeFantasia.replace(' ', '+')}}`,
+            "enderecos": [{
+                "id": 0,
+                "cep": empresa.cep,
+                "nome": empresa.nomeFantasia,
+                "estado": empresa.estado,
+                "cidade": empresa.cidade,
+                "numero": empresa.numero,
+                "complemento": empresa.complemento
+            }]
         }
 
         // Adicionando produto à lista

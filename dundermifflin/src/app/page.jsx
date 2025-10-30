@@ -4,7 +4,7 @@
         * Opção de Login
 */
 
-import CardMostruario from "@/components/CardMostruario";
+import CardMostruario from "@/components/Cards/CardMostruario";
 import FormContato from "@/components/FormContato";
 
 

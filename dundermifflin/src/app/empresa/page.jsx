@@ -1,4 +1,4 @@
-import CardNav from "@/components/CardNav"
+import CardNav from "@/components/Cards/CardNav"
 import './home.css'
 
 export default function Home() {

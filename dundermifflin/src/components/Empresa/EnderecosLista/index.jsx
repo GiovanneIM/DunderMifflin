@@ -15,7 +15,7 @@ export default function EnderecosLista({ empresa }) {
         uf: ''
     });
 
-    const [enderecoExcluir, setEndExc] = useState('');
+    const [endExcluir, setEndExcluir] = useState('');
 
     const [enderecos, setEnderecos] = useState(empresa.enderecos || []);
 
@@ -105,9 +105,9 @@ export default function EnderecosLista({ empresa }) {
             .catch(err => alert("Erro na requisição: " + err.message));
     }
 
-    /* Excluir novo endereço */
+    /* Excluir um endereço */
     function excluirEndereco() {
-        console.log(enderecoExcluir);
+        console.log(endExcluir);
         
         // fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${enderecoExcluir}`, {
         //     method: "DELETE",
@@ -351,7 +351,7 @@ export default function EnderecosLista({ empresa }) {
                         {/* CABEÇALHO */}
                         <div className="modal-header fundoPreto">
                             <h5 className="modal-title" id="modalExcluirEnderecoLabel">
-                                Registrar endereço
+                                Excluir endereço
                             </h5>
                             <button
                                 type="button"
@@ -371,7 +371,7 @@ export default function EnderecosLista({ empresa }) {
                                         <div className="col-12">
                                             <div className="col-md-4">
                                                 <label htmlFor="idExcluir" className="form-label">ID <span className="text-body-secondary">*</span></label>
-                                                <select id="idExcluir" className="form-select bordaCinza" onChange={(e) => setEndExc(e.target.value)}>
+                                                <select id="idExcluir" className="form-select bordaCinza" onChange={(e) => setEndExcluir(e.target.value)}>
                                                     { enderecos && enderecos.map(endereco => ( endereco.id > 0 && <option key={endereco.id}>{endereco.id}</option>))}
                                                 </select>
                                             </div>

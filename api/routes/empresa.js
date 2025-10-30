@@ -9,8 +9,10 @@ const v = require('../js/validacoes.js')
 // Arquivos
 const caminhoEmpresas = './json/empresas.json'
 const caminhoGerentes = './json/gerentes.json'
+const caminhoListas = './json/listas.json'
 
-// ROTAS
+// =========================================================================
+// LOGIN
 
 // Rota para fazer login
 router.post('/login', (req, res) => {
@@ -54,6 +56,10 @@ router.post('/login', (req, res) => {
         });
     })
 });
+
+
+
+// OBTER EMPRESAS
 
 // Rota para obter todas as empresas
 router.get('/', (req, res) => {
@@ -102,6 +108,10 @@ router.get('/:id', (req, res) => {
         }
     });
 });
+
+
+
+// ATUALIZAR EMPRESA
 
 // Rota para atualizar a imagem da logo da empresa
 router.patch('/:id/logo', (req, res) => {
@@ -258,9 +268,11 @@ router.patch('/:id/endereco', (req, res) => {
 });
 
 
+
+
 // ENDEREÇOS
 
-// Rota para adicionar um endereço à empresa
+// Rota para adicionar um endereço adicional à empresa
 router.post('/:id/endereco', (req, res) => {
     // Recebendo e validando o id
     const id = parseInt(req.params.id);
@@ -271,6 +283,7 @@ router.post('/:id/endereco', (req, res) => {
         });
     }
 
+    // Recebendo as informações do endereço
     const { nome, cep, numero, complemento } = req.body
 
     // Lendo a lista de empresas
@@ -289,22 +302,22 @@ router.post('/:id/endereco', (req, res) => {
             });
         }
 
-        // Criando o objeto do novo endereco
-        let idNovoEndereco;
-        try {
+        // Descobrindo o ID do novo endereço
+        let idNovoEndereco = 0;
+        if (empresa.enderecos && empresa.enderecos.length > 0) {
             idNovoEndereco = empresa.enderecos[empresa.enderecos.length - 1].id + 1;
-        } catch (error) {
-            idNovoEndereco = 0;
         }
 
+        // Criando o objeto do novo endereco
         const novoEndereco = {
             id: idNovoEndereco,
             nome,
-            cep, 
-            numero, 
+            cep,
+            numero,
             complemento
         }
 
+        // Adicionando o endereço à lista de endereços da empresa
         empresa.enderecos.push(novoEndereco)
 
         // Salvando a lista de gerentes
@@ -328,7 +341,7 @@ router.post('/:id/endereco', (req, res) => {
 
 // Rota para atualizar um endereço da empresa
 router.patch('/:id/endereco/:idEndereco', (req, res) => {
-    // Recebendo e validando o id
+    // Recebendo e validando o id da empresa
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
         return res.status(400).json({
@@ -337,6 +350,7 @@ router.patch('/:id/endereco/:idEndereco', (req, res) => {
         });
     }
 
+    // Recebendo e validando o id do endereço
     const idEndereco = parseInt(req.params.idEndereco);
     if (isNaN(idEndereco)) {
         return res.status(400).json({
@@ -345,6 +359,7 @@ router.patch('/:id/endereco/:idEndereco', (req, res) => {
         });
     }
 
+    // Recebendo os dados do endereço
     const { nome, cep, numero, complemento } = req.body
 
     // Lendo a lista de empresas
@@ -363,10 +378,21 @@ router.patch('/:id/endereco/:idEndereco', (req, res) => {
             });
         }
 
-        empresa.enderecos[idEndereco].nome = nome;
-        empresa.enderecos[idEndereco].cep = cep;
-        empresa.enderecos[idEndereco].numero = numero;
-        empresa.enderecos[idEndereco].complemento = complemento;
+        // Procurando o endereço na lista de endereços da empresa
+        const endereco = empresa.enderecos.find(e => e.id === idEndereco);
+        if (!endereco) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Endereço não encontrado.'
+            });
+        }
+
+        // Atualizando os dados
+        endereco.nome = nome ?? endereco.nome;
+        endereco.cep = cep ?? endereco.cep;
+        endereco.numero = numero ?? endereco.numero;
+        endereco.complemento = complemento ?? endereco.complemento;
+
 
         // Salvando a lista de gerentes
         fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
@@ -380,7 +406,8 @@ router.patch('/:id/endereco/:idEndereco', (req, res) => {
 
             res.status(200).json({
                 sucesso: true,
-                mensagem: 'Logo atualizada com sucesso.'
+                mensagem: 'Endereço atualizado com sucesso.',
+                enderecoAtualizado: endereco
             });
         });
     });
@@ -405,8 +432,6 @@ router.delete('/:id/endereco/:idEndereco', (req, res) => {
         });
     }
 
-    const { nome, cep, numero, complemento } = req.body
-
     // Lendo a lista de empresas
     fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
         const empresas = v.lerEconverterJSON(err, data, res)
@@ -423,7 +448,17 @@ router.delete('/:id/endereco/:idEndereco', (req, res) => {
             });
         }
 
-        const enderecosSALVAR = empresa.enderecos.filter((end) => end.id > 0 && end.id !== idEndereco)
+        // Verificando se o endereço existe
+        const enderecoEncontrado = empresa.enderecos.find(e => e.id === idEndereco);
+        if (!enderecoEncontrado) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Endereço não encontrado.'
+            });
+        }
+
+
+        const enderecosSALVAR = empresa.enderecos.filter((e) => e.id !== idEndereco)
         empresa.enderecos = enderecosSALVAR;
 
         // Salvando a lista de gerentes
@@ -438,13 +473,16 @@ router.delete('/:id/endereco/:idEndereco', (req, res) => {
 
             res.status(200).json({
                 sucesso: true,
-                mensagem: 'Endereço excluído com sucesso.'
+                mensagem: 'Endereço excluído com sucesso.',
+                enderecos: empresa.enderecos
             });
         });
     });
 });
 
 
+
+// GERENTES DE COMPRAS
 
 // Rota para obter os gerente de compras da empresa
 router.get('/:id/gerentes', (req, res) => {
@@ -460,10 +498,11 @@ router.get('/:id/gerentes', (req, res) => {
         const gerentes = v.lerEconverterJSON(err, data, res);
         if (!gerentes) { return }
 
-        const gerentesEmpresa = gerentes.filter((ger) => { return ger.idEmpresa === id });
+        const gerentesEmpresa = gerentes.filter((g) => g.idEmpresa === id);
 
         res.status(200).json({
             sucesso: true,
+            mensagem: 'Gerentes da empresa encontrado com sucesso',
             gerentes: gerentesEmpresa
         })
     })
@@ -471,7 +510,16 @@ router.get('/:id/gerentes', (req, res) => {
 
 // Rota para adicionar um novo gerente de compras
 router.post('/gerente', (req, res) => {
-    const { gerente } = req.body;
+    // Recebendo as informações do novo gerente
+    const { nomeCompleto, nomeUsuario, telefone, email, idEmpresa } = req.body;
+
+    // Validação básica dos campos obrigatórios
+    if (!nomeCompleto || !nomeUsuario || !telefone || !email) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'Preencha os campos obrigatórios (*).'
+        });
+    }
 
     // Lendo a lista de gerentes
     fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
@@ -480,24 +528,24 @@ router.post('/gerente', (req, res) => {
         if (!gerentes) { return; }
 
         // Descobrindo o id do gerente
-        let idNovoGerente;
-        try {
-            idNovoGerente = gerentes[gerentes.length - 1].id + 1;
-        } catch (error) {
-            idNovoGerente = 0;
-        }
+        let idNovoGerente = gerentes.length > 0 ? gerentes[gerentes.length - 1].id + 1 : 0;
+
 
         // Criando o objeto do novo gerente
-        const ger = {
-            ...gerente,
-            "id": idNovoGerente,
-            "senha": `Gerente${idNovoGerente}`
-        }
+        const novoGerente = {
+            id: idNovoGerente,
+            nomeCompleto,
+            nomeUsuario,
+            telefone,
+            email,
+            idEmpresa,
+            senha: `Gerente${idNovoGerente}`
+        };
 
-        // Adicionando produto à lista
-        gerentes.push(ger);
+        // Adicionando o novo gerente à lista
+        gerentes.push(novoGerente);
 
-        // Salvando a lista de gerentes
+        // Atualizando a lista de gerentes
         fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), (err) => {
             if (err) {
                 console.error('Erro ao salvar gerentes:', err);
@@ -509,14 +557,148 @@ router.post('/gerente', (req, res) => {
 
             res.status(201).json({
                 sucesso: true,
-                gerente: { "id": ger.id, "senha": ger.senha }
+                mensagem: 'Gerente cadastrado com sucesso.',
+                novoGerente
+            });
+        });
+    })
+})
+
+// Rota para atualizar um gerente de compras
+router.patch('/gerente/:idGerente', (req, res) => {
+    // Recebendo e validando o ID do gerente
+    const idGerente = parseInt(req.params.idGerente);
+    if (isNaN(idGerente)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID do gerente inserido não era um número.'
+        });
+    }
+
+    // Recebendo as informações do novo gerente
+    const { nomeCompleto, nomeUsuario, telefone, email, senha } = req.body;
+
+    // Lendo a lista de gerentes
+    fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const gerentes = v.lerEconverterJSON(err, data, res);
+        if (!gerentes) { return; }
+
+        // Verificando se o gerente existe
+        const gerenteEncontrado = gerentes.find(g => g.id === idGerente);
+        if (!gerenteEncontrado) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Gerente não encontrado.'
+            });
+        }
+
+
+        // Atualizando as informações do gerente
+        if (nomeCompleto !== undefined) gerenteEncontrado.nomeCompleto = nomeCompleto;
+        if (nomeUsuario !== undefined) gerenteEncontrado.nomeUsuario = nomeUsuario;
+        if (telefone !== undefined) gerenteEncontrado.telefone = telefone;
+        if (email !== undefined) gerenteEncontrado.email = email;
+        if (senha !== undefined) gerenteEncontrado.senha = senha;
+
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar gerentes:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao atualizar gerente.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Gerente atualizado com sucesso',
+                gerenteAtualizado: gerenteEncontrado
             });
         });
     })
 })
 
 // Rota para excluir um gerente de compras
-router.delete('/gerente', (req, res) => {
+router.delete('/gerente/:idGerente', (req, res) => {
+    // Recebendo e validando o ID do gerente
+    const idGerente = parseInt(req.params.idGerente);
+    if (isNaN(idGerente)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID do gerente inserido não era um número.'
+        });
+    }
+
+    // Lendo a lista de gerentes
+    fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const gerentes = v.lerEconverterJSON(err, data, res);
+        if (!gerentes) { return; }
+
+        // Verificando se o gerente existe
+        const gerenteEncontrado = gerentes.find(g => g.id === idGerente);
+        if (!gerenteEncontrado) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Gerente não encontrado.'
+            });
+        }
+
+        // Removendo o gerente da lista
+        const gerentesSALVAR = gerentes.filter((g) => g.id !== idGerente)
+
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentesSALVAR, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar gerentes:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao excluir gerente.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Gerente excluído com sucesso'
+            });
+        });
+    })
+})
+
+
+
+// LISTAS
+
+// Rota para obter as listas da empresa
+router.get('/:id/listas', (req, res) => {
+    // Recebendo o ID da empresa
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
+    }
+
+    // Lendo o arquivo das listas
+    fs.readFile(caminhoListas, 'utf8', (err, data) => {
+        const listas = v.lerEconverterJSON(err, data, res)
+        if (!listas) { return }
+
+        // Filtrando as listas da empresa
+        const listasDaEmpresa = listas.filter((l) => l.idEmpresa === id)
+
+        // Enviando as empresas
+        res.status(200).json({
+            sucesso: true,
+            mensagem: 'Listas encontradas com sucesso',
+            listas: listasDaEmpresa
+        })
+    });
 })
 
 

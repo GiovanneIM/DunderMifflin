@@ -116,40 +116,40 @@ export default function RegistrarEmpresa() {
             <form className="d-flex flex-column align-items-center gap-4" onSubmit={registrarEmpresa}>
 
                 {/* Dados da Empresa */}
-                <div className="col-12 col-lg-10 p-4 rounded fundoCinza border bordaCinza">
+                <div className="col-12 col-lg-10 p-4 rounded fundoBranco bordaCompleta bordaCinza">
                     <h4 className="mb-3">Dados da Empresa</h4>
 
                     <div className="row col-12 g-3">
                         <div className="col-md-6">
                             <label htmlFor="razaoSocial" className="form-label">Razão Social <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="razaoSocial" name="razaoSocial" placeholder="Razão Social" required />
+                            <input type="text" className="form-control bordaCinza" id="razaoSocial" name="razaoSocial" placeholder="Razão Social" required />
                         </div>
 
                         <div className="col-md-6">
                             <label htmlFor="nomeFantasia" className="form-label">Nome Fantasia <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="nomeFantasia" name="nomeFantasia" placeholder="Nome Fantasia" required />
+                            <input type="text" className="form-control bordaCinza" id="nomeFantasia" name="nomeFantasia" placeholder="Nome Fantasia" required />
                         </div>
 
                         <div className="col-md-6">
                             <label htmlFor="cnpj" className="form-label">CNPJ <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" onChange={CNPJ} required />
+                            <input type="text" className="form-control bordaCinza" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" onChange={CNPJ} required />
                         </div>
 
                         <div className="col-md-6">
                             <label htmlFor="telefone" className="form-label">Telefone Comercial</label>
-                            <input type="tel" className="form-control" id="telefone" name="telefone" placeholder="(00) 0000-0000" onChange={Telefone} />
+                            <input type="tel" className="form-control bordaCinza" id="telefone" name="telefone" placeholder="(00) 0000-0000" onChange={Telefone} />
                         </div>
                     </div>
                 </div>
 
                 {/* Endereço */}
-                <div className="col-12 col-lg-10 p-4 rounded fundoCinza border bordaCinza">
+                <div className="col-12 col-lg-10 p-4 rounded fundoBranco bordaCompleta bordaCinza">
                     <h4 className="mb-3">Endereço</h4>
 
                     <div className="row g-3">
                         <div className="col-md-6">
                             <label htmlFor="cep" className="form-label">CEP <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="cep" name="cep" placeholder="00000-000" onChange={CEP} required />
+                            <input type="text" className="form-control bordaCinza" id="cep" name="cep" placeholder="00000-000" onChange={CEP} required />
                         </div>
 
                         <div className="col-sm-6">
@@ -179,12 +179,12 @@ export default function RegistrarEmpresa() {
 
                         <div className="col-sm-6">
                             <label htmlFor="numero" className="form-label">Número <span className="text-body-secondary">*</span></label>
-                            <input type="text" className="form-control" id="numero" name="numero" placeholder="Número" required />
+                            <input type="text" className="form-control bordaCinza" id="numero" name="numero" placeholder="Número" required />
                         </div>
 
                         <div className="col-sm-6">
                             <label htmlFor="complemento" className="form-label">Complemento</label>
-                            <input type="text" className="form-control" id="complemento" name="complemento" placeholder="Complemento" />
+                            <input type="text" className="form-control bordaCinza" id="complemento" name="complemento" placeholder="Complemento" />
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@
             - Listas
 */
 
-import CardNav from "@/components/CardNav"
+import CardNav from "@/components/Cards/CardNav"
 
 
 export default function Home() {
