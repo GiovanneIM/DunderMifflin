@@ -15,6 +15,8 @@ export default function EnderecosLista({ empresa }) {
         uf: ''
     });
 
+    const [enderecoExcluir, setEndExc] = useState('');
+
     const [enderecos, setEnderecos] = useState(empresa.enderecos || []);
 
     /* Abrir modal para registrar novo endereço */
@@ -105,27 +107,26 @@ export default function EnderecosLista({ empresa }) {
 
     /* Excluir novo endereço */
     function excluirEndereco() {
+        console.log(enderecoExcluir);
+        
+        // fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${enderecoExcluir}`, {
+        //     method: "DELETE",
+        //     credentials: 'include'
+        // })
+        //     .then(async res => {
+        //         const data = await res.json();
 
-        fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${enderecoExcluir}`, {
-            method: "Delete",
-            body: JSON.stringify(novoEndereco),
-            headers: { "Content-Type": "application/json" },
-            credentials: 'include'
-        })
-            .then(async res => {
-                const data = await res.json();
+        //         if (data.sucesso) {
+        //             const modalElement = document.getElementById('modalExcluirEndereco');
+        //             const modal = bootstrap.Modal.getInstance(modalElement);
+        //             modal.hide();
 
-                if (data.sucesso) {
-                    const modalElement = document.getElementById('modalExcluirEndereco');
-                    const modal = bootstrap.Modal.getInstance(modalElement);
-                    modal.hide();
-
-                    setEnderecos([...enderecos, data.novoEndereco]);
-                } else {
-                    console.log(data.mensagem);
-                }
-            })
-            .catch(err => alert("Erro na requisição: " + err.message));
+        //             setEnderecos(data.enderecos);
+        //         } else {
+        //             console.log(data.mensagem);
+        //         }
+        //     })
+        //     .catch(err => alert("Erro na requisição: " + err.message));
     }
 
     return (
@@ -370,10 +371,8 @@ export default function EnderecosLista({ empresa }) {
                                         <div className="col-12">
                                             <div className="col-md-4">
                                                 <label htmlFor="idExcluir" className="form-label">ID <span className="text-body-secondary">*</span></label>
-                                                <select id="idExcluir" className="form-select bordaCinza">
-                                                    <option defaultValue>Choose...</option>
-                                                    { enderecos && enderecos.map(endereco => <option key={endereco.id}>{endereco.id}</option>)}
-                                                    
+                                                <select id="idExcluir" className="form-select bordaCinza" onChange={(e) => setEndExc(e.target.value)}>
+                                                    { enderecos && enderecos.map(endereco => ( endereco.id > 0 && <option key={endereco.id}>{endereco.id}</option>))}
                                                 </select>
                                             </div>
                                         </div>
