@@ -1,31 +1,42 @@
 [
     {
-        "razaoSocial": "teste teste teste",
-        "nomeFantasia": "teste",
+        "razaoSocial": "Giovanne",
+        "nomeFantasia": "gio",
         "logo": "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/11/pikachu-pokemon-escarlata-purpura-2888180.jpg?tf=3840x",
-        "cnpj": "12.341.111/1111-11",
-        "telefone": "(11) 11111-1111",
-        "cep": "09110-140",
-        "estado": "São Paulo",
-        "cidade": "São Paulo",
-        "filiais": [
+        "cnpj": "99.999.999/9999-99",
+        "telefone": "(99) 99999-9999",
+        "enderecos": [
             {
                 "id": 0,
                 "cep": "09110-140",
-                "nome": "filial 1",
-                "numero": "10",
-                "complemento": "a"
+                "nome": "Endereço principal",
+                "estado": "SP",
+                "cidade": "Santo André",
+                "numero": "200",
+                "complemento": "Ap 300"
             },
             {
                 "id": 1,
                 "cep": "09110-001",
-                "nome": "filial 2",
+                "nome": "ENDEREÇO 2 - TESTE 2",
+                "numero": "111",
+                "complemento": "Portão 80"
+            },
+            {
+                "id": 2,
+                "nome": "123",
+                "cep": "12345-678",
+                "numero": "456",
+                "complemento": "456"
+            },
+            {
+                "id": 3,
+                "nome": "456",
+                "cep": "11111-111",
                 "numero": "11",
-                "complemento": null
+                "complemento": "1111"
             }
         ],
-        "numero": "111111",
-        "complemento": "111111",
         "id": 0,
         "senha": "Empresa0"
     }

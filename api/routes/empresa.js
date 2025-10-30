@@ -153,7 +153,7 @@ router.patch('/:id/logo', (req, res) => {
 });
 
 // Rota para atualizar nomes, CNPJ e telefone da empresa
-router.patch('/:id/infos', (req, res) => {
+router.patch('/:id/dados', (req, res) => {
     // Recebendo e validando o id
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -163,7 +163,7 @@ router.patch('/:id/infos', (req, res) => {
         });
     }
 
-    const { logo } = req.body
+    const { razaoSocial, nomeFantasia, cnpj, telefone } = req.body
 
     // Lendo a lista de empresas
     fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
@@ -181,7 +181,10 @@ router.patch('/:id/infos', (req, res) => {
             });
         }
 
-        empresa.logo = logo;
+        empresa.razaoSocial = razaoSocial;
+        empresa.nomeFantasia = nomeFantasia;
+        empresa.telefone = telefone;
+        empresa.cnpj = cnpj;
 
         // Salvando a lista de gerentes
         fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
@@ -195,13 +198,13 @@ router.patch('/:id/infos', (req, res) => {
 
             res.status(200).json({
                 sucesso: true,
-                mensagem: 'Logo atualizada com sucesso.'
+                mensagem: 'Dados atualizada com sucesso.'
             });
         });
     });
 });
 
-// Rota para atualizar CEP, num e complemento do endereço da empresa
+// Rota para atualizar CEP, num e complemento do endereço principal da empresa
 router.patch('/:id/endereco', (req, res) => {
     // Recebendo e validando o id
     const id = parseInt(req.params.id);
@@ -212,7 +215,7 @@ router.patch('/:id/endereco', (req, res) => {
         });
     }
 
-    const { logo } = req.body
+    const { cep, estado, cidade, numero, complemento } = req.body
 
     // Lendo a lista de empresas
     fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
@@ -230,7 +233,11 @@ router.patch('/:id/endereco', (req, res) => {
             });
         }
 
-        empresa.logo = logo;
+        empresa.enderecos[0].cep = cep;
+        empresa.enderecos[0].estado = estado;
+        empresa.enderecos[0].cidade = cidade;
+        empresa.enderecos[0].numero = numero;
+        empresa.enderecos[0].complemento = complemento;
 
         // Salvando a lista de gerentes
         fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
@@ -251,6 +258,191 @@ router.patch('/:id/endereco', (req, res) => {
 });
 
 
+// ENDEREÇOS
+
+// Rota para adicionar um endereço à empresa
+router.post('/:id/endereco', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID da empresa inserido não era um número.'
+        });
+    }
+
+    const { nome, cep, numero, complemento } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        // Criando o objeto do novo endereco
+        let idNovoEndereco;
+        try {
+            idNovoEndereco = empresa.enderecos[empresa.enderecos.length - 1].id + 1;
+        } catch (error) {
+            idNovoEndereco = 0;
+        }
+
+        const novoEndereco = {
+            id: idNovoEndereco,
+            nome,
+            cep, 
+            numero, 
+            complemento
+        }
+
+        empresa.enderecos.push(novoEndereco)
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao atualiazar o endereço empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Endereço adicionado com sucesso.',
+                novoEndereco: novoEndereco
+            });
+        });
+    });
+});
+
+// Rota para atualizar um endereço da empresa
+router.patch('/:id/endereco/:idEndereco', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID da empresa inserido não era um número.'
+        });
+    }
+
+    const idEndereco = parseInt(req.params.idEndereco);
+    if (isNaN(idEndereco)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID do endereço inserido não era um número.'
+        });
+    }
+
+    const { nome, cep, numero, complemento } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        empresa.enderecos[idEndereco].nome = nome;
+        empresa.enderecos[idEndereco].cep = cep;
+        empresa.enderecos[idEndereco].numero = numero;
+        empresa.enderecos[idEndereco].complemento = complemento;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao atualiazar o endereço empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Logo atualizada com sucesso.'
+            });
+        });
+    });
+});
+
+// Rota para excluir um endereço da empresa
+router.delete('/:id/endereco/:idEndereco', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID da empresa inserido não era um número.'
+        });
+    }
+
+    const idEndereco = parseInt(req.params.idEndereco);
+    if (isNaN(idEndereco)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID do endereço inserido não era um número.'
+        });
+    }
+
+    const { nome, cep, numero, complemento } = req.body
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res)
+        if (!empresas) {
+            return
+        }
+
+        // Procurando a empresa na lista de empresas
+        const empresa = empresas.find((emp) => emp.id === id)
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        const enderecosSALVAR = empresa.enderecos.filter((end) => end.id > 0 && end.id !== idEndereco)
+        empresa.enderecos = enderecosSALVAR;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao excluir o endereço empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Endereço excluído com sucesso.'
+            });
+        });
+    });
+});
 
 
 
