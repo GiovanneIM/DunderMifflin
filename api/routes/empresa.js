@@ -28,19 +28,16 @@ router.post('/login', (req, res) => {
         return
     }
 
-
     // Lendo as empresas
     fs.readFile(caminhoEmpresas, 'utf-8', (err, data) => {
         const empresas = v.lerEconverterJSON(err, data, res);
         if (!empresas) { return }
 
         // Procurando pela empresa
-        const empresa = empresas.find((emp) => { return emp.id === id });
+        const empresa = empresas.find((e) => { return e.id === Number(id) });
 
         // Verificando se a empresa foi encontrada e se a senha está certa
         if (!empresa || empresa.senha !== senha) {
-            console.log('Encontro');
-
             res.status(401).json({
                 sucesso: false,
                 mensagem: 'ID e/ou senha incorretos.'
@@ -52,7 +49,7 @@ router.post('/login', (req, res) => {
         console.log(`Empresa (${empresa.id}) - ${empresa.nome} logada.`);
         res.status(200).json({
             sucesso: true,
-            usuario: { "id": empresa.id, "tipo": "empresa", "nome": empresa.nomeFantasia }
+            usuario: { id: empresa.id, tipo: "empresa", nome: empresa.nomeFantasia }
         });
     })
 });

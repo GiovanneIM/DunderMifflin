@@ -38,48 +38,47 @@ export default function Login() {
     /* Função para fazer a requisição à API e confirmar o login */
     async function fazerLogin(e) {
         e.preventDefault();
+        setErro('');
 
-        // Limpa a mensagem de erro
-        setErro(' ');
+        try {
+            const infosLogin = { id: Number(id), senha };
+            const urlLogin = `http://localhost:4000/${tipoUsuario}s/login`;
 
-        // Criando o corpo da requisição
-        const infosLogin = { senha: senha, id: Number(id) };
+            const response = await fetch(urlLogin, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(infosLogin)
+            });
 
-        console.log('Informações de login:', infosLogin);
-        console.log('Tipo de usuário:', tipoUsuario);
+            if (!response.ok) {
+                // Erros HTTP (400, 401, 500...)
+                const errorData = await response.json();
+                setErro(errorData.mensagem || 'Erro no servidor.');
+                return;
+            }
 
-        // Link do endpoint da API
-        const urlLogin = `http://localhost:4000/${tipoUsuario}/login`;
-
-        // Fazendo a requisição à API
-        fetch(urlLogin, {
-            method: 'POST',
-            credentials: "include",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(infosLogin)
-        }).then(async res => {
-            const data = await res.json();
+            const data = await response.json();
+            console.log('Resposta do servidor:', data);
 
             if (data.sucesso) {
                 const userLogado = data.usuario;
 
-                setUsuario(userLogado)
+                setUsuario(userLogado);
+                localStorage.setItem('usuario', JSON.stringify(userLogado));
 
-                // Salvando as informações do usuário
-                localStorage.setItem('usuario', JSON.stringify({
-                    id: userLogado.id,
-                    tipo: userLogado.tipo,
-                    nome: userLogado.nome
-                }));
-
-                // Redirecionando o usuário
-                setTimeout(() => { window.location.href = `/${tipoUsuario}`; }, 1500);
+                // Redirecionamento rápido
+                window.location.href = `/${tipoUsuario}/home`;
             } else {
-                // Mensagem de erro
-                setErro(data.mensagem);
+                setErro(data.mensagem || 'ID ou senha incorretos.');
             }
-        })
+
+        } catch (error) {
+            console.error('Erro ao fazer login:', error);
+            setErro('Falha de conexão com o servidor.');
+        }
     }
+
 
     return <>
         {/* Corpo */}
@@ -178,7 +177,7 @@ export default function Login() {
                 <div className="toast show align-items-center text-bg-success border-0" role="alert">
                     <div className="d-flex">
                         <div className="toast-body" id='corpo-toast'>
-                            <strong>Login efetuado com sucesso!</strong> <br/>
+                            <strong>Login efetuado com sucesso!</strong> <br />
                             Seja bem-vindo(a) <strong>{usuario.nome}</strong>
                         </div>
                     </div>

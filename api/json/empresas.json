@@ -20,7 +20,14 @@
                 "cep": "09110-001",
                 "nome": "ENDEREÇO 2 - TESTE 2",
                 "numero": "111",
-                "complemento": "Portão 80"
+                "complemento": ""
+            },
+            {
+                "id": 2,
+                "nome": "TESTE - empresa",
+                "cep": "09110-020",
+                "numero": "100",
+                "complemento": "aaa"
             }
         ],
         "id": 0,

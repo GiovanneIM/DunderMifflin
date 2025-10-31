@@ -191,7 +191,6 @@ export default function InformacoesEmpresa({ empresa }) {
             <div className="col-12 d-flex flex-column overflow-auto gap-3 p-3 rounded fundoBranco bordaCompleta bordaCinza">
 
                 {/* Informações da empresa */}
-                {/* <h4 className="col-12 m-0"><strong>Informações da empresa</strong></h4> */}
                 <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2">
                     <h4 className=""><strong>Dados da empresa</strong></h4>
                     <button className="btn btn-1" onClick={abrirModalDados}>Alterar dados</button>
@@ -203,6 +202,7 @@ export default function InformacoesEmpresa({ empresa }) {
                     <div className="info-linha"><strong>CNPJ</strong> {cnpj}</div>
                     <div className="info-linha"><strong>Telefone</strong> {telefone}</div>
                 </div>
+
                 {/* Endereço da empresa*/}
                 <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2">
                     <h4 className=""><strong>Endereço Principal</strong></h4>
@@ -218,7 +218,6 @@ export default function InformacoesEmpresa({ empresa }) {
                     <div className="info-linha"><strong>Rua</strong> {endereco.logradouro}</div>
                     <div className="info-linha"><strong>Número e complemento</strong> {empresa.enderecos[0].numero + ' - ' + empresa.enderecos[0].complemento}</div>
                 </div>
-
             </div>
         </div>
 

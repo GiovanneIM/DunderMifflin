@@ -34,10 +34,19 @@ export default function Logo({ logo, idEmpresa }) {
 
     return <>
         {/* Quadro da logo */}
-        <div className='col-12 col-sm-6 overflow-hidden pe-lg-2 position-relative'>
+        <div className='col-12 col-sm-8 col-lg-6 overflow-hidden pe-lg-2 position-relative fundoBranco'>
             <div className='p-3 bordaCompleta bordaCinza rounded p-3'>
                 {/* Botão para atualizar a logo */}
-                <div className="text-end mb-3"><button type='button' className="btn btn-1" onClick={abrirModal}>Alterar logo</button></div>
+                {/* <div className="text-end mb-3"><button type='button' className="btn btn-1" onClick={abrirModal}>Alterar logo</button></div> */}
+                <div className="d-flex flex-wrap align-items-center border-bottom mb-3 pb-2 row-gap-2">
+                    <h5 className="m-0">
+                        <strong>Gerentes de Compras</strong>
+                    </h5>
+
+                    <div className="d-flex ms-auto column-gap-3">
+                        <button type='button' className="btn btn-1" onClick={abrirModal}>Alterar logo</button>
+                    </div>
+                </div>
 
                 {/* Logo */}
                 <div className='col-12 bordaCompleta bordaCinza rounded' style={{ aspectRatio: '1' }}><img src={logo} className='img-completa' /></div>

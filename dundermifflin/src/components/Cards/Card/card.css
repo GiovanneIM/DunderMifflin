@@ -63,16 +63,19 @@ a:hover {
 
 .card-botoes {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .card-botoes .btn-1{
     font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .div_contador {
-    width: 4rem;
-    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,25 +86,30 @@ a:hover {
     overflow: hidden;
 }
 .btn-contador {
-    all: unset;
-    height: 100%;
-    width: 30%;
+    width: 2.5rem;
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0;
 }
 .btn-contador:hover {
     background-color: rgb(173, 171, 171);
 }
 .contador {
-    width: 40%;
     display: flex;
+    flex-grow: 1;
+    height: 100%;
     align-items: center;
     justify-content: center;
+    border: 0;
+    padding: 0;
+    border: 1px #212529 solid;
+    border-radius: 0;
 }
 .botao_carrinho {
-    width: 2rem;
-    height: 100%;
+    width: 2.5rem;
+    aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,3 +132,12 @@ a:hover {
 
 
 
+.card input[type=number]::-webkit-inner-spin-button,
+.card input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.card input[type=number] {
+    -moz-appearance: textfield;
+}

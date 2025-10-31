@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
         if (!admins) { return }
 
         // Procurando pelo admin
-        const admin = admins.find((emp) => { return emp.id === id });
+        const admin = admins.find((adm) => { return adm.id === id });
 
         // Verificando se o admin não foi encontrado ou se a senha está certa
         if (!admin || admin.senha !== senha) {

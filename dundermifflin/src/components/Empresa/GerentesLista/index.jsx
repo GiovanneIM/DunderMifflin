@@ -130,10 +130,10 @@ export default function GerentesLista({ empresa }) {
 
     return <>
         {/* Quadro com a lista de Gerentes */}
-        <div className="col-12 p-0 col-lg-6 pe-lg-2 d-flex flex-wrap">
+        <div className="col-12 p-0 col-lg-6 ps-lg-2 d-flex flex-wrap">
             <div className="col-12 p-3 rounded bordaCompleta bordaCinza">
                 <div className="d-flex flex-wrap align-items-center border-bottom mb-3 pb-2 row-gap-2">
-                    <h5 className="col-12 col-sm-4 m-0">
+                    <h5 className="m-0">
                         <strong>Gerentes de Compras</strong>
                     </h5>
 

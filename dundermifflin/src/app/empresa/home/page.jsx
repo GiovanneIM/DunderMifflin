@@ -8,7 +8,6 @@
         • Exibir as filiais da empresa
 */
 
-import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 
@@ -19,15 +18,24 @@ import GerentesLista from '@/components/Empresa/GerentesLista';
 import ListasEmpresa from '@/components/Empresa/PedidosEmpresa';
 
 export default function Empresa() {
-    const { id } = useParams();   // Obtendo o ID do produto
+    const [usuario, setUsuario] = useState(null);
+    const [id, setID] = useState(null)
     const [empresa, setEmpresa] = useState();
-    // const [endereco, setEndereco] = useState([]);
+
+    /* Pegando as infos do usuario logado */
+    useEffect(() => {
+        const dados = localStorage.getItem('usuario');
+        if (dados) {
+            setUsuario(JSON.parse(dados));
+            setID(dados.id)
+        }
+    }, []);
 
     /* Buscando a empresa */
     useEffect(() => {
         async function carregarEmpresa() {
             try {
-                const res = await fetch(`http://localhost:4000/empresas/${id}`);
+                const res = await fetch(`http://localhost:4000/empresas/${usuario.id}`);
                 const data = await res.json();
                 if (data.empresa) setEmpresa(data.empresa);
             } catch (error) {
@@ -35,8 +43,10 @@ export default function Empresa() {
             }
         }
 
-        if (id) carregarEmpresa();
-    }, [id]);
+        if (usuario && !isNaN(usuario.id)) {
+            carregarEmpresa();
+        }
+    }, [usuario]);
 
     if (empresa) return (
         <div className="container corpo py-4">
@@ -53,12 +63,12 @@ export default function Empresa() {
 
                 {/* Endereços da empresa */}
                 <EnderecosLista empresa={empresa} />
-                
+
                 {/* Gerentes da empresa */}
                 <GerentesLista empresa={empresa} />
 
                 {/* Listas da empresa */}
-                <ListasEmpresa empresa={empresa}/>
+                <ListasEmpresa empresa={empresa} />
             </div>
         </div>
     );
