@@ -60,6 +60,10 @@ header, footer {
     text-transform: uppercase;
 }
 
+.pretoDM{
+    color: #212529;
+}
+
 
 .btn-1 {
     background-color: rgb(33, 37, 41) !important;

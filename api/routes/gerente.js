@@ -208,7 +208,7 @@ router.post('/listas', (req, res) => {
             idGerente,
             idEmpresa,
             produtos,
-            mensagem: { mensagemGerente: mensagemPedido},
+            mensagem: { mensagemGerente: mensagemPedido?? "Sem comentário."},
             total,
 
             status: "Aguardando aprovação",

@@ -44,5 +44,66 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// rota para cancelar uma lista
+router.patch('/:id/Cancelar', (req, res) => {
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'ID inválido.'
+        });
+    }
+
+    const { mensagemCancelamento, tipoUsuario } = req.body;
+
+    fs.readFile(caminhoListas, 'utf8', (err, data) => {
+        const listas = v.lerEconverterJSON(err, data, res);
+        if (!listas) return;
+
+        const lista = listas.find(l => l.id === id);
+        if (!lista) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Lista não encontrada.'
+            });
+        }
+
+        // Data atual
+        const dataAtual = new Date().toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(',', ' -');
+
+        lista.status = 'Cancelado';
+
+        lista.cancelamento = {
+            mensagemCancelamento,
+            responsavel: tipoUsuario,
+            data: dataAtual
+        };
+
+        // Atualizando o arquivo das listas
+        fs.writeFile(caminhoListas, JSON.stringify(listas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar listas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao registrar gerente.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Lista cancelada com sucesso.',
+                lista: lista
+            });
+        });
+    });
+});
 
 module.exports = router;

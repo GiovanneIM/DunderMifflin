@@ -1,0 +1,4 @@
+.container_pedidos{
+    height: 450px;
+    overflow-y: scroll;
+}

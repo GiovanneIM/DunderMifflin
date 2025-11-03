@@ -32,7 +32,7 @@
         },
         "status": "Aguardando aprovação",
         "datas": {
-            "Pedido": "02/11/2025 - 23:50"
+            "pedido": "02/11/2025 - 23:50"
         }
     },
     {
@@ -60,7 +60,7 @@
             }
         ],
         "mensagem": {
-            "mensagemGerente": ""
+            "mensagemGerente": "Sem comentário"
         },
         "total": {
             "unidades": 23,
@@ -68,7 +68,7 @@
         },
         "status": "Aguardando aprovação",
         "datas": {
-            "Pedido": "02/11/2025 - 23:54"
+            "pedido": "02/11/2025 - 23:54"
         }
     }
 ]

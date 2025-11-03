@@ -3,11 +3,15 @@
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function Produto() {
+export default function Pedido() {
     const { id } = useParams();
     const [lista, setLista] = useState(null)
     const [gerente, setGerente] = useState(null)
     const [empresa, setEmpresa] = useState(null)
+    const [admin, setAdmin] = useState(null)
+
+
+    const [comentarioCancelamento, setCancelamento] = useState("")
 
     // Função para buscar dados na API
     async function carregarDados(url, setState) {
@@ -38,47 +42,232 @@ export default function Produto() {
             if (!isNaN(lista.idEmpresa)) {
                 carregarDados(`http://localhost:4000/empresas/${lista.idEmpresa}`, setEmpresa);
             }
+
+            if (!isNaN(lista.idAdmin)) {
+                carregarDados(`http://localhost:4000/admin/${lista.idAdmin}`, setEmpresa);
+            }
         }
     }, [lista]);
 
+    /* Função para formatar o preço */
+    const formatarPreco = (valor) => valor?.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) || "-";
+
+    /* Função para abrir o modal de atualização dos dados*/
+    function abrirModalCancelar() {
+        const modal = new bootstrap.Modal(document.getElementById('modalCancelarPedido'));
+        modal.show();
+    }
+
+    function CancelarPedido(params) {
+
+    }
+
     return <>
+        {/* PEDIDO */}
         <div className="container">
-            <div className="text-center titulo fs-2">Pedido  {id}</div>
-            <div className="col-12 p-3 rounded fundoBranco bordaCompleta ">
-                <div className="titulo fs-4 ">Gerente</div>
-                <div className="border-top border-bottom p-3">
-                    <div className="info-linha">{gerente?.nomeCompleto || "Carregando..."}</div>
+            <div className="text-center titulo fs-2">Pedido #{id}</div>
+
+            <div className="container d-flex flex-column align-items-center vstack gap-4">
+                {/* Gerente */}
+                <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                    <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
+                        <i className="bi bi-person-badge me-2"></i> Gerente
+                    </h4>
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <strong>Nome</strong>
+                            <div>{gerente?.nomeCompleto || "Carregando..."}</div>
+                        </div>
+
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <strong>Telefone</strong>
+                            <div>{gerente?.telefone || "-"}</div>
+                        </div>
+                        <div className="col-md-6">
+                            <strong>E-mail</strong>
+                            <div>{gerente?.email || "-"}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Comentário</strong>
+                        <textarea className="form-control bg-light mb-3" value={lista?.mensagem.mensagemGerente || ""} readOnly />
+                    </div>
                 </div>
 
-                <div className="titulo fs-4">Empresa</div>
-                <div className="border-top border-bottom p-3">
-                    <div className="info-linha">{empresa?.nome || "Carregando..."}</div>
+                {/* Empresa */}
+                <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                    <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
+                        <i className="bi bi-building me-2"></i> Empresa
+                    </h4>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <strong>Razão social</strong>
+                            <div>{empresa?.razaoSocial || "Carregando..."}</div>
+                        </div>
+                        <div className="col-md-6">
+                            <strong>Nome fantasia</strong>
+                            <div>{empresa?.nomeFantasia || "Carregando..."}</div>
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <strong>CNPJ</strong>
+                            <div>{empresa?.cnpj || "Carregando..."}</div>
+                        </div>
+                        <div className="col-md-6">
+                            <strong>Telefone</strong>
+                            <div>{empresa?.telefone || "-"}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Comentário</strong>
+                        <textarea className="form-control bg-light mb-3" value={lista?.mensagem.mensagemEmpresa || ""} readOnly />
+                    </div>
                 </div>
 
-                <div className="titulo fs-4">Dunder Mifflin</div>
-                <div className="border-top border-bottom p-3"></div>
+                {/* Dunder Mifflin */}
+                <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                    <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
+                        <i className="bi bi-person-check me-2"></i> Dunder Mifflin
+                    </h4>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <strong>Lista analisada por</strong>
+                            <div>{admin?.nomeCompleto || "-"}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Comentário</strong>
+                        <textarea className="form-control bg-light mb-3" value={empresa?.mensagem?.mensagemAdmin || ""} readOnly />
+                    </div>
+                </div>
 
-                <div className="titulo fs-4">Itens pedidos</div>
-                <div className="border-top border-bottom p-3">
-                    {lista ? (
-                        <>
-                            {lista.produtos.map((p) => (
-                                <div key={p.id} className="d-flex flex-wrap align-items-center border-top py-2 px-3 row-gap-2">
-                                        <div className="col-12"><strong>{p.nome}</strong></div>
-                                        <div className="col-12 col-sm-6 col-lg-4">Quantidade: {p.qtd}</div>
-                                        <div className="col-12 col-sm-6 col-lg-4">Preço Unit: R$ {p.preco.toFixed(2).replace('.', ',')}</div>
-                                        <div className="col-12 col-sm-6 col-lg-4">Preço total: R$ {(p.qtd * p.preco).toFixed(2).replace('.', ',')}</div>
-                                </div>
-                            ))}
+                {/* Pedido */}
+                <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                    <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
+                        <i className="bi bi-bag-check me-2"></i> Pedidos
+                    </h4>
 
-                            <div className="d-flex flex-wrap align-items-center bordaCompleta border-bottom-0 border-end-0 border-start-0 bordaPreta p-2 px-3 justify-content-between">
-                                <div className="col-12 col-md-6"><strong>Total de itens: {lista.total.unidades}</strong></div>
-                                <div className="col-12 col-md-6"><strong>Total preço: R$ {lista.total.preco.toFixed(2).replace('.', ',')}</strong></div>
+                    {/* Status */}
+                    <div className="row mb-4">
+                        <div className="col-md-6">
+                            <strong>STATUS</strong>
+                            <div>{lista?.status || "-"}</div>
+                        </div>
+                    </div>
+
+                    {/* Datas */}
+                    <div className="row mb-4 row-gap-2">
+                        <div><strong>DATAS</strong></div>
+                        <div className="col-sm-6 col-lg-4 col-xl-3">
+                            <strong>Pedido</strong>
+                            <div>{lista?.datas.pedido || "-"}</div>
+                        </div>
+
+                        <div className="col-sm-6 col-lg-4 col-xl-3">
+                            <strong>Aprovação</strong>
+                            <div>{lista?.datas.aprovacao || "-"}</div>
+                        </div>
+
+                        <div className="col-sm-6 col-lg-4 col-xl-3">
+                            <strong>Envio</strong>
+                            <div>{lista?.datas.envio || "-"}</div>
+                        </div>
+
+                        <div className="col-sm-6 col-lg-4 col-xl-3">
+                            <strong>Recebimento</strong>
+                            <div>{lista?.datas.recebimento || "-"}</div>
+                        </div>
+                    </div>
+
+                    {/* Cancelamento */}
+                    {lista?.cancelamento && <>
+                        <div className="mb-2"><strong>CANCELAMENTO</strong></div>
+                        <div className="row mb-3 row-gap-2">
+                            <div className="col-sm-6 col-lg-4 col-xl-3">
+                                <strong>Data</strong>
+                                <div>{lista.cancelamento.data || "-"}</div>
                             </div>
-                        </>
-                    ) : (
-                        "Carregando lista..."
-                    )}
+
+                            <div className="col-sm-6 col-lg-4 col-xl-3">
+                                <strong>Cancelado por</strong>
+                                <div>{lista.cancelamento.responsavel || "-"}</div>
+                            </div>
+
+                            <div>
+                                <strong>Comentário cancelamento</strong>
+                                <textarea className="form-control bg-light mb-3" value={admin?.cancelamento.mensagem} readOnly />
+                            </div>
+                        </div>
+                    </>
+                    }
+
+                    {/* Itens do pedido */}
+                    <div className="table-responsive">
+                        <table className="table table-striped align-middle">
+                            <thead className="table-light">
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço Unitário</th>
+                                    <th>Preço Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {lista?.produtos.map((p) => (
+                                    <tr key={p.id}>
+                                        <td>{p.nome}</td>
+                                        <td>{p.qtd}</td>
+                                        <td>R$ {p.preco.toFixed(2).replace('.', ',')}</td>
+                                        <td>R$ {(p.qtd * p.preco).toFixed(2).replace('.', ',')}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr className="mt-3" />
+
+                    {/* Total */}
+                    <div className="text-end fw-bold">
+                        Total de itens: {lista?.total.unidades} <br />
+                        Total preço: {formatarPreco(lista?.total.preco)}
+                    </div>
+                </div>
+
+                {/* Botões */}
+                <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm d-flex justify-content-end">
+                    <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        {/* MODAL para abrir atualizar os dados */}
+        <div className="modal fade" id='modalCancelarPedido' tabIndex="-1" aria-labelledby='modalCancelarPedidoLabel' aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+
+                    {/* CABEÇALHO */}
+                    <div className="modal-header fundoPreto">
+                        <h5 className="modal-title" id='modalCancelarPedidoLabel'>Cancelar pedido</h5>
+                        <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    {/* CORPO */}
+                    <div className="modal-body">
+                        {/* Comentário de cancelamento */}
+                        <div><strong>Comentário de cancelamento</strong></div>
+                        <textarea className="form-control mb-3" value={comentarioCancelamento} onChange={(e) => setCancelamento(e.target.value)} />
+                    </div>
+
+                    {/* BOTÕES */}
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-danger" onClick={CancelarPedido}>Cancelar</button>
+                        <button type="button" className="btn btn-1" data-bs-dismiss="modal" >Fechar</button>
+                    </div>
                 </div>
             </div>
         </div>
