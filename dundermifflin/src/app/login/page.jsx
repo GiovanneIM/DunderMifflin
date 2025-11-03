@@ -67,7 +67,6 @@ export default function Login() {
                 setUsuario(userLogado);
                 localStorage.setItem('usuario', JSON.stringify(userLogado));
 
-                // Redirecionamento rápido
                 window.location.href = `/${tipoUsuario}/home`;
             } else {
                 setErro(data.mensagem || 'ID ou senha incorretos.');

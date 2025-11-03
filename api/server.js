@@ -40,6 +40,9 @@ app.use('/empresas', rotasEmpresa)
 const rotasGerente = require('./routes/gerente.js') // GERENTE DE COMPRAS
 app.use('/gerentes', rotasGerente)
 
+const rotasLista = require('./routes/lista.js') // LISTAS
+app.use('/listas', rotasLista)
+
 
 
 
@@ -47,99 +50,3 @@ app.use('/gerentes', rotasGerente)
 app.listen(port, () => {
     console.log(`Servidor ativo em: http://localhost:${port}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-Papelaria e escrita
-
-    Canetas (esferográficas, marca-texto, corretivas, pincéis, etc.)
-
-    Lápis e lapiseiras
-
-    Borrachas, apontadores
-
-    Cadernos, blocos, agendas
-
-    Papel A4 / A3 (sulfite, reciclado, fotográfico, colorido)
-
-    Post-its e etiquetas adesivas
-
-Arquivamento e organização
-
-    Pastas (suspensas, catálogo, sanfonadas, elásticas)
-
-    Fichários e refis
-
-    Divisórias
-
-    Clipes, grampos, elásticos
-
-    Caixas organizadoras
-
-    Arquivos de aço e gaveteiros
-
-Suprimentos de informática e impressão
-
-    Toners e cartuchos (HP, Epson, Canon, Brother, etc.)
-
-    Papéis especiais (fotográfico, etiquetas, adesivos)
-
-    Mídias (pendrives, HDs externos, DVDs, etc.)
-
-    Teclados, mouses, cabos, adaptadores
-
-    Suportes para monitor e notebook
-
-    Extensões e filtros de linha
-
-Mobiliário de escritório
-
-    Mesas e escrivaninhas
-
-    Cadeiras ergonômicas
-
-    Armários e arquivos metálicos
-
-    Estações de trabalho
-
-    Suportes de monitor e organizadores de mesa
-
-Copa e limpeza corporativa
-
-    Copos descartáveis, guardanapos, talheres
-
-    Cafés, açúcar, adoçante, chá
-
-    Produtos de limpeza (álcool, detergente, desinfetante)
-
-    Papel higiênico, papel toalha
-
-    Sacos de lixo
-
-Equipamentos e utilidades
-
-    Calculadoras
-
-    Tesouras, estiletes e refis
-
-    Grampeadores e perfuradores
-
-    Quadros brancos e murais de avisos
-
-    Seladoras e balanças (para envios e embalagens)
-*/

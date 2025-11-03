@@ -92,6 +92,61 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// ATUALIZAR GERENTE
+
+// Rota para atualizar nome, usuário, email e telefone de um gerente
+router.patch('/:id/dados', (req, res) => {
+    // Recebendo e validando o id
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID inserido não era um número.'
+        });
+    }
+
+    const { nomeCompleto, nomeUsuario, email, telefone } = req.body
+
+    // Lendo a lista de gerentes
+    fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
+        const gerentes = v.lerEconverterJSON(err, data, res)
+        if (!gerentes) {
+            return
+        }
+
+        // Procurando o gerente na lista de gerentes
+        const gerente = gerentes.find((emp) => emp.id === id)
+        if (!gerente) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        gerente.nomeCompleto = nomeCompleto;
+        gerente.nomeUsuario = nomeUsuario;
+        gerente.telefone = telefone;
+        gerente.email = email;
+
+        // Salvando a lista de gerentes
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar gerentes:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao atualizar gerente.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Dados atualizados com sucesso.'
+            });
+        });
+    });
+});
+
+
 // LISTA
 
 // Rota para obter as listas do gerente
@@ -125,7 +180,7 @@ router.get('/:id/listas', (req, res) => {
 // Rota para criar uma lista
 router.post('/listas', (req, res) => {
     // Recebendo as informações da lista
-    const { idGerente, idEmpresa, produtos, mensagemPedido } = req.body;
+    const { idGerente, idEmpresa, produtos, mensagemPedido, total } = req.body;
 
 
     // Lendo o arquivo das listas
@@ -149,10 +204,13 @@ router.post('/listas', (req, res) => {
         // Filtrando as listas do gerente
         const novaLista = {
             id: idNovaLista,
+
             idGerente,
             idEmpresa,
             produtos,
-            mensagemPedido,
+            mensagem: { mensagemGerente: mensagemPedido},
+            total,
+
             status: "Aguardando aprovação",
             datas: {
                 "Pedido": dataAtual
@@ -173,7 +231,8 @@ router.post('/listas', (req, res) => {
 
             res.status(201).json({
                 sucesso: true,
-                mensagem: 'lista cadastrada com sucesso.'
+                mensagem: 'lista cadastrada com sucesso.',
+                idLista: idNovaLista
             });
         });
     });

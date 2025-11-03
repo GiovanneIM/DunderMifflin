@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
         return res.status(400).send('Erro: O ID inserido não era um número.');
     }
 
-    // Lendo a lista de tarefas
+    // Lendo a lista de produtos
     fs.readFile(caminhoProdutos, 'utf8', (err, data) => {
         // Lendo e convertendo o conteúdo do JSON com os produtos
         const produtos = v.lerEconverterJSON(err, data, res)

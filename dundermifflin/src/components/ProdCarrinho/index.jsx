@@ -13,7 +13,7 @@ export default function ProdCarrinho({ id_prod, qtd, funcaoAlterar }) {
                 const res = await fetch(`http://localhost:4000/produtos/${id_prod}`);
                 const data = await res.json();
                 setProduto(data.produto);
-                funcaoAlterar(id_prod, contagem, data.produto.preco); // inicializa no carrinho
+                funcaoAlterar(id_prod, contagem, data.produto.preco, data.produto.nome); // inicializa no carrinho
             } catch (error) {
                 console.error("Erro ao buscar produto:", error);
             }
@@ -26,7 +26,7 @@ export default function ProdCarrinho({ id_prod, qtd, funcaoAlterar }) {
             if (contagem < 1) setContagem(1);
             const total = contagem * produto.preco;
             setTP(total.toFixed(2).replace('.', ','));
-            funcaoAlterar(id_prod, contagem, produto.preco);
+            funcaoAlterar(id_prod, contagem, produto.preco, produto.nome);
         }
     }, [contagem, produto]);
 

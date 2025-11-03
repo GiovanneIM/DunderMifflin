@@ -1,9 +1,9 @@
 [
     {
-        "nomeCompleto": "Giovanne",
-        "nomeUsuario": "G10",
-        "email": "giovanne@gmail.com",
-        "telefone": "(21) 96621-3198",
+        "nomeCompleto": "Gerente 0 - teste",
+        "nomeUsuario": "G0",
+        "email": "gerente0@teste.com",
+        "telefone": "(21) 96621-3199",
         "idEmpresa": 0,
         "id": 0,
         "senha": "senhaTeste"

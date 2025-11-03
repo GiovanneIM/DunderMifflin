@@ -5,10 +5,20 @@ import './card.css'
 
 export default function Card({ id, nome, imagem, preco }) {
     const [contagem, setContagem] = useState(1);
-    const urlProduto = `/produtos/${id}`;
+    const urlProduto = `/gerente/produtos/${id}`;
 
     /* Função para quando o usuário adiciona ao carrinho */
     function adicionarCarrinho() {
+        const lista = JSON.parse(localStorage.getItem('lista')) || [];
+
+        const index = lista.findIndex(item => item.id === id);
+
+        if (index !== -1) {
+            lista[index].qtd += contagem;
+        } else {
+            lista.push({ id, qtd: contagem });
+        }
+
         const container = document.getElementById("toastContainer");
 
         if (!container) return;
@@ -22,20 +32,21 @@ export default function Card({ id, nome, imagem, preco }) {
         toast.style.minWidth = "250px";
 
         toast.innerHTML = `
-            <div class="toast-header">
+            <div class="toast-header fundoPreto">
                 <strong class="me-auto">Produto adicionado</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body d-flex align-items-center gap-2">
                 <img src="${imagem}" alt="${nome}" class="toast-img" style="width:40px;height:40px;object-fit:cover;border-radius:5px;" />
                 <div>
-                <div>${nome}</div>
+                <div><strong>${nome}</strong></div>
                 <div>Quantidade: ${contagem}</div>
                 </div>
             </div>
         `;
 
         container.appendChild(toast);
+        localStorage.setItem('lista', JSON.stringify(lista));
 
         // Inicializa e exibe o toast
         const toastInstance = new window.bootstrap.Toast(toast, { delay: 2500 });
@@ -84,9 +95,9 @@ export default function Card({ id, nome, imagem, preco }) {
                     <div className='d-flex'>
                         {/* CONTAGEM */}
                         <div className="div_contador">
-                            <button className='btn-contador btn' onClick={() => { () => setContagem(prev => Math.max(prev - 1, 0)) }}>-</button>
+                            <button className='btn-contador btn' onClick={() => setContagem(prev => Math.max(prev - 1, 0))}>-</button>
                             <input type="number" className="form-control bordaCinza contador text-center" id="quantidadeAdd" value={contagem} min={0} onChange={(e) => setContagem(Number(e.target.value))} required />
-                            <button className='btn-contador btn' onClick={() => { setContagem(contagem + 1) }}>+</button>
+                            <button className='btn-contador btn' onClick={() => setContagem(contagem + 1)}>+</button>
                         </div>
 
                         {/* ADICIONAR AO CARRINHO */}

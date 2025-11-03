@@ -1,14 +1,74 @@
 [
-  {
-    "idEmpresa": 0,
-    "status": "pendente",
-    "idGerente": 0,
-    "produtos": [{ "idProduto": 1, "quantidade": 10 }]
-  },
-  {
-    "idEmpresa": 0,
-    "status": "pendente",
-    "idGerente": 1,
-    "produtos": [{ "idProduto": 4, "quantidade": 5 }]
-  }
+    {
+        "id": 0,
+        "idGerente": 0,
+        "idEmpresa": 0,
+        "produtos": [
+            {
+                "id": 2,
+                "qtd": 4,
+                "preco": 31.49,
+                "nome": "Saco Plástico Ofício Sem Furos 0.12 Micras Pacote 100 Unidades"
+            },
+            {
+                "id": 8,
+                "qtd": 3,
+                "preco": 36.9,
+                "nome": "Papel A4 Azul 210x297mm 75g 500 folhas | Report"
+            },
+            {
+                "id": 13,
+                "qtd": 8,
+                "preco": 42.29,
+                "nome": "Caixa de Correspondência Dupla Articulável Fumê | Maxcril"
+            }
+        ],
+        "mensagem": {
+            "mensagemGerente": "Teste Criação de lista"
+        },
+        "total": {
+            "unidades": 23,
+            "preco": 574.98
+        },
+        "status": "Aguardando aprovação",
+        "datas": {
+            "Pedido": "02/11/2025 - 23:50"
+        }
+    },
+    {
+        "id": 1,
+        "idGerente": 0,
+        "idEmpresa": 0,
+        "produtos": [
+            {
+                "id": 2,
+                "qtd": 4,
+                "preco": 31.49,
+                "nome": "Saco Plástico Ofício Sem Furos 0.12 Micras Pacote 100 Unidades"
+            },
+            {
+                "id": 8,
+                "qtd": 3,
+                "preco": 36.9,
+                "nome": "Papel A4 Azul 210x297mm 75g 500 folhas | Report"
+            },
+            {
+                "id": 13,
+                "qtd": 8,
+                "preco": 42.29,
+                "nome": "Caixa de Correspondência Dupla Articulável Fumê | Maxcril"
+            }
+        ],
+        "mensagem": {
+            "mensagemGerente": ""
+        },
+        "total": {
+            "unidades": 23,
+            "preco": 574.98
+        },
+        "status": "Aguardando aprovação",
+        "datas": {
+            "Pedido": "02/11/2025 - 23:54"
+        }
+    }
 ]

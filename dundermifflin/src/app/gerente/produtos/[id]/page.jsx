@@ -57,6 +57,17 @@ export default function ProdutoDetalhes() {
 
     /* Função para quando o usuário adiciona ao carrinho */
     function adicionarCarrinho() {
+        const lista = JSON.parse(localStorage.getItem('lista')) || [];
+        const idNum = Number(id)
+
+        const index = lista.findIndex(item => item.id === idNum);
+
+        if (index !== -1) {
+            lista[index].qtd += contagem;
+        } else {
+            lista.push({ id: idNum, qtd: contagem });
+        }
+
         const container = document.getElementById("toastContainer");
 
         if (!container) return;
@@ -70,19 +81,20 @@ export default function ProdutoDetalhes() {
         toast.style.minWidth = "250px";
 
         toast.innerHTML = `
-            <div class="toast-header">
+            <div class="toast-header fundoPreto">
                 <strong class="me-auto">Produto adicionado</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body d-flex align-items-center gap-2">
                 <img src="${produto.imagem[0]}" alt="${produto.nome}" class="toast-img" style="width:40px;height:40px;object-fit:cover;border-radius:5px;" />
                 <div>
-                <div>${produto.nome}</div>
+                <div><strong>${produto.nome}</strong></div>
                 <div>Quantidade: ${contagem}</div>
                 </div>
             </div>
         `;
 
+        localStorage.setItem('lista', JSON.stringify(lista));
         container.appendChild(toast);
 
         // Inicializa e exibe o toast
@@ -99,7 +111,7 @@ export default function ProdutoDetalhes() {
     return (
         <>
             <div className="container gap-4 d-flex flex-column ">
-                <div className="produto-informacoes">
+                <div className="produto-informacoes fundoBranco bordaCompleta bordaCinza">
                     <div className="col-12 col-lg-7">
                         <div className="galeria flex-column flex-md-row">
                             {/* Imagem Principal */}
@@ -191,7 +203,7 @@ export default function ProdutoDetalhes() {
                     </div>
                 </div>
 
-                <div className='descricao' dangerouslySetInnerHTML={{ __html: descricao }}></div>
+                <div className='descricao fundoBranco bordaCompleta bordaCinza' dangerouslySetInnerHTML={{ __html: descricao }}></div>
             </div>
         </>
     );

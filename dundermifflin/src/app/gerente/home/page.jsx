@@ -10,10 +10,14 @@
 
 import { useState, useEffect } from 'react'
 
+import InformacoesGerente from '@/components/Gerente/InformacoesGerente';
+import InformacoesEmpresa from '@/components/Gerente/informacoesEmpresa';
+
 export default function Home() {
     const [usuario, setUsuario] = useState(null);
-    const [empresa, setEmpresa] = useState();
-    const [gerente, setGerente] = useState();
+    const [empresa, setEmpresa] = useState(null);
+    const [gerente, setGerente] = useState(null);
+
 
     /* Pegando as infos do usuario logado */
     useEffect(() => {
@@ -27,7 +31,7 @@ export default function Home() {
     useEffect(() => {
         async function carregarGerente() {
             try {
-                const res = await fetch(`http://localhost:4000/empresas/${usuario.id}`);
+                const res = await fetch(`http://localhost:4000/gerentes/${usuario.id}`);
                 const data = await res.json();
                 if (data.gerente) setGerente(data.gerente);
             } catch (error) {
@@ -59,19 +63,35 @@ export default function Home() {
 
 
 
-    return (gerente &&
-        <>
+    return <>
+        {gerente && empresa &&
             <div className='container py-5'>
-                <div className="titulo">Gerente {gerente.id}</div>
+                <h2 className="titulo fs-2 text-center mb-4">
+                    Gerente {gerente.id}
+                </h2>
 
-                <div className='col-12 col-lg-6 ps-lg-2 d-flex flex-column justify-content-around row-gap-3'>
-                    {/* Informações da empresa */}
-                    <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2">
-                        <h4 className=""><strong>Dados da empresa</strong></h4>
-                        <button className="btn btn-1" onClick={abrirModalDados}>Alterar dados</button>
+                <div className="p-4 rounded shadow-sm fundoBranco bordaCompleta bordaCinza mb-3 row-gap-4 
+            d-flex flex-column flex-lg-row flex-wrap justify-content-center align-items-center">
+
+                    <div className='col-12 d-flex flex-column justify-content-around row-gap-3'>
+                        {/* Informações da empresa */}
+                        <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2">
+                            <h4 className=""><strong>Suas informações</strong></h4>
+                        </div>
+
+                        <InformacoesGerente gerente={gerente} />
+                    </div>
+
+                    <div className='col-12 d-flex flex-column justify-content-around row-gap-3'>
+                        {/* Informações da empresa */}
+                        <div className="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2">
+                            <h4 className=""><strong>Sua empresa</strong></h4>
+                        </div>
+
+                        <InformacoesEmpresa empresa={empresa} />
                     </div>
                 </div>
             </div>
-        </>
-    )
+        }
+    </>
 }

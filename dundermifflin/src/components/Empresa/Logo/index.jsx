@@ -40,7 +40,7 @@ export default function Logo({ logo, idEmpresa }) {
                 {/* <div className="text-end mb-3"><button type='button' className="btn btn-1" onClick={abrirModal}>Alterar logo</button></div> */}
                 <div className="d-flex flex-wrap align-items-center border-bottom mb-3 pb-2 row-gap-2">
                     <h5 className="m-0">
-                        <strong>Gerentes de Compras</strong>
+                        <strong>Logo</strong>
                     </h5>
 
                     <div className="d-flex ms-auto column-gap-3">
