@@ -12,7 +12,7 @@ const caminhoGerentes = './json/gerentes.json'
 const caminhoListas = './json/listas.json'
 
 // =========================================================================
-// LOGIN
+// LOGIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Rota para fazer login
 router.post('/login', (req, res) => {
@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
     })
 });
 
-// GERENTE
+// GERENTE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Rota para obter UM GERENTE específico
 router.get('/:id', (req, res) => {
@@ -92,7 +92,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// ATUALIZAR GERENTE
+// ATUALIZAR GERENTE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 // Rota para atualizar nome, usuário, email e telefone de um gerente
 router.patch('/:id/dados', (req, res) => {
@@ -147,7 +147,7 @@ router.patch('/:id/dados', (req, res) => {
 });
 
 
-// LISTA
+// LISTA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Rota para obter as listas do gerente
 router.get('/:id/listas', (req, res) => {
@@ -238,5 +238,60 @@ router.post('/listas', (req, res) => {
     });
 })
 
+// Rota para marcar um pedido como RECEBIDO
+router.patch('/receber/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'ID inválido.'
+        });
+    }
+
+    fs.readFile(caminhoListas, 'utf8', (err, data) => {
+        const listas = v.lerEconverterJSON(err, data, res);
+        if (!listas) return;
+
+        const lista = listas.find(l => l.id === id);
+        if (!lista) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Lista não encontrada.'
+            });
+        }
+
+        // Data atual
+        const dataAtual = new Date().toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(',', ' -');
+
+        lista.status = "Recebido"
+        lista.datas.recebido = dataAtual;
+
+
+        // Atualizando o arquivo das listas
+        fs.writeFile(caminhoListas, JSON.stringify(listas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar listas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao salvar a lista recebida.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Lista recebida com sucesso.',
+                lista
+            });
+        });
+    });
+});
 
 module.exports = router;

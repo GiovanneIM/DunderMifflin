@@ -12,6 +12,7 @@ const caminhoGerentes = './json/gerentes.json'
 const caminhoListas = './json/listas.json'
 
 // ==========================================================================
+// OBTER LISTA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // rota para obter uma lista específica
 router.get('/:id', (req, res) => {
@@ -44,8 +45,10 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// CANCELAR LISTA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 // rota para cancelar uma lista
-router.patch('/:id/Cancelar', (req, res) => {
+router.patch('/cancelar/:id', (req, res) => {
     const id = Number(req.params.id);
 
     if (isNaN(id)) {
@@ -82,7 +85,7 @@ router.patch('/:id/Cancelar', (req, res) => {
         lista.status = 'Cancelado';
 
         lista.cancelamento = {
-            mensagemCancelamento,
+            mensagemCancelamento: mensagemCancelamento,
             responsavel: tipoUsuario,
             data: dataAtual
         };
@@ -107,3 +110,24 @@ router.patch('/:id/Cancelar', (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
+/*
+Aguardando aprovação        CINZA       SECONDARY
+↓
+Aprovado                    AMARELO     WARNING
+↓
+Enviado                     AZUL        PRIMARY
+↓
+Entregue                    ROXO        INFO
+↓
+Recebido                    VERDE       SUCCESS
+
+
+
+Cancelado                   VERMELHO    DANGER          •
+*/

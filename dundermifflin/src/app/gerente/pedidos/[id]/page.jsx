@@ -11,7 +11,7 @@ export default function Pedido() {
     const [admin, setAdmin] = useState(null)
 
 
-    const [comentarioCancelamento, setCancelamento] = useState("")
+    const [mensagemCancelamento, setCancelamento] = useState("")
 
     // Função para buscar dados na API
     async function carregarDados(url, setState) {
@@ -59,7 +59,37 @@ export default function Pedido() {
     }
 
     function CancelarPedido(params) {
+        const cancelar = {
+            mensagemCancelamento,
+            responsavel: "Usuário"
+        }
 
+        fetch(`http://localhost:4000/listas/cancelar/${lista.id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cancelar)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Erro ao enviar a lista');
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.sucesso) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalCancelarPedido'));
+                    modal.hide();
+
+                    setLista(data.lista)
+                }
+                else {
+                    console.log(data.erro);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                setErro('Erro ao enviar a lista.');
+            });
     }
 
     return <>
@@ -198,7 +228,7 @@ export default function Pedido() {
 
                             <div>
                                 <strong>Comentário cancelamento</strong>
-                                <textarea className="form-control bg-light mb-3" value={admin?.cancelamento.mensagem} readOnly />
+                                <textarea className="form-control bg-light mb-3" value={lista.cancelamento.mensagemCancelamento} readOnly />
                             </div>
                         </div>
                     </>
@@ -238,7 +268,7 @@ export default function Pedido() {
 
                 {/* Botões */}
                 <div className="col-12 col-md-10 col-md-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm d-flex justify-content-end">
-                    <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
+                    {lista.status === "Aguardando aprovação" && <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>}
                 </div>
             </div>
         </div>
@@ -260,7 +290,7 @@ export default function Pedido() {
                     <div className="modal-body">
                         {/* Comentário de cancelamento */}
                         <div><strong>Comentário de cancelamento</strong></div>
-                        <textarea className="form-control mb-3" value={comentarioCancelamento} onChange={(e) => setCancelamento(e.target.value)} />
+                        <textarea className="form-control mb-3" value={mensagemCancelamento} onChange={(e) => setCancelamento(e.target.value)} />
                     </div>
 
                     {/* BOTÕES */}

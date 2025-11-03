@@ -24,16 +24,23 @@
             }
         ],
         "mensagem": {
-            "mensagemGerente": "Teste Criação de lista"
+            "mensagemGerente": "Teste Criação de lista",
+            "mensagemEmpresa": "Lista aprovada com sucesso pelo setor financeiro.",
+            "mensagemAdmin": "Pedido enviado com sucesso"
         },
         "total": {
             "unidades": 23,
             "preco": 574.98
         },
-        "status": "Aguardando aprovação",
+        "status": "Recebido",
         "datas": {
-            "pedido": "02/11/2025 - 23:50"
-        }
+            "pedido": "02/11/2025 - 23:50",
+            "aprovacao": "03/11/2025 - 18:25",
+            "envio": "03/11/2025 - 18:58",
+            "entregue": "03/11/2025 - 18:59",
+            "recebido": "03/11/2025 - 19:04"
+        },
+        "idAdmin": 0
     },
     {
         "id": 1,
@@ -66,9 +73,14 @@
             "unidades": 23,
             "preco": 574.98
         },
-        "status": "Aguardando aprovação",
+        "status": "Cancelado",
         "datas": {
             "pedido": "02/11/2025 - 23:54"
+        },
+        "cancelamento": {
+            "mensagemCancelamento": "Gerente cancelando compra",
+            "responsavel": "Gerente",
+            "data": "03/11/2025 - 19:10"
         }
     }
 ]

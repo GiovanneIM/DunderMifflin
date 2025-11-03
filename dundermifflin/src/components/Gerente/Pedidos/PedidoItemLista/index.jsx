@@ -1,11 +1,12 @@
 export default function PedidoItemLista({ pedido }) {
-    const status = {
-        Aprovado: "bg-success",
-        Pendente: "bg-warning text-dark",
-        Cancelado: "bg-danger",
-        Enviado: "bg-info text-dark",
-        Entregue: "bg-primary",
-    }[pedido.status] || "bg-secondary";
+    const CORstatus = {
+        "Aguardando aprovação": "bg-secondary",
+        "Aprovado": "bg-warning text-dark",
+        "Enviado": "bg-primary",
+        "Entregue": "bg-info text-dark",
+        "Recebido": "bg-success",
+        "Cancelado": "bg-danger",
+    }[pedido.status] ?? "bg-secondary";
 
     return <>
         <div className="border-bottom mt-3 pb-3 px-3">
@@ -13,11 +14,15 @@ export default function PedidoItemLista({ pedido }) {
 
                 {/* Informações principais */}
                 <div className="col-12 d-flex gap-2 flex-column">
+                    {/* ID e status */}
                     <div className="d-flex flex-wrap justify-content-between align-items-center mb-2">
+                        {/* ID */}
                         <h6 className="fw-bold mb-0">Pedido #{pedido.id}</h6>
-                        <span className={`badge ${status}`}>{pedido.status}</span>
+                        {/* Status */}
+                        <span className={`badge ${CORstatus}`}>{pedido.status}</span>
                     </div>
 
+                    {/* Datas */}
                     <div className="d-flex flex-wrap small text-secondary">
                         <div className="col-12 col-sm-6 col-lg-4">
                             <strong>Pedido:</strong> {pedido?.datas.pedido || "-"}
@@ -30,7 +35,8 @@ export default function PedidoItemLista({ pedido }) {
                         </div>
                     </div>
 
-                    {pedido.status === "recebido" &&
+                    {/* Pedido recebido */}
+                    {pedido.status === "Recebido" &&
                         <div className="d-flex flex-wrap small text-success">
                             <div className="col-12">
                                 <strong>Recebimento:</strong> {pedido?.datas.recebimento || "-"}
@@ -38,7 +44,8 @@ export default function PedidoItemLista({ pedido }) {
                         </div>
                     }
 
-                    {pedido.status === "cancelado" &&
+                    {/* Pedido cancelado */}
+                    {pedido.status === "Cancelado" &&
                         <div className="d-flex flex-wrap small text-danger">
                             <div className="col-12">
                                 <strong>Cancelamento:</strong> {pedido?.cancelamento?.data || "-"}
@@ -47,7 +54,7 @@ export default function PedidoItemLista({ pedido }) {
                     }
                 </div>
 
-                {/* Botão */}
+                {/* Botão para a página da lista*/}
                 <div className="col-12 text-end">
                     <a className="btn btn-1 btn-sm" href={`/gerente/pedidos/${pedido.id}`}>
                         Ver Lista
