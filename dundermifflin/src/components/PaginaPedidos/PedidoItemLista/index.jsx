@@ -1,6 +1,6 @@
 import StatusBadge from "@/components/StatusBadge";
 
-export default function PedidoItemLista({ pedido }) {
+export default function PedidoItemLista({ pedido, userTipo }) {
 
     return <>
         <div className="border-bottom mt-3 pb-3 px-3">
@@ -50,7 +50,7 @@ export default function PedidoItemLista({ pedido }) {
 
                 {/* Botão para a página da lista*/}
                 <div className="col-12 text-end">
-                    <a className="btn btn-1 btn-sm" href={`/gerente/pedidos/${pedido.id}`}>
+                    <a className="btn btn-1 btn-sm" href={`/${userTipo}/pedidos/${pedido.id}`}>
                         Ver Lista
                     </a>
                 </div>

@@ -15,7 +15,8 @@
             }
         ],
         "id": 0,
-        "senha": "Empresa0"
+        "senha": "Empresa0",
+        "ativa": true
     },
     {
         "razaoSocial": "EMPRESA",
@@ -40,6 +41,7 @@
                 "numero": "32",
                 "complemento": ""
             }
-        ]
+        ],
+        "ativo": true
     }
 ]

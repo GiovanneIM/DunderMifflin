@@ -36,13 +36,22 @@ router.post('/login', (req, res) => {
         // Procurando pela empresa
         const empresa = empresas.find((e) => { return e.id === Number(id) });
 
-        // Verificando se a empresa foi encontrada e se a senha está certa
+        // Verificando se a empresa foi encontrada e se a senha está correta
         if (!empresa || empresa.senha !== senha) {
             res.status(401).json({
                 sucesso: false,
                 mensagem: 'ID e/ou senha incorretos.'
             });
-            return;
+            return
+        }
+
+        // Verificando se a empresa está ativa
+        if(!empresa.ativo){
+            res.status(401).json({
+                sucesso: false,
+                mensagem: 'Seu registro está inativo. Entre em contato com a DunderMifflin.'
+            });
+            return
         }
 
         // Login bem sucedido
@@ -51,6 +60,7 @@ router.post('/login', (req, res) => {
             sucesso: true,
             usuario: { id: empresa.id, tipo: "empresa", nome: empresa.nomeFantasia }
         });
+        return
     })
 });
 
@@ -531,7 +541,8 @@ router.post('/gerente', (req, res) => {
             telefone,
             email,
             idEmpresa,
-            senha: `Gerente${idNovoGerente}`
+            senha: `Gerente${idNovoGerente}`,
+            ativo: true
         };
 
         // Adicionando o novo gerente à lista
@@ -613,8 +624,8 @@ router.patch('/gerente/:idGerente', (req, res) => {
     })
 })
 
-// Rota para excluir um gerente de compras
-router.delete('/gerente/:idGerente', (req, res) => {
+// Rota para desativar um gerente de compras
+router.patch('/gerente/desativar/:idGerente', (req, res) => {
     // Recebendo e validando o ID do gerente
     const idGerente = parseInt(req.params.idGerente);
     if (isNaN(idGerente)) {
@@ -631,35 +642,87 @@ router.delete('/gerente/:idGerente', (req, res) => {
         if (!gerentes) { return; }
 
         // Verificando se o gerente existe
-        const gerenteEncontrado = gerentes.find(g => g.id === idGerente);
-        if (!gerenteEncontrado) {
+        const gerente = gerentes.find(g => g.id === idGerente);
+        if (!gerente) {
             return res.status(404).json({
                 sucesso: false,
                 erro: 'Gerente não encontrado.'
             });
         }
 
-        // Removendo o gerente da lista
-        const gerentesSALVAR = gerentes.filter((g) => g.id !== idGerente)
+        // Verificando se já está inativo
+        if (!gerente.ativo) {
+            return res.status(400).json({
+                sucesso: false,
+                erro: 'O gerente já está inativo.'
+            });
+        }
+
+        // Desativando o gerente da lista
+        gerente.ativo = false;
 
 
         // Salvando a lista de gerentes
-        fs.writeFile(caminhoGerentes, JSON.stringify(gerentesSALVAR, null, 4), (err) => {
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), (err) => {
             if (err) {
                 console.error('Erro ao salvar gerentes:', err);
                 return res.status(500).json({
                     sucesso: false,
-                    erro: 'Erro ao excluir gerente.'
+                    erro: 'Erro ao desativar gerente.'
                 });
             }
 
             res.status(200).json({
                 sucesso: true,
-                mensagem: 'Gerente excluído com sucesso'
+                mensagem: 'Gerente desativado com sucesso',
+                gerente
             });
         });
     })
 })
+
+// Rota para ativar um gerente de compras
+router.patch('/gerente/ativar/:idGerente', (req, res) => {
+    const idGerente = parseInt(req.params.idGerente);
+    if (isNaN(idGerente)) {
+        return res.status(400).json({ sucesso: false, erro: 'ID inválido.' });
+    }
+
+    fs.readFile(caminhoGerentes, 'utf8', (err, data) => {
+        const gerentes = v.lerEconverterJSON(err, data, res);
+        if (!gerentes) return;
+
+        const gerente = gerentes.find(g => g.id === idGerente);
+        if (!gerente) {
+            return res.status(404).json({ 
+                sucesso: false, 
+                erro: 'Gerente não encontrado.'
+            });
+        }
+
+        if (gerente.ativo) {
+            return res.status(400).json({
+                sucesso: false, 
+                erro: 'O gerente já está ativo.' 
+            });
+        }
+
+        gerente.ativo = true;
+
+        fs.writeFile(caminhoGerentes, JSON.stringify(gerentes, null, 4), err => {
+            if (err) return res.status(500).json({ 
+                sucesso: false, 
+                erro: 'Erro ao reativar gerente.'
+            });
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Gerente reativado com sucesso.',
+                gerente
+            });
+        });
+    });
+});
 
 
 // LISTAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

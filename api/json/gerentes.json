@@ -1,11 +1,2 @@
 [
-    {
-        "id": 1,
-        "nomeCompleto": "teste",
-        "nomeUsuario": "123",
-        "telefone": "(11) 11111-1111",
-        "email": "222@qwe.com",
-        "idEmpresa": 1,
-        "senha": "Gerente1"
-    }
 ]

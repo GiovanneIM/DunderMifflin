@@ -27,27 +27,41 @@ export default function Pedidos() {
         }
     }
 
-    /* Buscando as listas do gerente*/
+    /* Buscando todas listas*/
     useEffect(() => {
         if (!isNaN(usuario.id)) {
-            carregarDados(`http://localhost:4000/gerentes/${usuario.id}/listas`, setListas);
+            carregarDados(`http://localhost:4000/listas/`, setListas);
         }
     }, [usuario]);
 
 
     return <>
         <div className="container">
-            <div className="text-center titulo fs-2">Meus pedidos</div>
+            <div className="text-center titulo fs-2">Pedidos</div>
 
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
 
                 <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
                     <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
-                        <i className="bi bi-three-dots me-2"></i> Em andamento
+                        <i className="bi bi-question-lg me-2"></i> Pedidos para análise
                     </h4>
 
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end rounded bordaCompleta bordaCinza">
                         {listas
+                            ?.filter(l => isNaN(l.idAdmin))
+                            .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
+                        }
+                    </div>
+                </div>
+
+                <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                    <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
+                        <i className="bi bi-three-dots me-2"></i> Pedidos em andamento
+                    </h4>
+
+                    <div className="container_pedidos d-flex flex-column-reverse justify-content-end rounded bordaCompleta bordaCinza">
+                        {listas
+                            .filter(l => isNaN(l.idAdmin))
                             ?.filter(l => l.status !== "Recebido" && l.status !== "Cancelado")
                             .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
@@ -61,6 +75,7 @@ export default function Pedidos() {
 
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end  rounded bordaCompleta bordaCinza">
                         {listas
+                            ?.filter(l => l.idAdmin === usuario.id)
                             ?.filter(l => l.status === "Recebido")
                             .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
@@ -74,6 +89,7 @@ export default function Pedidos() {
 
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end  rounded bordaCompleta bordaCinza">
                         {listas
+                            ?.filter(l => l.idAdmin === usuario.id)
                             ?.filter(l => l.status === "Cancelado")
                             .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }

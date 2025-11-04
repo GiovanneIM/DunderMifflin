@@ -45,6 +45,15 @@ router.post('/login', (req, res) => {
             return;
         }
 
+        // Verificando se o gerente está ativo
+        if(!empresa.ativo){
+            res.status(401).json({
+                sucesso: false,
+                mensagem: 'Seu registro está inativo. Entre em contato com sua empresa.'
+            });
+            return
+        }
+
         // Login bem sucedido
         console.log(`Gerente (${gerente.id}) - ${gerente.nome} logado.`);
         res.status(200).json({

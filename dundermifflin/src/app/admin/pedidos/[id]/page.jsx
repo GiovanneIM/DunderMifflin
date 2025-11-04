@@ -25,7 +25,7 @@ export default function Pedido() {
     const [admin, setAdmin] = useState(null)
 
 
-    const [mensagemEmpresa, setMsgEmpresa] = useState("")
+    const [mensagemAdmin, setMsgAdmin] = useState("")
     const [mensagemCancelamento, setCancelamento] = useState("")
 
 
@@ -102,12 +102,34 @@ export default function Pedido() {
             });
     }
 
-    /* Função para confirmar que o pedido foi recebido */
-    function AprovarPedido() {
-        fetch(`http://localhost:4000/empresas/aprovar/${lista.id}`, {
+    /* Função para marcar o envio do pedido */
+    function EnviarPedido() {
+        fetch(`http://localhost:4000/admin/enviar/${lista.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mensagemEmpresa)
+            body: JSON.stringify(mensagemAdmin)
+        })
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                if (data.sucesso) {
+
+                    setLista(data.lista)
+                }
+                else {
+                    console.log(data.erro);
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
+    /* Função para marcar a entrega do pedido */
+    function EntregarPedido() {
+        fetch(`http://localhost:4000/empresas/entregar/${lista.id}`, {
+            method: 'PATCH'
         })
             .then(res => {
                 return res.json();
@@ -151,20 +173,32 @@ export default function Pedido() {
                 {lista?.status === "Cancelado" && <Cancelado lista={lista} />}
 
 
-                {/* Botões cancelar ou aprovar pedido */}
+                {/* Botão enviar */}
                 {
-                    lista?.status === "Aguardando aprovação" && <>
+                    lista?.status === "Aprovado" && <>
                         <div className="col-12 col-md-10 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
-                            <div><strong>Mensagem de aprovação</strong></div>
+                            <div><strong>Mensagem de envio</strong></div>
                             <textarea
-                                placeholder="Adicione uma mensagem de aprovação (Opcional)"
+                                placeholder="Adicione uma mensagem de envio (Opcional)"
                                 className="form-control mb-3"
-                                value={mensagemEmpresa}
-                                onChange={(e) => setMsgEmpresa(e.target.value)} />
+                                value={mensagemAdmin}
+                                onChange={(e) => setMsgAdmin(e.target.value)} />
 
                             <div className="d-flex justify-content-end">
                                 <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
-                                <button className="btn btn-1" onClick={AprovarPedido}>Aprovar pedido</button>
+                                <button className="btn btn-1" onClick={EnviarPedido}>Enviar pedido</button>
+                            </div>
+                        </div>
+                    </>
+                }
+
+                {/* Botão entregar */}
+                {
+                    lista?.status === "Enviado" && <>
+                        <div className="col-12 col-md-10 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                            <div className="d-flex justify-content-end">
+                                <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
+                                <button className="btn btn-1" onClick={EntregarPedido}>Confirmar entrega</button>
                             </div>
                         </div>
                     </>

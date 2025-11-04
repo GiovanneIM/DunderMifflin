@@ -14,6 +14,21 @@ const caminhoListas = './json/listas.json'
 // ==========================================================================
 // OBTER LISTA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// rota para obter todas as lista
+router.get('/', (req, res) => {
+
+    fs.readFile(caminhoListas, 'utf8', (err, data) => {
+        const listas = v.lerEconverterJSON(err, data, res);
+        if (!listas) return;
+
+        res.status(200).json({
+            sucesso: true,
+            mensagem: 'Listas carregadas com sucesso',
+            listas
+        });
+    });
+});
+
 // rota para obter uma lista específica
 router.get('/:id', (req, res) => {
     const id = Number(req.params.id);

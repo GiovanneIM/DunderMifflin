@@ -9,7 +9,6 @@ const v = require('../js/validacoes.js')
 // Arquivos
 const caminhoAdmins = './json/admins.json';
 const caminhoEmpresas = './json/empresas.json';
-const caminhoGerentes = './json/gerentes.json';
 const caminhoProdutos = './json/produtos.json';
 const caminhoListas = './json/listas.json';
 
@@ -357,7 +356,8 @@ router.post('/registrarEmpresa', (req, res) => {
                 "cidade": empresa.cidade,
                 "numero": empresa.numero,
                 "complemento": empresa.complemento
-            }]
+            }],
+            "ativo": true
         }
 
         // Adicionando produto à lista
@@ -375,6 +375,105 @@ router.post('/registrarEmpresa', (req, res) => {
     })
 })
 
+// Rota para desativar uma empresa de compras
+router.patch('/empresa/desativar/:idEmpresa', (req, res) => {
+    // Recebendo e validando o ID do empresa
+    const idEmpresa = parseInt(req.params.idEmpresa);
+    if (isNaN(idEmpresa)) {
+        return res.status(400).json({
+            sucesso: false,
+            erro: 'O ID da empresa inserido não era um número.'
+        });
+    }
+
+    // Lendo a lista de empresas
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        // Validando e convertendo o conteúdo do arquivo
+        const empresas = v.lerEconverterJSON(err, data, res);
+        if (!empresas) { return; }
+
+        // Verificando se o empresa existe
+        const empresa = empresas.find(g => g.id === idEmpresa);
+        if (!empresa) {
+            return res.status(404).json({
+                sucesso: false,
+                erro: 'Empresa não encontrado.'
+            });
+        }
+
+        // Verificando se já está inativo
+        if (!empresa.ativo) {
+            return res.status(400).json({
+                sucesso: false,
+                erro: 'A empresa já está inativa.'
+            });
+        }
+
+        // Desativando a empresa da lista
+        empresa.ativo = false;
+
+
+        // Salvando a lista de empresas
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), (err) => {
+            if (err) {
+                console.error('Erro ao salvar empresas:', err);
+                return res.status(500).json({
+                    sucesso: false,
+                    erro: 'Erro ao desativar empresa.'
+                });
+            }
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Empresa desativada com sucesso',
+                empresa
+            });
+        });
+    })
+})
+
+// Rota para ativar uma empresa de compras
+router.patch('/empresa/ativar/:idEmpresa', (req, res) => {
+    const idEmpresa = parseInt(req.params.idEmpresa);
+    if (isNaN(idEmpresa)) {
+        return res.status(400).json({ sucesso: false, erro: 'ID inválido.' });
+    }
+
+    fs.readFile(caminhoEmpresas, 'utf8', (err, data) => {
+        const empresas = v.lerEconverterJSON(err, data, res);
+        if (!empresas) return;
+
+        const empresa = empresas.find(g => g.id === idEmpresa);
+        if (!empresa) {
+            return res.status(404).json({ 
+                sucesso: false, 
+                erro: 'Empresa não encontrada.'
+            });
+        }
+
+        if (empresa.ativo) {
+            return res.status(400).json({
+                sucesso: false, 
+                erro: 'A empresa já está ativa.' 
+            });
+        }
+
+        empresa.ativo = true;
+
+        fs.writeFile(caminhoEmpresas, JSON.stringify(empresas, null, 4), err => {
+            if (err) return res.status(500).json({ 
+                sucesso: false, 
+                erro: 'Erro ao reativar empresa.'
+            });
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: 'Empresa reativado com sucesso.',
+                empresa
+            });
+        });
+    });
+});
 
 // LISTA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -27,17 +27,17 @@ export default function Pedidos() {
         }
     }
 
-    /* Buscando as listas do gerente*/
+    /* Buscando as listas da empresa*/
     useEffect(() => {
         if (!isNaN(usuario.id)) {
-            carregarDados(`http://localhost:4000/gerentes/${usuario.id}/listas`, setListas);
+            carregarDados(`http://localhost:4000/empresas/${usuario.id}/listas`, setListas);
         }
     }, [usuario]);
 
 
     return <>
         <div className="container">
-            <div className="text-center titulo fs-2">Meus pedidos</div>
+            <div className="text-center titulo fs-2">Pedidos dos seus gerentes</div>
 
             <div className="d-flex flex-column justify-content-center align-items-center gap-3">
 
@@ -49,7 +49,7 @@ export default function Pedidos() {
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end rounded bordaCompleta bordaCinza">
                         {listas
                             ?.filter(l => l.status !== "Recebido" && l.status !== "Cancelado")
-                            .map(l => <PedidoItemLista key={l.id} pedido={l} />)
+                            .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export default function Pedidos() {
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end  rounded bordaCompleta bordaCinza">
                         {listas
                             ?.filter(l => l.status === "Recebido")
-                            .map(l => <PedidoItemLista key={l.id} pedido={l} />)
+                            .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
                     </div>
                 </div>
@@ -74,8 +74,8 @@ export default function Pedidos() {
 
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end  rounded bordaCompleta bordaCinza">
                         {listas
-                            ?.filter(l => l.status === "Cancelado" || l.status === "Cancelada")
-                            .map(l => <PedidoItemLista key={l.id} pedido={l} />)
+                            ?.filter(l => l.status === "Cancelado")
+                            .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
                     </div>
                 </div>

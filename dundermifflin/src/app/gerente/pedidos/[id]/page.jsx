@@ -148,7 +148,7 @@ export default function Pedido() {
                 {lista?.status === "Cancelado" && <Cancelado lista={lista} />}
 
 
-                {/* BOTÕES */}
+                {/* Botão cancelar */}
                 {lista?.status === "Aguardando aprovação" && <>
                     <div className="col-12 col-md-10 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm d-flex justify-content-end">
                         <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
@@ -156,6 +156,7 @@ export default function Pedido() {
                 </>
                 }
 
+                {/* Botão confirmar recebimento */}
                 {lista?.status === "Entregue" && <>
                     <div className="col-12 col-md-10 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm d-flex justify-content-end">
                         <button className="btn btn-1" onClick={ConfirmarRecebimento}>Confirmar recebimento</button>
