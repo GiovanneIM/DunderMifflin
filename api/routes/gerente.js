@@ -49,7 +49,7 @@ router.post('/login', (req, res) => {
         console.log(`Gerente (${gerente.id}) - ${gerente.nome} logado.`);
         res.status(200).json({
             sucesso: true,
-            usuario: { "id": gerente.id, "tipo": "gerente", "nome": gerente.nome }
+            usuario: { "id": gerente.id, "tipo": "gerente", "nome": gerente.nomeCompleto }
         });
     })
 });
@@ -213,7 +213,7 @@ router.post('/listas', (req, res) => {
 
             status: "Aguardando aprovação",
             datas: {
-                "Pedido": dataAtual
+                "pedido": dataAtual
             }
         }
 

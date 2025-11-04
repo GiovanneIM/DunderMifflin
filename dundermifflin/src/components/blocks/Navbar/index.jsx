@@ -23,6 +23,8 @@ export default function Navbar() {
     function logout() {
         localStorage.removeItem('usuario');
         setUsuario(null);
+
+        window.location.href = '/'
     }
 
     return <>
@@ -50,10 +52,6 @@ export default function Navbar() {
 
             <div className="px-3 py-2 border-bottom mb-3 bordaCinza fundoBranco">
                 <div className="container d-flex flex-wrap justify-content-center">
-                    {/* Procurar */}
-                    {/* <form className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto" role="procurar">
-                        <input type="procurar" className="form-control bordaCinza" placeholder="Procurar..." aria-label="Procurar" />
-                    </form> */}
                     <div className="col-12 col-lg-8 mb-2 mb-lg-0 me-lg-auto">
 
                     </div>
@@ -67,10 +65,17 @@ export default function Navbar() {
 
                     {/* Nome do usuário */}
                     {usuario &&
-                        <div className="text-end d-flex align-items-center gap-3">
-                            <b>{usuario.nome}</b>
+                        <div className="col-12 text-end d-flex align-items-center justify-content-between">
+                            {
+                                usuario.tipo === 'empresa' ? (
+                                    <div><b>{usuario.nome}</b></div>
+                                ) : (
+                                    <div>Bem-vindo, <b>{usuario.nome}</b></div>
+                                )
+                            }
 
-                            <button type="button" className="btn btn-1" onClick={logout}>Sair</button>
+
+                            <div><button type="button" className="btn btn-1" onClick={logout}>Sair</button></div>
                         </div>
                     }
                 </div>

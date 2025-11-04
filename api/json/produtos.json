@@ -388,5 +388,20 @@
             "https://fotos.oceanob2b.com/High/041688_2.jpg?ims=1000x"
         ],
         "quantidade": 0
+    },
+    {
+        "id": 25,
+        "nome": "Caneta esferográfica Verde 50 Unidades - Bic",
+        "preco": 50,
+        "marca": "BIC",
+        "categoria": [
+            "Caneta",
+            "Caneta esferográfica"
+        ],
+        "imagem": [
+            "https://papelariacriativa.com.br/wp-content/uploads/caneta-bic-cristal-verde-3-1024x1024.jpg",
+            "https://th.bing.com/th/id/R.afb7cde77bc19a631399e87a48f52684?rik=vjnqZ7Aj8SuoRA&pid=ImgRaw&r=0"
+        ],
+        "quantidade": 120
     }
 ]

@@ -12,11 +12,11 @@ import { useParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 
-import Logo from '@/components/Empresa/Logo';
-import InformacoesEmpresa from '@/components/Empresa/InformacoesEmpresa';
-import EnderecosLista from '@/components/Empresa/EnderecosLista';
-import GerentesLista from '@/components/Empresa/GerentesLista';
-import ListasEmpresa from '@/components/Empresa/PedidosEmpresa';
+import Logo from '@/components/Empresa/Perfil/Logo';
+import InformacoesEmpresa from '@/components/Empresa/Perfil/InformacoesEmpresa';
+import EnderecosLista from '@/components/Empresa/Perfil/EnderecosLista';
+import GerentesLista from '@/components/Empresa/Perfil/GerentesLista';
+import ListasEmpresa from '@/components/Empresa/Perfil/PedidosEmpresa';
 
 export default function Empresa() {
     const { id } = useParams();   // Obtendo o ID do produto

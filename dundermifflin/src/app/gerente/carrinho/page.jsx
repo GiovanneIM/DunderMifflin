@@ -115,7 +115,7 @@ export default function Carrinho() {
                     alert(data.mensagem);
 
                     localStorage.removeItem('lista')
-                    window.location.href = `/gerente/listas/${data.idLista}`
+                    window.location.href = `/gerente/pedidos/${data.idLista}`
                 }
                 else { 
                     console.log( data.erro);

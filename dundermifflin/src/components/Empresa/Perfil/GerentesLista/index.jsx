@@ -25,6 +25,7 @@ export default function GerentesLista({ empresa }) {
 
                 if (data.sucesso) {
                     setGerentes(data.gerentes);
+                    setGerExcluir(data.gerentes[0]?.id)
                     console.log("Gerentes carregados:", data.gerentes);
                 } else {
                     console.log("Falha ao carregar gerentes:", data.erro);
@@ -138,9 +139,11 @@ export default function GerentesLista({ empresa }) {
                     </h5>
 
                     <div className="d-flex ms-auto column-gap-3">
-                        <button className="btn btn-danger" onClick={abrirExcluir}>
-                            Remover
-                        </button>
+                        {gerentes.length > 0 &&
+                            <button className="btn btn-danger" onClick={abrirExcluir}>
+                                Remover
+                            </button>
+                        }
 
                         <button className="btn btn-1" onClick={abrirRegistrar}>
                             Adicionar
@@ -198,7 +201,7 @@ export default function GerentesLista({ empresa }) {
                                 <div className="row g-3">
                                     <div className="col-12">
                                         <label htmlFor="nomeComp" className="form-label">Nome Completo <span className="text-body-secondary">*</span></label>
-                                        <input value={nvNC} onChange={(e) => setNvNC(e.target.value)} className="form-control bordaCinza" type="text" id="nomeComp" placeholder="Nome" required/>
+                                        <input value={nvNC} onChange={(e) => setNvNC(e.target.value)} className="form-control bordaCinza" type="text" id="nomeComp" placeholder="Nome" required />
                                     </div>
 
                                     <div className="col-md-6">

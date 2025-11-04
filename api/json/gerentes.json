@@ -1,14 +1,5 @@
 [
     {
-        "nomeCompleto": "Gerente 0 - teste",
-        "nomeUsuario": "G0",
-        "email": "gerente0@teste.com",
-        "telefone": "(21) 96621-3199",
-        "idEmpresa": 0,
-        "id": 0,
-        "senha": "senhaTeste"
-    },
-    {
         "id": 1,
         "nomeCompleto": "teste",
         "nomeUsuario": "123",
@@ -16,14 +7,5 @@
         "email": "222@qwe.com",
         "idEmpresa": 1,
         "senha": "Gerente1"
-    },
-    {
-        "id": 2,
-        "nomeCompleto": "aaaaa",
-        "nomeUsuario": "bbbbb",
-        "telefone": "(11) 11111-1111",
-        "email": "adsdsa@asasda.com",
-        "idEmpresa": 0,
-        "senha": "Gerente2"
     }
 ]

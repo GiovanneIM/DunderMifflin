@@ -15,7 +15,7 @@ export default function EnderecosLista({ empresa }) {
         uf: ''
     });
 
-    const [endExcluir, setEndExcluir] = useState('');
+    const [endExcluir, setEndExcluir] = useState(empresa.enderecos[1]?.id || 0);
 
     const [enderecos, setEnderecos] = useState(empresa.enderecos || []);
 
@@ -108,7 +108,7 @@ export default function EnderecosLista({ empresa }) {
     /* Excluir um endereço */
     function excluirEndereco() {
         // console.log(endExcluir);
-        
+
         fetch(`http://localhost:4000/empresas/${empresa.id}/endereco/${endExcluir}`, {
             method: "DELETE",
             credentials: 'include'
@@ -123,6 +123,7 @@ export default function EnderecosLista({ empresa }) {
 
                     const enderecosRestantes = enderecos.filter((e) => e.id !== Number(endExcluir))
                     setEnderecos(enderecosRestantes);
+                    setEndExcluir(enderecosRestantes[1]?.id || '')
                 } else {
                     console.log(data.mensagem);
                 }
@@ -141,9 +142,13 @@ export default function EnderecosLista({ empresa }) {
                         </h5>
 
                         <div className="d-flex ms-auto column-gap-3">
-                            <button className="btn btn-danger" onClick={abrirExcluir}>
-                                Remover
-                            </button>
+                            {
+                                enderecos.length > 1 && (
+                                    <button className="btn btn-danger" onClick={abrirExcluir}>
+                                        Remover
+                                    </button>
+                                )
+                            }
 
                             <button className="btn btn-1" onClick={abrirRegistrar}>
                                 Adicionar
@@ -372,8 +377,8 @@ export default function EnderecosLista({ empresa }) {
                                         <div className="col-12">
                                             <div className="col-md-4">
                                                 <label htmlFor="idExcluir" className="form-label">ID <span className="text-body-secondary">*</span></label>
-                                                <select id="idExcluir" className="form-select bordaCinza" onChange={(e) => setEndExcluir(e.target.value)}>
-                                                    { enderecos && enderecos.map(endereco => ( endereco.id > 0 && <option key={endereco.id}>{endereco.id}</option>))}
+                                                <select id="idExcluir" className="form-select bordaCinza" value={endExcluir} onChange={(e) => setEndExcluir(e.target.value)}>
+                                                    {enderecos && enderecos.map(endereco => (endereco.id > 0 && <option key={endereco.id}>{endereco.id}</option>))}
                                                 </select>
                                             </div>
                                         </div>
@@ -387,6 +392,8 @@ export default function EnderecosLista({ empresa }) {
                             <button type="button" className="btn btn-danger" onClick={excluirEndereco}>
                                 Excluir
                             </button>
+
+
                             <button type="button" className="btn btn-1" data-bs-dismiss="modal">
                                 Cancelar
                             </button>

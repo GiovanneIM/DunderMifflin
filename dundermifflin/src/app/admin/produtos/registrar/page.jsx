@@ -91,7 +91,7 @@ export default function RegistrarProduto() {
                     setID(data.idProduto);
 
                     // Redirecionando o usuário
-                    // setTimeout(() => { window.location.href = `/admin/produtos/produto/${id}`; }, 1500);
+                    setTimeout(() => { window.location.href = `/admin/produtos/produto/${data.idProduto}`; }, 1500);
                 } else {
                     setErro(data.mensagem)
                 }

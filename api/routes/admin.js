@@ -48,10 +48,10 @@ router.post('/login', (req, res) => {
         }
 
         // Login bem sucedido
-        console.log(`Admin (${admin.id}) - ${admin.nome} logado.`);
+        console.log(`Admin (${admin.id}) - ${admin.nomeCompleto} logado.`);
         res.status(200).json({
             sucesso: true,
-            usuario: { id: admin.id, tipo: "admin", nome: admin.nome }
+            usuario: { id: admin.id, tipo: "admin", nome: admin.nomeCompleto }
         });
     })
 });

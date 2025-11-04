@@ -1,12 +1,6 @@
+import StatusBadge from "@/components/StatusBadge";
+
 export default function PedidoItemLista({ pedido }) {
-    const CORstatus = {
-        "Aguardando aprovação": "bg-secondary",
-        "Aprovado": "bg-warning text-dark",
-        "Enviado": "bg-primary",
-        "Entregue": "bg-info text-dark",
-        "Recebido": "bg-success",
-        "Cancelado": "bg-danger",
-    }[pedido.status] ?? "bg-secondary";
 
     return <>
         <div className="border-bottom mt-3 pb-3 px-3">
@@ -19,19 +13,19 @@ export default function PedidoItemLista({ pedido }) {
                         {/* ID */}
                         <h6 className="fw-bold mb-0">Pedido #{pedido.id}</h6>
                         {/* Status */}
-                        <span className={`badge ${CORstatus}`}>{pedido.status}</span>
+                        <StatusBadge status={pedido.status}/>
                     </div>
 
                     {/* Datas */}
                     <div className="d-flex flex-wrap small text-secondary">
                         <div className="col-12 col-sm-6 col-lg-4">
-                            <strong>Pedido:</strong> {pedido?.datas.pedido || "-"}
+                            <strong>Pedido:</strong> {pedido?.datas?.pedido || "-"}
                         </div>
                         <div className="col-12 col-sm-6 col-lg-4">
-                            <strong>Aprovação:</strong> {pedido?.datas.aprovacao || "-"}
+                            <strong>Aprovação:</strong> {pedido?.datas?.aprovacao || "-"}
                         </div>
                         <div className="col-12 col-sm-6 col-lg-4">
-                            <strong>Envio:</strong> {pedido?.datas.envio || "-"}
+                            <strong>Envio:</strong> {pedido?.datas?.envio || "-"}
                         </div>
                     </div>
 
@@ -39,7 +33,7 @@ export default function PedidoItemLista({ pedido }) {
                     {pedido.status === "Recebido" &&
                         <div className="d-flex flex-wrap small text-success">
                             <div className="col-12">
-                                <strong>Recebimento:</strong> {pedido?.datas.recebimento || "-"}
+                                <strong>Recebimento:</strong> {pedido?.datas.recebido || "-"}
                             </div>
                         </div>
                     }
