@@ -27,6 +27,9 @@ export default function PedidoItemLista({ pedido, userTipo }) {
                         <div className="col-12 col-sm-6 col-lg-4">
                             <strong>Envio:</strong> {pedido?.datas?.envio || "-"}
                         </div>
+                        <div className="col-12 col-sm-6 col-lg-4">
+                            <strong>Entrega:</strong> {pedido?.datas?.entregue || "-"}
+                        </div>
                     </div>
 
                     {/* Pedido recebido */}

@@ -1,52 +1,19 @@
 [
     {
-        "razaoSocial": "Empresa 0",
-        "nomeFantasia": "Emp0",
-        "logo": "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/11/pikachu-pokemon-escarlata-purpura-2888180.jpg?tf=3840x",
-        "cnpj": "99.999.999/9999-99",
-        "telefone": "(99) 99999-9999",
-        "enderecos": [
-            {
-                "id": 0,
-                "nome": "sad",
-                "cep": "09110-100",
-                "numero": "10",
-                "complemento": "100"
-            },
-            {
-                "id": 1,
-                "nome": "Ponto 1",
-                "cep": "09110-140",
-                "numero": "100",
-                "complemento": "10"
-            }
-        ],
+        "razaoSocial": "SENAI",
+        "nomeFantasia": "SENAI",
+        "cnpj": "11.111.111/1111-11",
+        "telefone": "(11) 11111-1111",
         "id": 0,
         "senha": "Empresa0",
-        "ativo": true
-    },
-    {
-        "razaoSocial": "EMPRESA",
-        "nomeFantasia": "TESTE",
-        "cnpj": "77.777.777/7777-77",
-        "telefone": "(88) 88888-8888",
-        "id": 1,
-        "senha": "Empresa1",
-        "logo": "https://placehold.co/600x400?text=TESTE}",
+        "logo": "https://placehold.co/600x400?text=SENAI",
         "enderecos": [
             {
                 "id": 0,
-                "cep": "09110-020",
-                "nome": "TESTE",
-                "numero": "100",
-                "complemento": "Porta 3"
-            },
-            {
-                "id": 1,
-                "nome": "123213",
-                "cep": "09110-050",
-                "numero": "32",
-                "complemento": ""
+                "cep": "09110-000",
+                "nome": "SENAI",
+                "numero": "10",
+                "complemento": "Portão 2"
             }
         ],
         "ativo": true

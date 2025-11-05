@@ -1,13 +1,15 @@
 'use client'
 
+import StatusBadge from "@/components/StatusBadge";
 import { useState, useEffect } from "react";
 
-export default function GerenteItem({ gerente, idEmpresa }) {
+export default function GerenteItem({ gerente, idEmpresa, carregarGerentes }) {
     /* Dados para exibir o gerente */
     const [nomeComp, setNomeComp] = useState(gerente.nomeCompleto);
     const [nomeUser, setNomeUser] = useState(gerente.nomeUsuario);
     const [email, setEmail] = useState(gerente.email);
     const [telefone, setTel] = useState(gerente.telefone);
+    const [status, setStatus] = useState(gerente.ativo);
 
     /* Para atualizar o gerente */
     const [nvNC, setNvNC] = useState(gerente.nomeCompleto);
@@ -91,6 +93,30 @@ export default function GerenteItem({ gerente, idEmpresa }) {
             .catch(err => alert("Erro na requisição: " + err.message));
     }
 
+    /* Função para desativar o gerente */
+    function desativarGerente() {
+        fetch(`http://localhost:4000/empresas/gerente/desativar/${gerente.id}`, { method: "PATCH" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.sucesso) {
+                    carregarGerentes()
+                    setStatus(false)
+                }
+            });
+    }
+
+    /* Função para ativar o gerente */
+    function ativarGerente() {
+        fetch(`http://localhost:4000/empresas/gerente/ativar/${gerente.id}`, { method: "PATCH" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.sucesso) {
+                    carregarGerentes()
+                    setStatus(true)
+                }
+            });
+    }
+
     return <>
         {/* ENDEREÇO ITEM - Nome e Cep + botão para abrir as infos */}
         <div className="col-12 border-bottom py-2 d-flex justify-content-between align-items-center">
@@ -100,6 +126,14 @@ export default function GerenteItem({ gerente, idEmpresa }) {
             </div>
 
             <div className="d-flex gap-2">
+                {
+                    status ? (
+                        <StatusBadge status={'Ativo'} />
+                    ) : (
+                        <StatusBadge status={'Inativo'} />
+                    )
+                }
+
                 <button className="btn btn-sm btn-2" onClick={abrirInfo}>Ver</button>
             </div>
         </div>
@@ -128,12 +162,28 @@ export default function GerenteItem({ gerente, idEmpresa }) {
                                 <div className="info-linha"><strong>Nome de usuário</strong> {nomeUser}</div>
                                 <div className="info-linha"><strong>Telefone</strong> {telefone}</div>
                                 <div className="info-linha"><strong>E-mail</strong> {email}</div>
+                                <div className="info-linha"><strong></strong> { }</div>
+                                <div className="info-linha"><strong>Status</strong>
+                                    {status ? (
+                                        <StatusBadge status={'Ativo'} />
+                                    ) : (
+                                        <StatusBadge status={'Inativo'} />
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     {/* BOTÕES */}
                     <div className="modal-footer">
+                        {
+                            gerente.ativo ? (
+                                <button type="button" className="btn btn-2" onClick={desativarGerente}>Desativar</button>
+                            ) : (
+                                <button type="button" className="btn btn-2" onClick={ativarGerente}>Ativar</button>
+                            )
+                        }
+
                         <button type="button" className="btn btn-2" onClick={abrirAtualizar}>Atualizar</button>
                         <button type="button" className="btn btn-1" data-bs-dismiss="modal" >Fechar</button>
                     </div>

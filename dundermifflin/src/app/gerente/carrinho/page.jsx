@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 export default function Carrinho() {
     const [usuario, setUsuario] = useState(null);
     const [gerente, setGerente] = useState(null)
+    const [empresa, setEmpresa] = useState(null)
 
     const [produtos, setProdutos] = useState([])
 
@@ -16,6 +17,7 @@ export default function Carrinho() {
     const [erro, setErro] = useState(null)
 
     const [comentario, setComentario] = useState("")
+
 
 
     /* Pegando as infos do usuario logado */
@@ -42,6 +44,27 @@ export default function Carrinho() {
             carregarGerente();
         }
     }, [usuario])
+
+    // Função para buscar dados na API
+    async function carregarDados(url, setState) {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const chave = Object.keys(data).find(k => k !== 'sucesso' && k !== 'mensagem');
+            if (data[chave]) setState(data[chave]);
+        } catch (error) {
+            console.error(`Erro ao buscar ${url}:`, error);
+        }
+    }
+
+    /* Buscando gerente, empresa e admin */
+    useEffect(() => {
+        if (gerente) {
+            if (!isNaN(gerente.idEmpresa)) {
+                carregarDados(`http://localhost:4000/empresas/${gerente.idEmpresa}`, setEmpresa);
+            }
+        }
+    }, [gerente]);
 
     // Recebendo a lista de produtos
     useEffect(() => {
@@ -117,8 +140,8 @@ export default function Carrinho() {
                     localStorage.removeItem('lista')
                     window.location.href = `/gerente/pedidos/${data.idLista}`
                 }
-                else { 
-                    console.log( data.erro);
+                else {
+                    console.log(data.erro);
                 }
             })
             .catch(err => {
@@ -162,10 +185,17 @@ export default function Carrinho() {
             </div>
 
             <div className="carrinho-quadro col-12 bordaCinza">
-                <div>
+                <div className='mb-3'>
                     <div><strong>Ponto de entrega</strong></div>
                     <div>
-                        
+                        <select name="empresa" className='col-12 bordaCinza p-2'>
+                            {
+                                empresa.enderecos.map((e) => <option>
+                                    <span>{e.id} - {e.nome}</span> | <span className='small text-secondary'>{e.cep} - {e.numero} - {e.complemento}</span>
+                                    </option>)
+                            }
+                        </select>
+
                     </div>
                 </div>
 

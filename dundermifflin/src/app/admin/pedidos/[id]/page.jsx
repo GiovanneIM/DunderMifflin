@@ -81,7 +81,7 @@ export default function Pedido() {
     function CancelarPedido() {
         const cancelar = {
             mensagemCancelamento,
-            tipoUsuario: "Usuário"
+            tipoUsuario: "DunderMifflin"
         }
 
         fetch(`http://localhost:4000/listas/cancelar/${lista.id}`, {
@@ -115,7 +115,7 @@ export default function Pedido() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 mensagemAdmin,
-                idAdmin: admin.id
+                idAdmin: admin.id,
             })
         })
             .then(res => {

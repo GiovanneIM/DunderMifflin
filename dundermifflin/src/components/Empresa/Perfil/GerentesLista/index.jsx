@@ -38,6 +38,24 @@ export default function GerentesLista({ empresa }) {
         if (!isNaN(empresa.id)) carregarGerentes();
     }, [empresa]);
 
+    // buscar gerentes
+    async function carregarGerentes() {
+        try {
+            const res = await fetch(`http://localhost:4000/empresas/${empresa.id}/gerentes`);
+            const data = await res.json();
+
+            if (data.sucesso) {
+                setGerentes(data.gerentes);
+                setGerExcluir(data.gerentes[0]?.id)
+                console.log("Gerentes carregados:", data.gerentes);
+            } else {
+                console.log("Falha ao carregar gerentes:", data.erro);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar gerentes:", error);
+        }
+    }
+
     /* Função para formatar o telefone */
     async function Telefone(e) {
         let tel = e.target.value.replace(/\D/g, '');  // Remove todos os digitos que não forem números
@@ -60,11 +78,6 @@ export default function GerentesLista({ empresa }) {
         modal.show();
     }
 
-    /* Abrir modal para excluir um endereço */
-    function abrirExcluir() {
-        const modal = new bootstrap.Modal(document.getElementById('modalExcluirGerente'));
-        modal.show();
-    }
 
     /* Registrar novo gerente */
     function registrarGerente() {
@@ -139,12 +152,6 @@ export default function GerentesLista({ empresa }) {
                     </h5>
 
                     <div className="d-flex ms-auto column-gap-3">
-                        {gerentes.length > 0 &&
-                            <button className="btn btn-danger" onClick={abrirExcluir}>
-                                Remover
-                            </button>
-                        }
-
                         <button className="btn btn-1" onClick={abrirRegistrar}>
                             Adicionar
                         </button>
@@ -158,7 +165,7 @@ export default function GerentesLista({ empresa }) {
                     <div className="col-12 p-3">
                         {gerentes?.length > 0 ? (
                             gerentes.map(gerente =>
-                                <GerenteItem key={gerente.id} gerente={gerente} idEmpresa={empresa.id} />
+                                <GerenteItem key={gerente.id} gerente={gerente} idEmpresa={empresa.id} carregarGerentes={carregarGerentes} />
                             )
                         ) : (
                             <div className="text-muted fst-italic">
@@ -232,63 +239,6 @@ export default function GerentesLista({ empresa }) {
                         </button>
                         <button type="button" className="btn btn-1" data-bs-dismiss="modal">
                             Fechar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        {/* MODAL EXCLUIR */}
-        <div
-            className="modal fade"
-            id="modalExcluirGerente"
-            tabIndex="-1"
-            aria-labelledby="modalExcluirGerenteLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                    {/* CABEÇALHO */}
-                    <div className="modal-header fundoPreto">
-                        <h5 className="modal-title" id="modalExcluirGerenteLabel">
-                            Excluir Gerente
-                        </h5>
-                        <button
-                            type="button"
-                            className="btn-close btn-close-white"
-                            data-bs-dismiss="modal"
-                            aria-label="Fechar"
-                        ></button>
-                    </div>
-
-                    {/* INPUTS */}
-                    <div className="modal-body">
-                        <div className="col-12 d-flex flex-column overflow-auto gap-3">
-                            <div className="col-12 p-3 rounded bordaCompleta bordaCinza">
-                                <div className="row g-3">
-                                    <div><strong>Selecione o ID do gerente a ser excluído</strong></div>
-
-                                    <div className="col-12">
-                                        <div className="col-md-4">
-                                            <label htmlFor="idExcluir" className="form-label">ID <span className="text-body-secondary">*</span></label>
-                                            <select id="idExcluir" className="form-select bordaCinza" onChange={(e) => setGerExcluir(e.target.value)}>
-                                                {gerentes && gerentes.map(gerente => <option key={gerente.id}>{gerente.id}</option>)}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* BOTÕES */}
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" onClick={excluirGerente}>
-                            Excluir
-                        </button>
-                        <button type="button" className="btn btn-1" data-bs-dismiss="modal">
-                            Cancelar
                         </button>
                     </div>
                 </div>

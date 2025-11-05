@@ -75,7 +75,7 @@ export default function Pedido() {
     function CancelarPedido() {
         const cancelar = {
             mensagemCancelamento,
-            tipoUsuario: "Usuário"
+            tipoUsuario: "Empresa"
         }
 
         fetch(`http://localhost:4000/listas/cancelar/${lista.id}`, {
