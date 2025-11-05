@@ -162,6 +162,13 @@ export default function Carrinho() {
             </div>
 
             <div className="carrinho-quadro col-12 bordaCinza">
+                <div>
+                    <div><strong>Ponto de entrega</strong></div>
+                    <div>
+                        
+                    </div>
+                </div>
+
                 <div className="mb-3">
                     <label htmlFor="comentario" className="form-label"><b>Comentário</b></label>
                     <textarea

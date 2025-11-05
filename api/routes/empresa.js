@@ -766,6 +766,8 @@ router.patch('/aprovar/:id', (req, res) => {
         });
     }
 
+    console.log(req.body);
+    
     const { mensagemEmpresa } = req.body;
 
     fs.readFile(caminhoListas, 'utf8', (err, data) => {

@@ -97,7 +97,7 @@ export default function Produtos() {
                 </div>
             </div>
 
-            <div className="col-12 d-flex flex-wrap justify-content-evenly row-gap-3">
+            <div className="col-12 d-flex flex-wrap justify-content-evenly row-gap-3 fundoBranco p-3 bordaCompleta bordaCinza shadow-sm rounded">
                 {
                     produtosFiltrados.length > 0 ?
                         (

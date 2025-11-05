@@ -1,2 +1,12 @@
 [
+    {
+        "id": 0,
+        "nomeCompleto": "GerenteTeste",
+        "nomeUsuario": "123",
+        "telefone": "(12) 34567-8854",
+        "email": "545@asda.com",
+        "idEmpresa": 0,
+        "senha": "Gerente0",
+        "ativo": true
+    }
 ]

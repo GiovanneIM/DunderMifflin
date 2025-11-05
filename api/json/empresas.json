@@ -7,16 +7,23 @@
         "telefone": "(99) 99999-9999",
         "enderecos": [
             {
-                "id": 1,
+                "id": 0,
                 "nome": "sad",
                 "cep": "09110-100",
                 "numero": "10",
                 "complemento": "100"
+            },
+            {
+                "id": 1,
+                "nome": "Ponto 1",
+                "cep": "09110-140",
+                "numero": "100",
+                "complemento": "10"
             }
         ],
         "id": 0,
         "senha": "Empresa0",
-        "ativa": true
+        "ativo": true
     },
     {
         "razaoSocial": "EMPRESA",

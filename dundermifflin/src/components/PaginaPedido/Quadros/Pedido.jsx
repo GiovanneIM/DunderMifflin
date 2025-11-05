@@ -32,6 +32,11 @@ export default function QuadroPedido({ lista }) {
                 </div>
 
                 <div className="col-sm-6 col-lg-4 col-xl-3">
+                    <strong>Entrega</strong>
+                    <div>{lista?.datas.entregue || "-"}</div>
+                </div>
+
+                <div className="col-sm-6 col-lg-4 col-xl-3">
                     <strong>Recebimento</strong>
                     <div>{lista?.datas.recebimento || "-"}</div>
                 </div>

@@ -36,12 +36,12 @@ export default function Pedidos() {
 
 
     return <>
-        <div className="container">
-            <div className="text-center titulo fs-2">Pedidos</div>
+        <div className="">
+            <div className="text-center titulo fs-2 mb-4">Pedidos</div>
 
-            <div className="d-flex flex-column justify-content-center align-items-center gap-3">
+            <div className="d-flex flex-row flex-wrap justify-content-center align-items-center gap-4">
 
-                <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                <div className="col-12 col-lg-5 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
                     <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
                         <i className="bi bi-question-lg me-2"></i> Pedidos para análise
                     </h4>
@@ -54,21 +54,21 @@ export default function Pedidos() {
                     </div>
                 </div>
 
-                <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                <div className="col-12 col-lg-5 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
                     <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
                         <i className="bi bi-three-dots me-2"></i> Pedidos em andamento
                     </h4>
 
                     <div className="container_pedidos d-flex flex-column-reverse justify-content-end rounded bordaCompleta bordaCinza">
                         {listas
-                            .filter(l => isNaN(l.idAdmin))
+                            ?.filter(l => l.idAdmin === usuario.id)
                             ?.filter(l => l.status !== "Recebido" && l.status !== "Cancelado")
                             .map(l => <PedidoItemLista key={l.id} userTipo={usuario.tipo} pedido={l} />)
                         }
                     </div>
                 </div>
 
-                <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                <div className="col-12 col-lg-5 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
                     <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
                         <i className="bi bi-check-lg me-2"></i> Concluídos
                     </h4>
@@ -82,7 +82,7 @@ export default function Pedidos() {
                     </div>
                 </div>
 
-                <div className="col-12 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
+                <div className="col-12 col-lg-5 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
                     <h4 className="fw-bold pretoDM border-bottom pb-2 mb-3">
                         <i className="bi bi-x-lg me-2"></i> Cancelados
                     </h4>

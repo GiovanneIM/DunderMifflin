@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
         }
 
         // Verificando se o gerente está ativo
-        if(!empresa.ativo){
+        if(!gerente.ativo){
             res.status(401).json({
                 sucesso: false,
                 mensagem: 'Seu registro está inativo. Entre em contato com sua empresa.'

@@ -52,6 +52,7 @@ export default function ProdCarrinho({ id_prod, qtd, funcaoAlterar }) {
                             <div>
                                 <button className='pc-btn-contador' onClick={() => setContagem(c => c - 1)}>-</button>
                                 <div className='pc-contador'>{contagem}</div>
+                                {/* <input type="number" className='pc-contador' value={contagem} onChange={(e) => setContagem(e.target.value)}/> */}
                                 <button className='pc-btn-contador' onClick={() => setContagem(c => c + 1)}>+</button>
                             </div>
                         </div>

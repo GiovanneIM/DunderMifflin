@@ -55,7 +55,46 @@ router.post('/login', (req, res) => {
     })
 });
 
+// ADMIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// Rota para pegar um admin em específico
+router.get('/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    // Validando as informações
+    if (isNaN(id)) {
+        res.status(400).json({
+            sucesso: false,
+            mensagem: 'ID e/ou senha incorretos.'
+        });
+        return
+    }
+
+    // Lendo os admin
+    fs.readFile(caminhoAdmins, 'utf-8', (err, data) => {
+        const admins = v.lerEconverterJSON(err, data, res);
+        if (!admins) { return }
+
+        // Procurando pelo admin
+        const admin = admins.find((adm) => { return adm.id === id });
+
+        // Verificando se o admin foi encontrado
+        if (!admin) {
+            res.status(401).json({
+                sucesso: false,
+                mensagem: 'ID e/ou senha incorretos.'
+            });
+            return
+        }
+
+        // Respondendo com o admin
+        res.status(200).json({
+            sucesso: true,
+            mensagem: 'Admin encontrado com sucesso.',
+            admin
+        });
+    })
+});
 
 // PRODUTOS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -587,7 +626,7 @@ router.patch('/entregar/:id', (req, res) => {
                 console.error('Erro ao salvar listas:', err);
                 return res.status(500).json({
                     sucesso: false,
-                    erro: 'Erro ao salvar a lista entregue.'
+                    erro: 'Erro ao entregar a lista entregue.'
                 });
             }
 

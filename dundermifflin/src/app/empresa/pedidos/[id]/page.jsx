@@ -107,7 +107,7 @@ export default function Pedido() {
         fetch(`http://localhost:4000/empresas/aprovar/${lista.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mensagemEmpresa)
+            body: JSON.stringify({mensagemEmpresa})
         })
             .then(res => {
                 return res.json();
@@ -162,7 +162,7 @@ export default function Pedido() {
                                 value={mensagemEmpresa}
                                 onChange={(e) => setMsgEmpresa(e.target.value)} />
 
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex justify-content-end gap-3">
                                 <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
                                 <button className="btn btn-1" onClick={AprovarPedido}>Aprovar pedido</button>
                             </div>

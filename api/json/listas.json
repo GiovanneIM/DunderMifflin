@@ -1,2 +1,50 @@
 [
+    {
+        "id": 0,
+        "idGerente": 0,
+        "idEmpresa": 0,
+        "produtos": [
+            {
+                "id": 9,
+                "qtd": 2,
+                "preco": 44.9,
+                "nome": "Caneta Esferográfica Compactor Economic Vermelha Caixa com 50 unidades"
+            },
+            {
+                "id": 8,
+                "qtd": 1,
+                "preco": 36.9,
+                "nome": "Papel A4 Azul 210x297mm 75g 500 folhas | Report"
+            },
+            {
+                "id": 14,
+                "qtd": 1,
+                "preco": 14.49,
+                "nome": "Fita Adesiva 24 mm x 50 metros Transparente 4 unidades | Sooper"
+            },
+            {
+                "id": 17,
+                "qtd": 5,
+                "preco": 7.9,
+                "nome": "Bloco Adesivo Azul 76 mm x 76 mm 45 folhas | Post-it 3M"
+            }
+        ],
+        "mensagem": {
+            "mensagemGerente": "LISTA TESTE",
+            "mensagemEmpresa": "TESTE APROVAÇÃO",
+            "mensagemAdmin": "teste envio"
+        },
+        "total": {
+            "unidades": 9,
+            "preco": 180.69
+        },
+        "status": "Entregue",
+        "datas": {
+            "pedido": "05/11/2025 - 01:41",
+            "aprovacao": "05/11/2025 - 01:52",
+            "envio": "05/11/2025 - 02:41",
+            "entregue": "05/11/2025 - 02:48"
+        },
+        "idAdmin": 0
+    }
 ]

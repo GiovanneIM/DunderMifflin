@@ -18,6 +18,7 @@ import { useEffect, useState } from "react"
 
 export default function Pedido() {
     const { id } = useParams();
+    const [usuario, setUsuario] = useState(null)
 
     const [lista, setLista] = useState(null)
     const [gerente, setGerente] = useState(null)
@@ -41,6 +42,11 @@ export default function Pedido() {
         }
     }
 
+    /* Pegando o usuario */
+    useEffect(() => {
+        setUsuario(JSON.parse(localStorage.getItem('usuario')))
+    }, []);
+
     /* Buscando lista */
     useEffect(() => {
         if (!isNaN(id)) {
@@ -59,8 +65,8 @@ export default function Pedido() {
                 carregarDados(`http://localhost:4000/empresas/${lista.idEmpresa}`, setEmpresa);
             }
 
-            if (!isNaN(lista.idAdmin)) {
-                carregarDados(`http://localhost:4000/admin/${lista.idAdmin}`, setAdmin);
+            if (!isNaN(usuario.id)) {
+                carregarDados(`http://localhost:4000/admin/${usuario.id}`, setAdmin);
             }
         }
     }, [lista]);
@@ -107,7 +113,10 @@ export default function Pedido() {
         fetch(`http://localhost:4000/admin/enviar/${lista.id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mensagemAdmin)
+            body: JSON.stringify({
+                mensagemAdmin,
+                idAdmin: admin.id
+            })
         })
             .then(res => {
                 return res.json();
@@ -128,7 +137,7 @@ export default function Pedido() {
 
     /* Função para marcar a entrega do pedido */
     function EntregarPedido() {
-        fetch(`http://localhost:4000/empresas/entregar/${lista.id}`, {
+        fetch(`http://localhost:4000/admin/entregar/${lista.id}`, {
             method: 'PATCH'
         })
             .then(res => {
@@ -184,7 +193,7 @@ export default function Pedido() {
                                 value={mensagemAdmin}
                                 onChange={(e) => setMsgAdmin(e.target.value)} />
 
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex justify-content-end gap-3">
                                 <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
                                 <button className="btn btn-1" onClick={EnviarPedido}>Enviar pedido</button>
                             </div>
@@ -196,7 +205,7 @@ export default function Pedido() {
                 {
                     lista?.status === "Enviado" && <>
                         <div className="col-12 col-md-10 col-lg-8 p-4 bg-white rounded-3 bordaCompleta bordaCinza shadow-sm">
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex justify-content-end gap-3">
                                 <button className="btn btn-danger" onClick={abrirModalCancelar}>Cancelar pedido</button>
                                 <button className="btn btn-1" onClick={EntregarPedido}>Confirmar entrega</button>
                             </div>
